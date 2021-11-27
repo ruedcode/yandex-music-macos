@@ -17,20 +17,22 @@ struct ContentView: View {
 
             LazyVGrid(columns: columns(for: store.state.collection.stations), spacing: 20) {
                 ForEach(store.state.collection.stations, id: \.self) { item in
-                    AsyncImage(url: URL(string: item.image)) { image in
-                        image.resizable()
-                            .aspectRatio(1, contentMode: .fit)
-                            .clipped()
-                            .background(
-                                Color(nsColor: hexStringToColor(hex: item.color))
-                            )
-                            .frame(maxWidth: 50, maxHeight: 50)
-                    } placeholder: {
-                        ProgressView()
+                    VStack {
+                        AsyncImage(url: URL(string: item.image)) { image in
+                            image.resizable()
+                                .aspectRatio(1, contentMode: .fit)
+                                .clipped()
+                                .background(
+                                    Color(nsColor: hexStringToColor(hex: item.color))
+                                )
+                                .frame(maxWidth: 50, maxHeight: 50)
+                        } placeholder: {
+                            ProgressView()
+                        }
+                        .clipShape(Circle())
+                        Text(item.name)
+                            .font(.subheadline)
                     }
-                    .clipShape(Circle())
-                    Text(item.name)
-                        .font(.subheadline)
                 }
             }
             .padding([.leading, .trailing], 8)

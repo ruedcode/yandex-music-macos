@@ -13,7 +13,7 @@ func collectionReducer(
     state: inout CollectionState,
     action: CollectionAction
 ) -> AnyPublisher<AppAction, Never> {
-    let fetcher = FetchCollection()
+    let fetcher = FetchRecommendation()
     switch action {
     case .fetch:
         return fetcher.execute()
@@ -25,23 +25,13 @@ func collectionReducer(
             }
             .eraseToAnyPublisher()
     case .update(let items):
+        state.stations = items.stations.compactMap {
 
-        func makeStations(from group: CollectionDTO.GroupsDTO.GroupDTO) -> [Station] {
-            return group.children.compactMap {
-                Station(
-                    name: $0.name,
-                    color: $0.icon.backgroundColor,
-                    image: "https://" + $0.icon.imageUrl.replacingOccurrences(of: "%%", with: "200x200")
-                )
-            }
-        }
-        if let type = items.types {
-            var stations: [Station] = []
-            stations.append(contentsOf: makeStations(from: type.user))
-//            stations.append(contentsOf: makeStations(from: type.genre))
-//            stations.append(contentsOf: makeStations(from: type.activity))
-//            stations.append(contentsOf: makeStations(from: type.author))
-            state.stations = stations
+            Station(
+                name: $0.station.name,
+                color: $0.station.icon.backgroundColor,
+                image: "https://" + $0.station.icon.imageUrl.replacingOccurrences(of: "%%", with: "200x200")
+            )
         }
 
     default:

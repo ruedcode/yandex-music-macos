@@ -23,7 +23,7 @@
 		A12B807D275283F9003213E9 /* AppReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B807C275283F9003213E9 /* AppReducer.swift */; };
 		A12B807F275285D8003213E9 /* NetworkCombine.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B807E275285D8003213E9 /* NetworkCombine.swift */; };
 		A12B8084275288C5003213E9 /* AuthDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B8083275288C5003213E9 /* AuthDTO.swift */; };
-		A12B808627529D97003213E9 /* CollectionDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B808527529D97003213E9 /* CollectionDTO.swift */; };
+		A12B808627529D97003213E9 /* LibraryDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B808527529D97003213E9 /* LibraryDTO.swift */; };
 		A12B80882752A008003213E9 /* CollectionReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B80872752A008003213E9 /* CollectionReducer.swift */; };
 		A12B808A2752A064003213E9 /* CollectionAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B80892752A064003213E9 /* CollectionAction.swift */; };
 		A12B808C2752AF7E003213E9 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B808B2752AF7E003213E9 /* Colors.swift */; };
@@ -57,7 +57,7 @@
 		A12B807C275283F9003213E9 /* AppReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppReducer.swift; sourceTree = "<group>"; };
 		A12B807E275285D8003213E9 /* NetworkCombine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkCombine.swift; sourceTree = "<group>"; };
 		A12B8083275288C5003213E9 /* AuthDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDTO.swift; sourceTree = "<group>"; };
-		A12B808527529D97003213E9 /* CollectionDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionDTO.swift; sourceTree = "<group>"; };
+		A12B808527529D97003213E9 /* LibraryDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryDTO.swift; sourceTree = "<group>"; };
 		A12B80872752A008003213E9 /* CollectionReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionReducer.swift; sourceTree = "<group>"; };
 		A12B80892752A064003213E9 /* CollectionAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionAction.swift; sourceTree = "<group>"; };
 		A12B808B2752AF7E003213E9 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
@@ -170,7 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				A12B8083275288C5003213E9 /* AuthDTO.swift */,
-				A12B808527529D97003213E9 /* CollectionDTO.swift */,
+				A12B808527529D97003213E9 /* LibraryDTO.swift */,
 			);
 			path = Dto;
 			sourceTree = "<group>";
@@ -338,7 +338,7 @@
 				A17F672A27524A590094B5A3 /* PlayerView.swift in Sources */,
 				A12B807527528058003213E9 /* AuthAction.swift in Sources */,
 				A12B807327527B90003213E9 /* Constants.swift in Sources */,
-				A12B808627529D97003213E9 /* CollectionDTO.swift in Sources */,
+				A12B808627529D97003213E9 /* LibraryDTO.swift in Sources */,
 				459A279323AA910B003D50EC /* ContentView.swift in Sources */,
 				A1B3BD0427523947006AE32C /* NetworkService.swift in Sources */,
 				A12B807727528080003213E9 /* AuthReducer.swift in Sources */,
