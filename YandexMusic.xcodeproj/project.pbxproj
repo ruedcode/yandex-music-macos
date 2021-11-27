@@ -12,6 +12,7 @@
 		459A279523AA910B003D50EC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 459A279423AA910B003D50EC /* Assets.xcassets */; };
 		459A279823AA910B003D50EC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 459A279723AA910B003D50EC /* Preview Assets.xcassets */; };
 		459A279B23AA910B003D50EC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 459A279923AA910B003D50EC /* Main.storyboard */; };
+		A1B3BD0427523947006AE32C /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B3BD0327523947006AE32C /* NetworkService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +24,7 @@
 		459A279A23AA910B003D50EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		459A279C23AA910B003D50EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		459A279D23AA910B003D50EC /* YandexMusic.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = YandexMusic.entitlements; sourceTree = "<group>"; };
+		A1B3BD0327523947006AE32C /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +57,8 @@
 		459A278F23AA910B003D50EC /* YandexMusic */ = {
 			isa = PBXGroup;
 			children = (
+				A1B3BD0027523918006AE32C /* Features */,
+				A1B3BCFE2752390E006AE32C /* Core */,
 				459A279023AA910B003D50EC /* AppDelegate.swift */,
 				459A279223AA910B003D50EC /* ContentView.swift */,
 				459A279423AA910B003D50EC /* Assets.xcassets */,
@@ -72,6 +76,45 @@
 				459A279723AA910B003D50EC /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		A1B3BCFE2752390E006AE32C /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				A1B3BCFF27523912006AE32C /* Services */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		A1B3BCFF27523912006AE32C /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				A1B3BD0227523935006AE32C /* Network */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		A1B3BD0027523918006AE32C /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				A1B3BD012752391F006AE32C /* Auth */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		A1B3BD012752391F006AE32C /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		A1B3BD0227523935006AE32C /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				A1B3BD0327523947006AE32C /* NetworkService.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -146,6 +189,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				459A279323AA910B003D50EC /* ContentView.swift in Sources */,
+				A1B3BD0427523947006AE32C /* NetworkService.swift in Sources */,
 				459A279123AA910B003D50EC /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
