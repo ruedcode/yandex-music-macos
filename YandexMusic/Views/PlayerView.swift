@@ -9,40 +9,58 @@
 import SwiftUI
 
 struct PlayerView: View {
-    let height: CGFloat = 40
-    let padding: CGFloat = 8
-    var halfPadding: CGFloat {
-        padding / 2
-    }
-    var doublePadding: CGFloat {
-        padding * 2
-    }
+    private let constants = Constants()
+
     private let imageUrl = URL(string: "https://picsum.photos/200")
+
+    @State private var isPlaying = false
+    @State private var isLiked = false
 
     var body: some View {
         HStack {
-            HStack(spacing: 24) {
-                PlayerButtonView(imageName: "Play")
-                PlayerButtonView(imageName: "Next")
+            PlayerButtonView(imageName: isPlaying ? "Pause" : "Play") {
+                isPlaying = !isPlaying
             }
-            .padding([.leading, .trailing], doublePadding)
-            .frame(height: height / 2)
+
+            PlayerButtonView(imageName: "Next")
+            .padding(.leading, constants.padding)
+            .padding([.top, .bottom], constants.padding)
+
             AsyncImage(url: imageUrl) { image in
                 image.resizable()
                     .aspectRatio(1, contentMode: .fit)
                     .clipped()
             } placeholder: {
                 ProgressView()
-            }.padding([.all], halfPadding)
+            }
+
             VStack(alignment: .leading) {
-                Text("Some text1").font(.headline)
-                Text("Some text2 ").font(.caption)
+                Text("Daylight").font(.headline)
+                Text("Young Guns").font(.caption)
             }
-            HStack(spacing: 24) {
-                PlayerButtonView(imageName: "Like")
+
+            PlayerButtonView(imageName: isLiked ? "Liked" : "Like") {
+                isLiked = !isLiked
             }
-            .frame(height: height / 2)
-        }.frame(height: height)
+            .padding(.leading, constants.padding)
+            .padding([.top, .bottom], constants.padding)
+
+            PlayerButtonView(imageName: "Share") {
+            }
+            .padding([.leading, .trailing], constants.padding)
+            .padding([.top, .bottom], constants.padding)
+
+        }.frame(height: constants.height)
+    }
+}
+
+private extension PlayerView {
+    struct Constants {
+        let height: CGFloat = 40
+        let padding: CGFloat = 8
+        var halfPadding: CGFloat {
+            padding / 2
+        }
     }
 }
 

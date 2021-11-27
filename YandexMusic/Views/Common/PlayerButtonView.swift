@@ -23,14 +23,15 @@ struct PlayerButtonView: View {
             Image(imageName)
                 .resizable()
                 .aspectRatio(1, contentMode: .fit)
+                .clipped()
         }
-        .tint(Color.gray)
+        .foregroundColor(Color("Primary"))
         .buttonStyle(PlainButtonStyle())
     }
 }
 
 struct PlayerButtonView_Previews: PreviewProvider {
     static var previews: some View {
-        PlayerButtonView(imageName: "Play")
+        PlayerButtonView(imageName: "Next")
     }
 }
