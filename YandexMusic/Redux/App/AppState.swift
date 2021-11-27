@@ -7,5 +7,5 @@
 //
 
 struct AppState {
-    var auth: AuthState?
+    var auth: AuthState = AuthState.unauthorized
 }

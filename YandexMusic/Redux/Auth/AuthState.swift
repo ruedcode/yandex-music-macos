@@ -6,9 +6,7 @@
 //  Copyright © 2021 Eugene Kalyada. All rights reserved.
 //
 
-struct AuthState {
-    var token: String
-    var expiresIn: Int
-    var refreshToken: String
-    var scope: String
+enum AuthState {
+    case authorized(Token)
+    case unauthorized
 }

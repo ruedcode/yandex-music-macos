@@ -12,6 +12,13 @@ import SwiftUI
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
+    lazy var store: Store<AppState, AppAction> = {
+        return Store<AppState, AppAction>(
+            initialState: .init(),
+            appReducer: appReducer
+        )
+    }()
+
     var popover: NSPopover!
     var statusBarItem: NSStatusItem!
     
@@ -42,7 +49,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             if self.popover.isShown {
                 self.popover.performClose(sender)
             } else {
-                self.popover.show(relativeTo: button.bounds, of: button, preferredEdge: NSRectEdge.minY)
+                if case .authorized = store.state.auth {
+                    self.popover.show(relativeTo: button.bounds, of: button, preferredEdge: NSRectEdge.minY)
+                }
+                else {
+                    let authWindow = AuthWindow(store: store)
+                    authWindow.makeKeyAndOrderFront(self)
+                }
             }
         }
     }

@@ -1,5 +1,5 @@
 //
-//  Reducer.swift
+//  AppReducer.swift
 //  YandexMusic
 //
 //  Created by Eugene Kalyada on 27.11.2021.
@@ -7,7 +7,17 @@
 //
 
 import Foundation
+import Combine
+import CloudKit
 
-struct Reducer<State, Action> {
-    let reduce: (inout State, Action) -> Void
+func appReducer(
+    state: inout AppState,
+    action: AppAction
+) -> AnyPublisher<AppAction, Never> {
+    switch action {
+    case is AuthAction:
+        return authReducer(state: &state.auth, action: action as! AuthAction)
+    default: break
+    }
+    return Empty().eraseToAnyPublisher()
 }

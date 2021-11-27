@@ -6,5 +6,5 @@
 //  Copyright © 2021 Eugene Kalyada. All rights reserved.
 //
 
-enum AppAction {
+protocol AppAction {
 }

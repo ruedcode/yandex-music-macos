@@ -24,36 +24,61 @@ enum HTTPMethod: String {
 struct RequestData {
     let path: String
     let method: HTTPMethod
-    let params: [String: Any?]?
+    let params: Params?
     let headers: [String: String]?
-    let body: RequestBody?
 
     init(
         path: String,
         method: HTTPMethod = .get,
-        params: [String: Any?]? = nil,
-        body: RequestBody? = nil,
+        params: Params? = nil,
         headers: [String: String]? = nil
     ) {
         self.path = path
         self.method = method
         self.params = params
         self.headers = headers
-        self.body = body
     }
 
-    struct RequestBody {
+    struct Params {
         fileprivate var data: Data?
+        fileprivate var headers: [String: String]
 
-        static func json<T: Encodable>(_ model: T) -> RequestBody {
-            RequestBody(data: try? JSONEncoder().encode(model))
+        static func json<T: Encodable>(_ model: T) -> Params {
+            Params(
+                data: try? JSONEncoder().encode(model),
+                headers: ["Content-Type": "application/json"]
+            )
+        }
+
+        static func urlenencoded<T: Encodable>(_ model: T) -> Params {
+            guard
+                let data = Params.json(model).data,
+                let dict = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [AnyHashable: AnyHashable]
+            else {
+                return Params(data: nil, headers: [:])
+            }
+            var component = URLComponents()
+            var items: [URLQueryItem] = []
+            dict.enumerated().forEach {
+                if let name = $0.element.key as? String,
+                   let value = $0.element.value as? String {
+                    items.append(URLQueryItem(name: name, value: value))
+                }
+            }
+            component.queryItems = items
+            return Params(
+                data: component.query?.data(using: .utf8),
+                headers: [:]
+            )
+
+
         }
     }
 }
 
 
 protocol RequestType {
-    associatedtype ResponseType: Codable
+    associatedtype ResponseType: Decodable
     var data: RequestData { get }
 }
 
@@ -102,20 +127,15 @@ struct URLSessionNetworkDispatcher: NetworkDispatcher {
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = request.method.rawValue
 
-        do {
-            if let params = request.params {
-                urlRequest.httpBody = try JSONSerialization.data(withJSONObject: params, options: [])
+        if let params = request.params {
+            urlRequest.httpBody = params.data
+            params.headers.forEach {
+                urlRequest.setValue($0.value, forHTTPHeaderField: $0.key)
             }
-        } catch let error {
-            onComplete(.failure(error))
-            return
         }
 
         if let headers = request.headers {
             urlRequest.allHTTPHeaderFields = headers
-        }
-        if let body = request.body {
-            urlRequest.httpBody = body.data
         }
 
         URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in

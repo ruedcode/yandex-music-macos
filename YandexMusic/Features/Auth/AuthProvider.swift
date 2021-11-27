@@ -7,3 +7,13 @@
 //
 
 import Foundation
+import Combine
+
+final class AuthProvider {
+    static let instance = AuthProvider()
+
+
+    func requestToken(code: String) -> AnyPublisher<Token, Error> {
+        return FetchToken(code: code).execute()
+    }
+}

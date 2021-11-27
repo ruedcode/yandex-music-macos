@@ -7,18 +7,33 @@
 //
 
 import Foundation
+import Combine
+
+typealias Reducer<State, Action> =
+    (inout State, Action) -> AnyPublisher<Action, Never>?
 
 final class Store<State, Action>: ObservableObject {
     @Published private(set) var state: State
 
-    private let appReducer: Reducer<State, Action>
+    private let reducer: Reducer<State, Action>
+    private var effectCancellables: Set<AnyCancellable> = []
 
-    init(initialState: State, appReducer: Reducer<State, Action>) {
+    init(initialState: State, appReducer: @escaping Reducer<State, Action>) {
         self.state = initialState
-        self.appReducer = appReducer
+        self.reducer = appReducer
     }
 
     func send(_ action: Action) {
-        appReducer.reduce(&state, action)
+        
+        guard let effect = reducer(&state, action) else {
+            return
+        }
+
+        effect
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: send)
+            .store(in: &effectCancellables)
     }
+
+
 }
