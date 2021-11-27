@@ -13,6 +13,8 @@
 		459A279823AA910B003D50EC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 459A279723AA910B003D50EC /* Preview Assets.xcassets */; };
 		459A279B23AA910B003D50EC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 459A279923AA910B003D50EC /* Main.storyboard */; };
 		A1B3BD0427523947006AE32C /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B3BD0327523947006AE32C /* NetworkService.swift */; };
+		A1B3BD062752426D006AE32C /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B3BD052752426D006AE32C /* AuthService.swift */; };
+		A1B3BD082752427B006AE32C /* AuthProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B3BD072752427B006AE32C /* AuthProvider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +27,8 @@
 		459A279C23AA910B003D50EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		459A279D23AA910B003D50EC /* YandexMusic.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = YandexMusic.entitlements; sourceTree = "<group>"; };
 		A1B3BD0327523947006AE32C /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		A1B3BD052752426D006AE32C /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		A1B3BD072752427B006AE32C /* AuthProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthProvider.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +109,8 @@
 		A1B3BD012752391F006AE32C /* Auth */ = {
 			isa = PBXGroup;
 			children = (
+				A1B3BD052752426D006AE32C /* AuthService.swift */,
+				A1B3BD072752427B006AE32C /* AuthProvider.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -133,7 +139,7 @@
 			dependencies = (
 			);
 			name = YandexMusic;
-			productName = SwiftUIMenuBar;
+			productName = YandexMusic;
 			productReference = 459A278D23AA910B003D50EC /* YandexMusic.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -145,7 +151,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 1130;
 				LastUpgradeCheck = 1310;
-				ORGANIZATIONNAME = "Aaron Wright";
+				ORGANIZATIONNAME = "Eugene Kalyada";
 				TargetAttributes = {
 					459A278C23AA910B003D50EC = {
 						CreatedOnToolsVersion = 11.3;
@@ -190,7 +196,9 @@
 			files = (
 				459A279323AA910B003D50EC /* ContentView.swift in Sources */,
 				A1B3BD0427523947006AE32C /* NetworkService.swift in Sources */,
+				A1B3BD082752427B006AE32C /* AuthProvider.swift in Sources */,
 				459A279123AA910B003D50EC /* AppDelegate.swift in Sources */,
+				A1B3BD062752426D006AE32C /* AuthService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,9 +1,9 @@
 //
 //  ContentView.swift
-//  SwiftUIMenuBar
+//  YandexMusic
 //
-//  Created by Aaron Wright on 12/18/19.
-//  Copyright © 2019 Aaron Wright. All rights reserved.
+//  Created by Eugene Kalyada on 12/18/19.
+//  Copyright © 2019 Eugene Kalyada. All rights reserved.
 //
 
 import SwiftUI
