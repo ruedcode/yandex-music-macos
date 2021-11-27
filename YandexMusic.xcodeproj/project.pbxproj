@@ -13,6 +13,8 @@
 		459A279823AA910B003D50EC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 459A279723AA910B003D50EC /* Preview Assets.xcassets */; };
 		459A279B23AA910B003D50EC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 459A279923AA910B003D50EC /* Main.storyboard */; };
 		A12B806227524D27003213E9 /* PlayerButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B806127524D27003213E9 /* PlayerButtonView.swift */; };
+		A12B806627526F0B003213E9 /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B806527526F0B003213E9 /* Collection.swift */; };
+		A12B806927526F40003213E9 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B806827526F40003213E9 /* Track.swift */; };
 		A17F671D275244A90094B5A3 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17F671C275244A90094B5A3 /* AppState.swift */; };
 		A17F671F275244C40094B5A3 /* AppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17F671E275244C40094B5A3 /* AppStore.swift */; };
 		A17F6721275244EF0094B5A3 /* AppReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17F6720275244EF0094B5A3 /* AppReducer.swift */; };
@@ -35,6 +37,8 @@
 		459A279D23AA910B003D50EC /* YandexMusic.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = YandexMusic.entitlements; sourceTree = "<group>"; };
 		A12B806127524D27003213E9 /* PlayerButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerButtonView.swift; sourceTree = "<group>"; };
 		A12B8063275255B8003213E9 /* YandexMusicDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = YandexMusicDebug.entitlements; sourceTree = "<group>"; };
+		A12B806527526F0B003213E9 /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
+		A12B806827526F40003213E9 /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
 		A17F671C275244A90094B5A3 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		A17F671E275244C40094B5A3 /* AppStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStore.swift; sourceTree = "<group>"; };
 		A17F6720275244EF0094B5A3 /* AppReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppReducer.swift; sourceTree = "<group>"; };
@@ -107,9 +111,27 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
+		A12B806427526EFE003213E9 /* Collection */ = {
+			isa = PBXGroup;
+			children = (
+				A12B806527526F0B003213E9 /* Collection.swift */,
+			);
+			path = Collection;
+			sourceTree = "<group>";
+		};
+		A12B806727526F34003213E9 /* Track */ = {
+			isa = PBXGroup;
+			children = (
+				A12B806827526F40003213E9 /* Track.swift */,
+			);
+			path = Track;
+			sourceTree = "<group>";
+		};
 		A17F671B275244560094B5A3 /* Redux */ = {
 			isa = PBXGroup;
 			children = (
+				A12B806727526F34003213E9 /* Track */,
+				A12B806427526EFE003213E9 /* Collection */,
 				A17F6725275245840094B5A3 /* Auth */,
 				A17F67242752452E0094B5A3 /* App */,
 			);
@@ -267,8 +289,10 @@
 				A17F671D275244A90094B5A3 /* AppState.swift in Sources */,
 				459A279123AA910B003D50EC /* AppDelegate.swift in Sources */,
 				A17F67272752460A0094B5A3 /* AuthState.swift in Sources */,
+				A12B806627526F0B003213E9 /* Collection.swift in Sources */,
 				A17F671F275244C40094B5A3 /* AppStore.swift in Sources */,
 				A1B3BD062752426D006AE32C /* AuthService.swift in Sources */,
+				A12B806927526F40003213E9 /* Track.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

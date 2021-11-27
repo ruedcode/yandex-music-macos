@@ -45,6 +45,11 @@ struct PlayerView: View {
             .padding(.leading, constants.padding)
             .padding([.top, .bottom], constants.padding)
 
+            PlayerButtonView(imageName: "Block") {
+            }
+            .padding(.leading, constants.padding)
+            .padding([.top, .bottom], constants.padding)
+
             PlayerButtonView(imageName: "Share") {
             }
             .padding([.leading, .trailing], constants.padding)
