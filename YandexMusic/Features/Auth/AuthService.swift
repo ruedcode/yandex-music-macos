@@ -7,3 +7,11 @@
 //
 
 import Foundation
+
+final class AuthService {
+    private let network: NetworkDispatcher
+
+    init(network: NetworkDispatcher = URLSessionNetworkDispatcher.instance) {
+        self.network = network
+    }
+}
