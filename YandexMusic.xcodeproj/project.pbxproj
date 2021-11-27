@@ -27,6 +27,7 @@
 		A12B80882752A008003213E9 /* CollectionReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B80872752A008003213E9 /* CollectionReducer.swift */; };
 		A12B808A2752A064003213E9 /* CollectionAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B80892752A064003213E9 /* CollectionAction.swift */; };
 		A12B808C2752AF7E003213E9 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B808B2752AF7E003213E9 /* Colors.swift */; };
+		A12B808E2752B770003213E9 /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B808D2752B770003213E9 /* CustomView.swift */; };
 		A17F671D275244A90094B5A3 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17F671C275244A90094B5A3 /* AppState.swift */; };
 		A17F671F275244C40094B5A3 /* AppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17F671E275244C40094B5A3 /* AppStore.swift */; };
 		A17F6723275245240094B5A3 /* AppAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17F6722275245240094B5A3 /* AppAction.swift */; };
@@ -61,6 +62,7 @@
 		A12B80872752A008003213E9 /* CollectionReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionReducer.swift; sourceTree = "<group>"; };
 		A12B80892752A064003213E9 /* CollectionAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionAction.swift; sourceTree = "<group>"; };
 		A12B808B2752AF7E003213E9 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		A12B808D2752B770003213E9 /* CustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
 		A17F671C275244A90094B5A3 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		A17F671E275244C40094B5A3 /* AppStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStore.swift; sourceTree = "<group>"; };
 		A17F6722275245240094B5A3 /* AppAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAction.swift; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 			isa = PBXGroup;
 			children = (
 				A12B806127524D27003213E9 /* PlayerButtonView.swift */,
+				A12B808D2752B770003213E9 /* CustomView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -353,6 +356,7 @@
 				A17F67272752460A0094B5A3 /* AuthState.swift in Sources */,
 				A12B807D275283F9003213E9 /* AppReducer.swift in Sources */,
 				A12B807F275285D8003213E9 /* NetworkCombine.swift in Sources */,
+				A12B808E2752B770003213E9 /* CustomView.swift in Sources */,
 				A12B807127527A85003213E9 /* WebView.swift in Sources */,
 				A12B806627526F0B003213E9 /* CollectionState.swift in Sources */,
 				A17F671F275244C40094B5A3 /* AppStore.swift in Sources */,

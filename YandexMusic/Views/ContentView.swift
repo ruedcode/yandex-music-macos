@@ -19,17 +19,20 @@ struct ContentView: View {
                 ForEach(store.state.collection.stations, id: \.self) { item in
                     Button(action: {}) {
                         VStack {
-                            AsyncImage(url: URL(string: item.image)) { image in
-                                image.resizable()
-                                    .aspectRatio(1, contentMode: .fit)
-                                    .clipped()
-                                    .background(
-                                        Color(nsColor: hexStringToColor(hex: item.color))
-                                    )
-                                    .frame(maxWidth: 50, maxHeight: 50)
-                            } placeholder: {
-                                ProgressView()
+                            CustomView {
+                                AsyncImage(url: URL(string: item.image)) { image in
+                                    image.resizable()
+                                        .aspectRatio(1, contentMode: .fit)
+                                        .clipped()
+                                        .frame(maxWidth: 50, maxHeight: 50)
+                                } placeholder: {
+                                    ProgressView()
+                                }
+                                .padding(8)
                             }
+                            .background(
+                                Color(nsColor: hexStringToColor(hex: item.color))
+                            )
                             .clipShape(Circle())
                             Text(item.name)
                                 .font(.subheadline)
