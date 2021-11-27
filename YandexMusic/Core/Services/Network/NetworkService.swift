@@ -26,19 +26,31 @@ struct RequestData {
     let method: HTTPMethod
     let params: [String: Any?]?
     let headers: [String: String]?
+    let body: RequestBody?
 
-    init (
+    init(
         path: String,
         method: HTTPMethod = .get,
         params: [String: Any?]? = nil,
+        body: RequestBody? = nil,
         headers: [String: String]? = nil
     ) {
         self.path = path
         self.method = method
         self.params = params
         self.headers = headers
+        self.body = body
+    }
+
+    struct RequestBody {
+        fileprivate var data: Data?
+
+        static func json<T: Encodable>(_ model: T) -> RequestBody {
+            RequestBody(data: try? JSONEncoder().encode(model))
+        }
     }
 }
+
 
 protocol RequestType {
     associatedtype ResponseType: Codable
@@ -101,6 +113,9 @@ struct URLSessionNetworkDispatcher: NetworkDispatcher {
 
         if let headers = request.headers {
             urlRequest.allHTTPHeaderFields = headers
+        }
+        if let body = request.body {
+            urlRequest.httpBody = body.data
         }
 
         URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
