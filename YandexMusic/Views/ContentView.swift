@@ -40,6 +40,7 @@ struct ContentView: View {
                 }
             }
             .padding([.leading, .trailing], 8)
+            .padding(.top, 16)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
 
             Divider().padding([.leading, .trailing], 8)
