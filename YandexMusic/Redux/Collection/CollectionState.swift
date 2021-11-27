@@ -6,9 +6,12 @@
 //  Copyright © 2021 Eugene Kalyada. All rights reserved.
 //
 
-struct Collection {
+struct CollectionState {
+    var stations: [Station] = []
+}
+
+struct Station: Hashable {
     let name: String
-    let image: String
     let color: String
-    let details: String
+    let image: String
 }

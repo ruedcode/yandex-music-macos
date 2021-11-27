@@ -11,9 +11,22 @@ import Combine
 
 final class AuthProvider {
     static let instance = AuthProvider()
+    private(set) var token: Token?
 
 
-    func requestToken(code: String) -> AnyPublisher<Token, Error> {
-        return FetchToken(code: code).execute()
+    func requestToken(code: String) -> AnyPublisher<Void, Error> {
+        return Future() { promise in
+            FetchToken(code: code).execute { [weak self] result in
+                switch result {
+                case let .success(token):
+                    self?.token = token
+                    promise(.success(()))
+                case let  .failure(error):
+                    self?.token = nil
+                    promise(.failure(error))
+                }
+            }
+        }.eraseToAnyPublisher()
+
     }
 }

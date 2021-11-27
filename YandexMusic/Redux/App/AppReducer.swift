@@ -17,6 +17,8 @@ func appReducer(
     switch action {
     case is AuthAction:
         return authReducer(state: &state.auth, action: action as! AuthAction)
+    case is CollectionAction:
+        return collectionReducer(state: &state.collection, action: action as! CollectionAction)
     default: break
     }
     return Empty().eraseToAnyPublisher()

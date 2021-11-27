@@ -7,6 +7,6 @@
 //
 
 enum AuthState {
-    case authorized(Token)
+    case authorized
     case unauthorized
 }

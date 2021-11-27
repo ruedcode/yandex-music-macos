@@ -7,10 +7,12 @@
 //
 
 import Cocoa
+import Combine
 import SwiftUI
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
+    private var cancellable: AnyCancellable?
 
     lazy var store: Store<AppState, AppAction> = {
         return Store<AppState, AppAction>(
@@ -24,7 +26,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Create the SwiftUI view that provides the window contents.
-        let contentView = ContentView()
+        let contentView = ContentView().environmentObject(store)
 
         // Create the popover
         let popover = NSPopover()
@@ -53,12 +55,23 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     self.popover.show(relativeTo: button.bounds, of: button, preferredEdge: NSRectEdge.minY)
                 }
                 else {
-                    let authWindow = AuthWindow(store: store)
-                    authWindow.makeKeyAndOrderFront(self)
+                    auth()
                 }
             }
         }
     }
-    
-}
 
+    private func auth() {
+        let authWindow = AuthWindow(store: store)
+        authWindow.makeKeyAndOrderFront(self)
+        cancellable = self.store.$state.sink { [weak self] state in
+            if case .authorized = state.auth {
+                self?.cancellable?.cancel()
+                if let button = self?.statusBarItem.button {
+                    self?.popover.show(relativeTo: button.bounds, of: button, preferredEdge: NSRectEdge.minY)
+                    self?.store.send(CollectionAction.fetch)
+                }
+            }
+        }
+    }
+}

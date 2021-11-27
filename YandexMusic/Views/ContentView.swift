@@ -9,34 +9,28 @@
 import SwiftUI
 
 struct ContentView: View {
-    let data = [
-        "https://avatars.yandex.net/get-music-misc/70850/rotor-personal-station-icon/100x100",
-        "https://avatars.yandex.net/get-music-misc/34161/rotor-epoch-the-greatest-hits-icon/100x100",
-        "https://avatars.yandex.net/get-music-misc/34161/rotor-genre-metal-icon/100x100",
-        "https://avatars.yandex.net/get-music-misc/34161/rotor-genre-alternative-icon/100x100"
-    ]
 
-    let columns = [
-        GridItem(.flexible()),
-        GridItem(.flexible()),
-        GridItem(.flexible()),
-        GridItem(.flexible())
-    ]
+    @EnvironmentObject var store: Store<AppState, AppAction>
 
     var body: some View {
         VStack(alignment: .leading) {
 
-            LazyVGrid(columns: columns, spacing: 20) {
-                ForEach(data, id: \.self) { item in
-                    AsyncImage(url: URL(string: item)) { image in
+            LazyVGrid(columns: columns(for: store.state.collection.stations), spacing: 20) {
+                ForEach(store.state.collection.stations, id: \.self) { item in
+                    AsyncImage(url: URL(string: item.image)) { image in
                         image.resizable()
                             .aspectRatio(1, contentMode: .fit)
                             .clipped()
-                            .background(Color.red)
+                            .background(
+                                Color(nsColor: hexStringToColor(hex: item.color))
+                            )
+                            .frame(maxWidth: 50, maxHeight: 50)
                     } placeholder: {
                         ProgressView()
                     }
                     .clipShape(Circle())
+                    Text(item.name)
+                        .font(.subheadline)
                 }
             }
             .padding([.leading, .trailing], 8)
@@ -47,6 +41,13 @@ struct ContentView: View {
 
             PlayerView().padding(.bottom, 8).padding([.leading, .trailing], 8)
         }
+    }
+
+    private func columns(for stations: [Station]) -> [GridItem] {
+        stations.forEach {
+            print($0.image)
+        }
+        return stations.map { _ in GridItem(.flexible()) }
     }
 }
 

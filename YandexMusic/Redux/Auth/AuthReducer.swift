@@ -18,14 +18,15 @@ func authReducer(
         return AuthProvider.instance
             .requestToken(code: code)
             .map {
-                AuthAction.updateToken(token: $0)
+                AuthAction.updateToken
             }
             .catch { _ in
                 Empty(completeImmediately: true)
             }
             .eraseToAnyPublisher()
-    case .updateToken(let token):
-        state = .authorized(token)
+    case .updateToken:
+        state = AuthProvider.instance.token != nil ? .authorized : .unauthorized
+
     default:
         break
     }

@@ -15,4 +15,7 @@ enum Constants {
         static let tokenUrl = "https://oauth.yandex.ru/token"
         static let clientSecret = "236cbbffd5524a4687445768afe4c0d1"
     }
+    enum Collection {
+        static let url = "https://music.yandex.ru/handlers/radio-library.jsx?lang=ru"
+    }
 }
