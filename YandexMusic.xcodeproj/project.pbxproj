@@ -23,11 +23,15 @@
 		A12B807D275283F9003213E9 /* AppReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B807C275283F9003213E9 /* AppReducer.swift */; };
 		A12B807F275285D8003213E9 /* NetworkCombine.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B807E275285D8003213E9 /* NetworkCombine.swift */; };
 		A12B8084275288C5003213E9 /* AuthDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B8083275288C5003213E9 /* AuthDTO.swift */; };
-		A12B808627529D97003213E9 /* LibraryDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B808527529D97003213E9 /* LibraryDTO.swift */; };
+		A12B808627529D97003213E9 /* StationDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B808527529D97003213E9 /* StationDTO.swift */; };
 		A12B80882752A008003213E9 /* CollectionReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B80872752A008003213E9 /* CollectionReducer.swift */; };
 		A12B808A2752A064003213E9 /* CollectionAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B80892752A064003213E9 /* CollectionAction.swift */; };
 		A12B808C2752AF7E003213E9 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B808B2752AF7E003213E9 /* Colors.swift */; };
 		A12B808E2752B770003213E9 /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B808D2752B770003213E9 /* CustomView.swift */; };
+		A12B809027537CF5003213E9 /* TrackDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B808F27537CF5003213E9 /* TrackDTO.swift */; };
+		A12B809327537E0B003213E9 /* Requests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B809227537E0B003213E9 /* Requests.swift */; };
+		A12B809527537E17003213E9 /* Responses.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B809427537E17003213E9 /* Responses.swift */; };
+		A12B80972753826A003213E9 /* UrlHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B80962753826A003213E9 /* UrlHelper.swift */; };
 		A17F671D275244A90094B5A3 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17F671C275244A90094B5A3 /* AppState.swift */; };
 		A17F671F275244C40094B5A3 /* AppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17F671E275244C40094B5A3 /* AppStore.swift */; };
 		A17F6723275245240094B5A3 /* AppAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17F6722275245240094B5A3 /* AppAction.swift */; };
@@ -58,11 +62,15 @@
 		A12B807C275283F9003213E9 /* AppReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppReducer.swift; sourceTree = "<group>"; };
 		A12B807E275285D8003213E9 /* NetworkCombine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkCombine.swift; sourceTree = "<group>"; };
 		A12B8083275288C5003213E9 /* AuthDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDTO.swift; sourceTree = "<group>"; };
-		A12B808527529D97003213E9 /* LibraryDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryDTO.swift; sourceTree = "<group>"; };
+		A12B808527529D97003213E9 /* StationDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationDTO.swift; sourceTree = "<group>"; };
 		A12B80872752A008003213E9 /* CollectionReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionReducer.swift; sourceTree = "<group>"; };
 		A12B80892752A064003213E9 /* CollectionAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionAction.swift; sourceTree = "<group>"; };
 		A12B808B2752AF7E003213E9 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		A12B808D2752B770003213E9 /* CustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
+		A12B808F27537CF5003213E9 /* TrackDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackDTO.swift; sourceTree = "<group>"; };
+		A12B809227537E0B003213E9 /* Requests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Requests.swift; sourceTree = "<group>"; };
+		A12B809427537E17003213E9 /* Responses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Responses.swift; sourceTree = "<group>"; };
+		A12B80962753826A003213E9 /* UrlHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlHelper.swift; sourceTree = "<group>"; };
 		A17F671C275244A90094B5A3 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		A17F671E275244C40094B5A3 /* AppStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStore.swift; sourceTree = "<group>"; };
 		A17F6722275245240094B5A3 /* AppAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAction.swift; sourceTree = "<group>"; };
@@ -173,7 +181,8 @@
 			isa = PBXGroup;
 			children = (
 				A12B8083275288C5003213E9 /* AuthDTO.swift */,
-				A12B808527529D97003213E9 /* LibraryDTO.swift */,
+				A12B808527529D97003213E9 /* StationDTO.swift */,
+				A12B808F27537CF5003213E9 /* TrackDTO.swift */,
 			);
 			path = Dto;
 			sourceTree = "<group>";
@@ -228,6 +237,7 @@
 				A1B3BCFF27523912006AE32C /* Services */,
 				A12B807227527B90003213E9 /* Constants.swift */,
 				A12B808B2752AF7E003213E9 /* Colors.swift */,
+				A12B80962753826A003213E9 /* UrlHelper.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -244,6 +254,8 @@
 			isa = PBXGroup;
 			children = (
 				A1B3BD012752391F006AE32C /* Auth */,
+				A12B809227537E0B003213E9 /* Requests.swift */,
+				A12B809427537E17003213E9 /* Responses.swift */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -336,18 +348,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A12B80972753826A003213E9 /* UrlHelper.swift in Sources */,
 				A12B8084275288C5003213E9 /* AuthDTO.swift in Sources */,
 				A12B808C2752AF7E003213E9 /* Colors.swift in Sources */,
 				A17F672A27524A590094B5A3 /* PlayerView.swift in Sources */,
 				A12B807527528058003213E9 /* AuthAction.swift in Sources */,
 				A12B807327527B90003213E9 /* Constants.swift in Sources */,
-				A12B808627529D97003213E9 /* LibraryDTO.swift in Sources */,
+				A12B808627529D97003213E9 /* StationDTO.swift in Sources */,
 				459A279323AA910B003D50EC /* ContentView.swift in Sources */,
 				A1B3BD0427523947006AE32C /* NetworkService.swift in Sources */,
 				A12B807727528080003213E9 /* AuthReducer.swift in Sources */,
 				A1B3BD082752427B006AE32C /* AuthProvider.swift in Sources */,
 				A12B806227524D27003213E9 /* PlayerButtonView.swift in Sources */,
 				A17F6723275245240094B5A3 /* AppAction.swift in Sources */,
+				A12B809527537E17003213E9 /* Responses.swift in Sources */,
+				A12B809327537E0B003213E9 /* Requests.swift in Sources */,
 				A12B808A2752A064003213E9 /* CollectionAction.swift in Sources */,
 				A17F671D275244A90094B5A3 /* AppState.swift in Sources */,
 				459A279123AA910B003D50EC /* AppDelegate.swift in Sources */,
@@ -357,6 +372,7 @@
 				A12B807D275283F9003213E9 /* AppReducer.swift in Sources */,
 				A12B807F275285D8003213E9 /* NetworkCombine.swift in Sources */,
 				A12B808E2752B770003213E9 /* CustomView.swift in Sources */,
+				A12B809027537CF5003213E9 /* TrackDTO.swift in Sources */,
 				A12B807127527A85003213E9 /* WebView.swift in Sources */,
 				A12B806627526F0B003213E9 /* CollectionState.swift in Sources */,
 				A17F671F275244C40094B5A3 /* AppStore.swift in Sources */,

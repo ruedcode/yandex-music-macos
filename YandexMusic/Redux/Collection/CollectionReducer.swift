@@ -13,7 +13,7 @@ func collectionReducer(
     state: inout CollectionState,
     action: CollectionAction
 ) -> AnyPublisher<AppAction, Never> {
-    let fetcher = FetchRecommendation()
+    let fetcher = RecommendationRequest()
     switch action {
     case .fetch:
         return fetcher.execute()
@@ -31,7 +31,7 @@ func collectionReducer(
                 id: $0.station.idForFrom,
                 name: $0.station.name,
                 color: $0.station.icon.backgroundColor,
-                image: "https://" + $0.station.icon.imageUrl.replacingOccurrences(of: "%%", with: "200x200")
+                image: link(from: $0.station.icon.imageUrl)
             )
         }
 

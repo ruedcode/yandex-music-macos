@@ -8,5 +8,5 @@
 
 enum CollectionAction: AppAction {
     case fetch
-    case update(RecomendationDTO)
+    case update(RecomendationResponse)
 }

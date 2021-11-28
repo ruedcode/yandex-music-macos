@@ -19,4 +19,12 @@ enum Constants {
         static let library = "https://music.yandex.ru/handlers/radio-library.jsx?lang=ru"
         static let recommendation = "https://music.yandex.ru/handlers/radio-recommended.jsx?lang=ru"
     }
+
+    enum Track {
+        static let list = "https://music.yandex.ru/api/v2.1/handlers/radio/%@/%@/tracks?queue=%@"
+    }
+
+    enum Common {
+        static let imageSize = CGSize(width: 200, height: 200)
+    }
 }
