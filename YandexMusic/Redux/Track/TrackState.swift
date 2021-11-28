@@ -21,6 +21,10 @@ struct Track {
     let artist: Artist?
     let liked: Bool
 
+    var fullName: String {
+        return [artist?.name, name].compactMap{ $0 }.joined(separator: " - ")
+    }
+
     init(model: TrackDTO) {
         self.id = model.track.id
         self.name = model.track.title

@@ -19,8 +19,9 @@ struct PlayerView: View {
             }
 
             PlayerButtonView(imageName: "Next")
-            .padding(.leading, constants.padding)
-            .padding([.top, .bottom], constants.padding)
+                .padding(.leading, constants.padding)
+                .padding([.top, .bottom], constants.padding)
+                .help(store.state.track.next?.fullName ?? "")
 
             AsyncImage(url: store.state.track.current?.album?.image) { image in
                 image.resizable()
@@ -29,27 +30,32 @@ struct PlayerView: View {
             } placeholder: {
                 ProgressView()
             }
+            .help(store.state.track.current?.album?.name ?? "")
 
             VStack(alignment: .leading) {
-                Text(store.state.track.current?.name ?? "").font(.headline)
-                Text(store.state.track.current?.artist?.name ?? "").font(.caption)
+                Text(store.state.track.current?.name ?? "")
+                    .font(.headline)
+                    .help(store.state.track.current?.name ?? "")
+                Text(store.state.track.current?.artist?.name ?? "")
+                    .font(.caption)
+                    .help(store.state.track.current?.artist?.name ?? "")
             }
 
             PlayerButtonView(imageName: store.state.track.current?.liked == true ? "Liked" : "Like") {
 //                isLiked = !isLiked
             }
-            .padding(.leading, constants.padding)
-            .padding([.top, .bottom], constants.padding)
+                .padding(.leading, constants.padding)
+                .padding([.top, .bottom], constants.padding)
 
             PlayerButtonView(imageName: "Block") {
             }
-            .padding(.leading, constants.padding)
-            .padding([.top, .bottom], constants.padding)
+                .padding(.leading, constants.padding)
+                .padding([.top, .bottom], constants.padding)
 
             PlayerButtonView(imageName: "Share") {
             }
-            .padding([.leading, .trailing], constants.padding)
-            .padding([.top, .bottom], constants.padding)
+                .padding([.leading, .trailing], constants.padding)
+                .padding([.top, .bottom], constants.padding)
 
         }.frame(height: constants.height)
     }
