@@ -12,27 +12,23 @@ import CloudKit
 
 func appReducer(
     state: inout AppState,
-    action: AppAction,
-    store: Store<AppState, AppAction>
+    action: AppAction
 ) -> AnyPublisher<AppAction, Never> {
     switch action {
     case is AuthAction:
         return authReducer(
             state: &state.auth,
-            action: action as! AuthAction,
-            store: store
+            action: action as! AuthAction
         )
     case is CollectionAction:
         return collectionReducer(
             state: &state.collection,
-            action: action as! CollectionAction,
-            store: store
+            action: action as! CollectionAction
         )
     case is TrackAction:
         return trackReducer(
             state: &state.track,
-            action: action as! TrackAction,
-            store: store
+            action: action as! TrackAction
         )
     default: break
     }

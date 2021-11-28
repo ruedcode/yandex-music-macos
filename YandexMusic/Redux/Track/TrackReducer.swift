@@ -11,8 +11,7 @@ import Combine
 
 func trackReducer(
     state: inout TrackState,
-    action: TrackAction,
-    store: Store<AppState, AppAction>
+    action: TrackAction
 ) -> AnyPublisher<AppAction, Never> {
     switch action {
     case let .fetch(type, tag, _):
@@ -35,10 +34,10 @@ func trackReducer(
         state.isPlaying = !state.isPlaying
         if state.isPlaying == true {
             if state.current?.url == nil {
-                store.send(TrackAction.fetchStorageHost)
+                return TrackAction.fetchStorageHost.next
             }
             else {
-                store.send(TrackAction.playMusic)
+                return TrackAction.playMusic.next
             }
         }
         else {
@@ -57,7 +56,7 @@ func trackReducer(
             }.eraseToAnyPublisher()
         }
         else {
-            store.send(TrackAction.playMusic)
+            return TrackAction.playMusic.next
         }
     case let .fetchFileInfo(path):
         return FileRequest(path: path).execute()
@@ -70,11 +69,7 @@ func trackReducer(
         let path = "https://\(response.host)/get-mp3/falfn2o3finf023nn02nd0120192n012/\(response.ts)\(response.path)"
         if let url = URL(string: path) {
             state.current?.url = url
-            return Future<AppAction, Error>() { promise in
-                promise(.success(TrackAction.playMusic))
-            }.catch { _ in
-                Empty(completeImmediately: true)
-            }.eraseToAnyPublisher()
+            return TrackAction.playMusic.next
         }
     case .playMusic:
         guard let url = state.current?.url else {

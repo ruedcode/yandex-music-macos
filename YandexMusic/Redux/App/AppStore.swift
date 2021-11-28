@@ -10,7 +10,7 @@ import Foundation
 import Combine
 
 typealias Reducer<State, Action> =
-    (inout State, Action, Store<State, Action>) -> AnyPublisher<Action, Never>?
+    (inout State, Action) -> AnyPublisher<Action, Never>?
 
 final class Store<State, Action>: ObservableObject {
     @Published private(set) var state: State
@@ -25,7 +25,7 @@ final class Store<State, Action>: ObservableObject {
 
     func send(_ action: Action) {
         
-        guard let effect = reducer(&state, action, self) else {
+        guard let effect = reducer(&state, action) else {
             return
         }
 

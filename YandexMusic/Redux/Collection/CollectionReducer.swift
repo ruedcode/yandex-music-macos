@@ -11,8 +11,7 @@ import Combine
 
 func collectionReducer(
     state: inout CollectionState,
-    action: CollectionAction,
-    store: Store<AppState, AppAction>
+    action: CollectionAction
 ) -> AnyPublisher<AppAction, Never> {
     let fetcher = RecommendationRequest()
     switch action {
@@ -38,7 +37,7 @@ func collectionReducer(
         state.stations = stations
         if state.selected == nil, let station = stations.first {
             state.selected = station
-            store.send(TrackAction.fetch(type: station.type, tag: station.tag, queue: []))
+            return TrackAction.fetch(type: station.type, tag: station.tag, queue: []).next
         }
     }
     return Empty().eraseToAnyPublisher()

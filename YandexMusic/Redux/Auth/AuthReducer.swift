@@ -11,8 +11,7 @@ import Combine
 
 func authReducer(
     state: inout AuthState,
-    action: AuthAction,
-    store: Store<AppState, AppAction>
+    action: AuthAction
 ) -> AnyPublisher<AppAction, Never> {
     switch action {
     case .fetchToken(let code):
