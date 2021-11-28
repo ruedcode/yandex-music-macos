@@ -43,7 +43,11 @@ struct TrackRequest: RequestType {
         return RequestData(
             path: String(format: Constants.Track.list, type, tag, queue),
             method: .get,
-            auth: true
+            auth: true,
+            headers: [
+                "X-Retpath-Y": "https%3A%2F%2Fmusic.yandex.ru%2Fradio",
+                "X-Yandex-Music-Client": "YandexMusicAPI"
+            ]
         )
     }
 }

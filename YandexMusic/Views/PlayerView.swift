@@ -10,23 +10,19 @@ import SwiftUI
 
 struct PlayerView: View {
     private let constants = Constants()
-
-    private let imageUrl = URL(string: "https://picsum.photos/200")
-
-    @State private var isPlaying = false
-    @State private var isLiked = false
+    @EnvironmentObject var store: Store<AppState, AppAction>
 
     var body: some View {
         HStack {
-            PlayerButtonView(imageName: isPlaying ? "Pause" : "Play") {
-                isPlaying = !isPlaying
+            PlayerButtonView(imageName: store.state.track.isPlaying ? "Pause" : "Play") {
+                store.send(TrackAction.tooglePlay)
             }
 
             PlayerButtonView(imageName: "Next")
             .padding(.leading, constants.padding)
             .padding([.top, .bottom], constants.padding)
 
-            AsyncImage(url: imageUrl) { image in
+            AsyncImage(url: store.state.track.current?.album?.image) { image in
                 image.resizable()
                     .aspectRatio(1, contentMode: .fit)
                     .clipped()
@@ -35,12 +31,12 @@ struct PlayerView: View {
             }
 
             VStack(alignment: .leading) {
-                Text("Daylight").font(.headline)
-                Text("Young Guns").font(.caption)
+                Text(store.state.track.current?.name ?? "").font(.headline)
+                Text(store.state.track.current?.artist?.name ?? "").font(.caption)
             }
 
-            PlayerButtonView(imageName: isLiked ? "Liked" : "Like") {
-                isLiked = !isLiked
+            PlayerButtonView(imageName: store.state.track.current?.liked == true ? "Liked" : "Like") {
+//                isLiked = !isLiked
             }
             .padding(.leading, constants.padding)
             .padding([.top, .bottom], constants.padding)

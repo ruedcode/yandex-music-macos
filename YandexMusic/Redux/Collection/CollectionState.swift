@@ -8,10 +8,12 @@
 
 struct CollectionState {
     var stations: [Station] = []
+    var selected: Station?
 }
 
 struct Station: Hashable {
-    let id: String
+    let type: String
+    let tag: String
     let name: String
     let color: String
     let image: String
