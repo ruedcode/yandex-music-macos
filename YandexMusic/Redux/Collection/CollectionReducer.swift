@@ -40,9 +40,6 @@ func collectionReducer(
             state.selected = station
             store.send(TrackAction.fetch(type: station.type, tag: station.tag, queue: []))
         }
-
-    default:
-        break
     }
     return Empty().eraseToAnyPublisher()
 }

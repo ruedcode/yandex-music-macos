@@ -33,8 +33,6 @@ func trackReducer(
         }
     case .tooglePlay:
         state.isPlaying = !state.isPlaying
-    default:
-        break
     }
     return Empty().eraseToAnyPublisher()
 }
