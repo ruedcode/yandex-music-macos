@@ -11,6 +11,7 @@ struct CollectionState {
 }
 
 struct Station: Hashable {
+    let id: String
     let name: String
     let color: String
     let image: String

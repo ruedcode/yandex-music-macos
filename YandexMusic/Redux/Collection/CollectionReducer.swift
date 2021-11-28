@@ -28,6 +28,7 @@ func collectionReducer(
         state.stations = items.stations.compactMap {
 
             Station(
+                id: $0.station.idForFrom,
                 name: $0.station.name,
                 color: $0.station.icon.backgroundColor,
                 image: "https://" + $0.station.icon.imageUrl.replacingOccurrences(of: "%%", with: "200x200")

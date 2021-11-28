@@ -55,7 +55,7 @@ struct FetchLibrary: RequestType {
         return RequestData(
             path: Constants.Collection.library,
             method: .get,
-            headers: ["Authorization": AuthProvider.instance.token?.access_token ?? ""]
+            auth: true
         )
     }
 }
@@ -67,7 +67,7 @@ struct FetchRecommendation: RequestType {
         return RequestData(
             path: Constants.Collection.recommendation,
             method: .get,
-            headers: ["Authorization": AuthProvider.instance.token?.access_token ?? ""]
+            auth: true
         )
     }
 }

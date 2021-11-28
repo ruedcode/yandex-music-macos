@@ -11,6 +11,7 @@ import Foundation
 enum NetworkError: Error {
     case invalidURL
     case emptyResponse
+    case noAuthToken
 }
 
 enum HTTPMethod: String {
@@ -22,6 +23,7 @@ enum HTTPMethod: String {
 }
 
 struct RequestData {
+    let auth: Bool
     let path: String
     let method: HTTPMethod
     let params: Params?
@@ -30,12 +32,14 @@ struct RequestData {
     init(
         path: String,
         method: HTTPMethod = .get,
+        auth: Bool = false,
         params: Params? = nil,
         headers: [String: String]? = nil
     ) {
         self.path = path
         self.method = method
         self.params = params
+        self.auth = auth
         self.headers = headers
     }
 
@@ -136,6 +140,16 @@ struct URLSessionNetworkDispatcher: NetworkDispatcher {
 
         if let headers = request.headers {
             urlRequest.allHTTPHeaderFields = headers
+        }
+
+        if request.auth {
+            if let token = AuthProvider.instance.token?.access_token {
+                urlRequest.setValue(token, forHTTPHeaderField: "Authorization")
+            }
+            else {
+                onComplete(.failure(NetworkError.noAuthToken))
+                return
+            }
         }
 
         URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
