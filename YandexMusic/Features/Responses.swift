@@ -24,3 +24,17 @@ struct TrackResponse: Decodable {
     let tracks: [TrackDTO]
 }
 
+struct Mp3Response: Decodable {
+    let codec: String
+    let bitrate: Int
+    let src: String
+    let gain: Bool
+    let preview: Bool
+}
+
+struct FileResponse: Decodable {
+    let s: String
+    let ts: String
+    let path: String
+    let host: String
+}

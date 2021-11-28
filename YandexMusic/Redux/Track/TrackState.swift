@@ -20,6 +20,7 @@ struct Track {
     let album: Album?
     let artist: Artist?
     let liked: Bool
+    var url: URL?
 
     var fullName: String {
         return [artist?.name, name].compactMap{ $0 }.joined(separator: " - ")
@@ -45,6 +46,7 @@ struct Track {
         else {
             self.artist = nil
         }
+        url = nil
     }
 }
 

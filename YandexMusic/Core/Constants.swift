@@ -22,6 +22,7 @@ enum Constants {
 
     enum Track {
         static let list = "https://music.yandex.ru/api/v2.1/handlers/radio/%@/%@/tracks?queue=%@"
+        static let mp3 = "https://music.yandex.ru/api/v2.1/handlers/track/%@:%@/web-radio-user-saved/download/m?hq=0"
     }
 
     enum Common {

@@ -12,4 +12,8 @@ enum TrackAction: AppAction {
     case fetch(type: String, tag: String, queue: [TrackDTO])
     case update(TrackResponse)
     case tooglePlay
+    case fetchStorageHost
+    case fetchFileInfo(String)
+    case updateUrl(FileResponse)
+    case playMusic
 }

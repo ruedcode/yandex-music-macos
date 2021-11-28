@@ -51,3 +51,39 @@ struct TrackRequest: RequestType {
         )
     }
 }
+
+struct Mp3Request: RequestType {
+    typealias ResponseType = Mp3Response
+    let trackId: String
+    let albumId: String
+
+    var data: RequestData {
+        return RequestData(
+            path: String(format: Constants.Track.mp3, trackId, albumId),
+            method: .get,
+            auth: true,
+            headers: [
+                "X-Retpath-Y": "https%3A%2F%2Fmusic.yandex.ru%2Fradio",
+                "X-Yandex-Music-Client": "YandexMusicAPI"
+            ]
+        )
+    }
+}
+
+struct FileRequest: RequestType {
+    typealias ResponseType = FileResponse
+
+    let path: String
+
+    var data: RequestData {
+        return RequestData(
+            path: path + "&format=json",
+            method: .get,
+            auth: true,
+            headers: [
+                "X-Retpath-Y": "https%3A%2F%2Fmusic.yandex.ru%2Fradio",
+                "X-Yandex-Music-Client": "YandexMusicAPI"
+            ]
+        )
+    }
+}
