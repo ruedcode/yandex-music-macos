@@ -101,6 +101,7 @@ extension RequestType {
                         onComplete(.success(result))
                     }
                 } catch let error {
+                    print("Error parsing \(error.localizedDescription)")
                     DispatchQueue.main.async {
                         onComplete(.failure(error))
                     }

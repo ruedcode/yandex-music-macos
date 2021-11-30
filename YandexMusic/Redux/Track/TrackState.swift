@@ -12,6 +12,8 @@ struct TrackState {
     var current: Track?
     var next: Track?
     var isPlaying: Bool = false
+    var lastTag: String = ""
+    var lastType: String = ""
 }
 
 struct Track {

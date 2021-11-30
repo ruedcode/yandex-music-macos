@@ -9,11 +9,13 @@
 import Foundation
 
 enum TrackAction: AppAction {
-    case fetch(type: String, tag: String, queue: [TrackDTO])
+    case fetch(type: String, tag: String, queue: [Track])
     case update(TrackResponse)
-    case tooglePlay
+    case togglePlay
+    case playNext
     case fetchStorageHost
     case fetchFileInfo(String)
     case updateUrl(FileResponse)
     case playMusic
+    case sendFeedback(type: String, tag: String, trackId: String, albumId: String)
 }

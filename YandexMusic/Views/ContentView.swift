@@ -64,9 +64,6 @@ struct ContentView: View {
     }
 
     private func columns(for stations: [Station]) -> [GridItem] {
-        stations.forEach {
-            print($0.image)
-        }
         return stations.map { _ in GridItem(.flexible()) }
     }
 }

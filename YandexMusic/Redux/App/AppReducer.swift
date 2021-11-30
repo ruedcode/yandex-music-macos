@@ -30,6 +30,13 @@ func appReducer(
             state: &state.track,
             action: action as! TrackAction
         )
+    case is BaseAction:
+        switch action as? BaseAction {
+        case let .dumb(error):
+            print("-->> error: \(error.localizedDescription)")
+        case .none:
+            break
+        }
     default: break
     }
     return Empty().eraseToAnyPublisher()

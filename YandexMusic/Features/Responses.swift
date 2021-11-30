@@ -38,3 +38,9 @@ struct FileResponse: Decodable {
     let path: String
     let host: String
 }
+
+struct TrackFeedbackResponse: Decodable {
+    let result: String
+    let info: String
+}
+

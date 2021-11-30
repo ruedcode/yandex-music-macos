@@ -20,3 +20,7 @@ extension AppAction {
         }.eraseToAnyPublisher()
     }
 }
+
+enum BaseAction: AppAction {
+    case dumb(Error)
+}

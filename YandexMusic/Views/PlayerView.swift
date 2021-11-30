@@ -15,10 +15,12 @@ struct PlayerView: View {
     var body: some View {
         HStack {
             PlayerButtonView(imageName: store.state.track.isPlaying ? "Pause" : "Play") {
-                store.send(TrackAction.tooglePlay)
+                store.send(TrackAction.togglePlay)
             }
 
-            PlayerButtonView(imageName: "Next")
+            PlayerButtonView(imageName: "Next") {
+                store.send(TrackAction.playNext)
+            }
                 .padding(.leading, constants.padding)
                 .padding([.top, .bottom], constants.padding)
                 .help(store.state.track.next?.fullName ?? "")

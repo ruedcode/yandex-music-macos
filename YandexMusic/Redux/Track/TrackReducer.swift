@@ -8,14 +8,26 @@
 
 import Foundation
 import Combine
+import Cocoa
 
 func trackReducer(
     state: inout TrackState,
     action: TrackAction
 ) -> AnyPublisher<AppAction, Never> {
     switch action {
-    case let .fetch(type, tag, _):
-        return TrackRequest(type: type, tag: tag, queue: []).execute()
+    case let .fetch(type, tag, queue):
+        state.lastTag = tag
+        state.lastType = type
+        let queue = queue.compactMap { item -> (String, String)? in
+            if let albumId = item.album?.id {
+                return (albumId, item.id)
+            }
+            else {
+                return nil
+            }
+        }
+
+        return TrackRequest(type: type, tag: tag, queue: queue).execute()
             .map {
                 TrackAction.update($0)
             }
@@ -25,12 +37,18 @@ func trackReducer(
             .eraseToAnyPublisher()
     case let .update(response):
         if let current = response.tracks.first {
-            state.current = Track(model: current)
+            if state.current == nil {
+                state.current = Track(model: current)
+                if let next = response.tracks.suffix(1).first {
+                    state.next = Track(model: next)
+                }
+            }
+            else {
+                state.next = Track(model: current)
+            }
         }
-        if let next = response.tracks.suffix(1).first {
-            state.next = Track(model: next)
-        }
-    case .tooglePlay:
+
+    case .togglePlay:
         state.isPlaying = !state.isPlaying
         if state.isPlaying == true {
             if state.current?.url == nil {
@@ -52,7 +70,8 @@ func trackReducer(
             return Mp3Request(trackId: trackId, albumId: albumId).execute().map {
                 TrackAction.fetchFileInfo("https:\($0.src)")
             }.catch { error in
-                Empty(completeImmediately: true)
+                BaseAction.dumb(error).next
+//                Empty(completeImmediately: true)
             }.eraseToAnyPublisher()
         }
         else {
@@ -72,10 +91,52 @@ func trackReducer(
             return TrackAction.playMusic.next
         }
     case .playMusic:
-        guard let url = state.current?.url else {
+        guard let track = state.current, let url = track.url else {
             break
         }
         AudioProvider.instance.play(url: url)
+        AudioProvider.instance.onFinish = {
+            if let delegate = NSApp.delegate as? AppDelegate {
+                delegate.store.send(TrackAction.playNext)
+            }
+        }
+        AudioProvider.instance.onStart = {
+            if
+                let delegate = NSApp.delegate as? AppDelegate,
+                let station = delegate.store.state.collection.selected,
+                let album = delegate.store.state.track.current?.album?.id,
+                let track = delegate.store.state.track.current?.id
+            {
+                delegate.store.send(
+                    TrackAction.sendFeedback(
+                        type: station.type,
+                        tag: station.tag,
+                        trackId: track,
+                        albumId: album
+                    )
+                )
+            }
+        }
+        if state.next == nil {
+            return TrackAction.fetch(
+                type: state.lastType,
+                tag: state.lastTag,
+                queue: [track]
+            ).next
+        }
+    case .playNext:
+        state.current = state.next
+            state.next = nil
+
+        return TrackAction.fetchStorageHost.next
+    case let .sendFeedback(type, tag, trackId, albumId):
+        TrackFeedbackRequest(
+            type: type,
+            tag: tag,
+            trackId: trackId,
+            albumId: albumId
+        ).execute(onComplete: { _ in})
+
     }
     return Empty().eraseToAnyPublisher()
 }
