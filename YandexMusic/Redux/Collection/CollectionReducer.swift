@@ -11,20 +11,18 @@ import Combine
 
 func collectionReducer(
     state: inout CollectionState,
-    action: CollectionAction
-) -> AnyPublisher<AppAction, Never> {
+    action: AppAction
+) -> AnyPublisher<AppAction, Never>? {
     let fetcher = RecommendationRequest()
     switch action {
-    case .fetch:
+    case CollectionAction.fetch:
         return fetcher.execute()
             .map {
                 CollectionAction.update($0)
             }
-            .catch { error in
-                Empty(completeImmediately: true)
-            }
+            .ignoreError()
             .eraseToAnyPublisher()
-    case .update(let items):
+    case CollectionAction.update(let items):
         let stations = items.stations.compactMap {
             Station(
                 type: $0.station.id.type,
@@ -39,7 +37,9 @@ func collectionReducer(
             state.selected = station
             return TrackAction.fetch(type: station.type, tag: station.tag, queue: []).next
         }
+    default:
+        break
     }
-    return Empty().eraseToAnyPublisher()
+    return nil
 }
 

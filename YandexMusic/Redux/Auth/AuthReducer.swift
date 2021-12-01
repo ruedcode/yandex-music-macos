@@ -11,10 +11,10 @@ import Combine
 
 func authReducer(
     state: inout AuthState,
-    action: AuthAction
-) -> AnyPublisher<AppAction, Never> {
+    action: AppAction
+) -> AnyPublisher<AppAction, Never>? {
     switch action {
-    case .fetchToken(let code):
+    case AuthAction.fetchToken(let code):
         return AuthProvider.instance
             .requestToken(code: code)
             .map {
@@ -24,7 +24,7 @@ func authReducer(
                 Empty(completeImmediately: true)
             }
             .eraseToAnyPublisher()
-    case .updateToken:
+    case AuthAction.updateToken:
         state = AuthProvider.instance.token != nil ? .authorized : .unauthorized
 
     default:
