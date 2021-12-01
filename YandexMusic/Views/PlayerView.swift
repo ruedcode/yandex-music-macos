@@ -38,26 +38,27 @@ struct PlayerView: View {
                 Text(store.state.track.current?.name ?? "")
                     .font(.headline)
                     .help(store.state.track.current?.name ?? "")
+                    .frame(alignment: .leading)
                 Text(store.state.track.current?.artist.name ?? "")
                     .font(.caption)
                     .help(store.state.track.current?.artist.name ?? "")
+                    .frame(alignment: .leading)
             }
+            .frame(maxWidth: .infinity)
 
-            PlayerButtonView(imageName: store.state.track.current?.liked == true ? "Liked" : "Like") {
-//                isLiked = !isLiked
-            }
-                .padding(.leading, constants.padding)
-                .padding([.top, .bottom], constants.padding)
+            HStack {
+                PlayerButtonView(imageName: store.state.track.current?.liked == true ? "Liked" : "Like") {
+    //                isLiked = !isLiked
+                }
 
-            PlayerButtonView(imageName: "Block") {
-            }
-                .padding(.leading, constants.padding)
-                .padding([.top, .bottom], constants.padding)
+                PlayerButtonView(imageName: "Block") {
+                }
 
-            PlayerButtonView(imageName: "Share") {
+                PlayerButtonView(imageName: "Share") {
+                }
             }
-                .padding([.leading, .trailing], constants.padding)
-                .padding([.top, .bottom], constants.padding)
+            .frame(alignment: .trailing)
+            .padding([.top, .bottom, .trailing], constants.padding)
 
         }.frame(height: constants.height)
     }
