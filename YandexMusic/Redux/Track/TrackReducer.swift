@@ -45,7 +45,7 @@ func trackReducer(
         state.isPlaying = !state.isPlaying
         if state.isPlaying == true {
             if state.current?.url == nil {
-                return TrackAction.fetchStorageHost.next
+                return TrackAction.fetchFile.next
             }
             else {
                 return TrackAction.playMusic.next
@@ -54,33 +54,27 @@ func trackReducer(
         else {
             AudioProvider.instance.pause()
         }
-    case TrackAction.fetchStorageHost:
-        if
-            state.current?.url == nil,
+
+    case let TrackAction.updateUrl(url):
+        state.current?.url = url
+        return TrackAction.playMusic.next
+
+    case TrackAction.fetchFile:
+        guard
             let trackId = state.current?.id,
             let albumId = state.current?.album.id
-        {
-            return Mp3Request(trackId: trackId, albumId: albumId).execute().map {
-                TrackAction.fetchFileInfo("https:\($0.src)")
-            }
-            .ignoreError()
-            .eraseToAnyPublisher()
-        }
         else {
-            return TrackAction.playMusic.next
+            return TrackAction.playMusic.next // TODO - error screen
         }
-    case let TrackAction.fetchFileInfo(path):
-        return FileRequest(path: path).execute()
+
+        return TrackService(trackId: trackId, albumId: albumId)
+            .fetchUrl()
+            .ignoreError()
             .map {
                 TrackAction.updateUrl($0)
-            }.ignoreError()
+            }
             .eraseToAnyPublisher()
-    case let TrackAction.updateUrl(response):
-        let path = "https://\(response.host)/get-mp3/falfn2o3finf023nn02nd0120192n012/\(response.ts)\(response.path)"
-        if let url = URL(string: path) {
-            state.current?.url = url
-            return TrackAction.playMusic.next
-        }
+
     case TrackAction.playMusic:
         guard let track = state.current, let url = track.url else {
             return TrackAction.fetch(type: state.lastType, tag: state.lastTag, queue: []).next
@@ -119,7 +113,7 @@ func trackReducer(
         state.current = state.next
         state.next = nil
 
-        return TrackAction.fetchStorageHost.next
+        return TrackAction.fetchFile.next
     case let TrackAction.sendFeedback(type, tag, trackId, albumId):
         TrackFeedbackRequest(
             type: type,

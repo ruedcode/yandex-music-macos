@@ -13,9 +13,8 @@ enum TrackAction: AppAction {
     case update(TrackResponse)
     case togglePlay
     case playNext
-    case fetchStorageHost
-    case fetchFileInfo(String)
-    case updateUrl(FileResponse)
+    case fetchFile
+    case updateUrl(URL)
     case playMusic
     case sendFeedback(type: String, tag: String, trackId: String, albumId: String)
 }
