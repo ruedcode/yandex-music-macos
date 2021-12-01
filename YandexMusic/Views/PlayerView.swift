@@ -25,22 +25,22 @@ struct PlayerView: View {
                 .padding([.top, .bottom], constants.padding)
                 .help(store.state.track.next?.fullName ?? "")
 
-            AsyncImage(url: store.state.track.current?.album?.image) { image in
+            AsyncImage(url: store.state.track.current?.album.image) { image in
                 image.resizable()
                     .aspectRatio(1, contentMode: .fit)
                     .clipped()
             } placeholder: {
                 ProgressView()
             }
-            .help(store.state.track.current?.album?.name ?? "")
+            .help(store.state.track.current?.album.name ?? "")
 
             VStack(alignment: .leading) {
                 Text(store.state.track.current?.name ?? "")
                     .font(.headline)
                     .help(store.state.track.current?.name ?? "")
-                Text(store.state.track.current?.artist?.name ?? "")
+                Text(store.state.track.current?.artist.name ?? "")
                     .font(.caption)
-                    .help(store.state.track.current?.artist?.name ?? "")
+                    .help(store.state.track.current?.artist.name ?? "")
             }
 
             PlayerButtonView(imageName: store.state.track.current?.liked == true ? "Liked" : "Like") {

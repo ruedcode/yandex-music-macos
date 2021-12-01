@@ -19,13 +19,13 @@ struct TrackState {
 struct Track {
     let id: String
     let name: String
-    let album: Album?
-    let artist: Artist?
+    let album: Album
+    let artist: Artist
     let liked: Bool
     var url: URL?
 
     var fullName: String {
-        return [artist?.name, name].compactMap{ $0 }.joined(separator: " - ")
+        return [artist.name, name].joined(separator: " - ")
     }
 
     init(model: TrackDTO) {
@@ -40,13 +40,13 @@ struct Track {
             )
         }
         else {
-            self.album = nil
+            self.album = Album(name: "", id: "", image: nil)
         }
         if let artist = model.track.artists.first {
             self.artist = Artist(name: artist.name, id: String(artist.id))
         }
         else {
-            self.artist = nil
+            self.artist = Artist(name: "", id: "")
         }
         url = nil
     }
@@ -61,5 +61,4 @@ struct Album {
 struct Artist {
     let name: String
     let id: String
-
 }

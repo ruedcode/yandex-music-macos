@@ -19,12 +19,7 @@ func trackReducer(
         state.lastTag = tag
         state.lastType = type
         let queue = queue.compactMap { item -> (String, String)? in
-            if let albumId = item.album?.id {
-                return (albumId, item.id)
-            }
-            else {
-                return nil
-            }
+            return (item.album.id, item.id)
         }
 
         return TrackRequest(type: type, tag: tag, queue: queue).execute()
@@ -63,7 +58,7 @@ func trackReducer(
         if
             state.current?.url == nil,
             let trackId = state.current?.id,
-            let albumId = state.current?.album?.id
+            let albumId = state.current?.album.id
         {
             return Mp3Request(trackId: trackId, albumId: albumId).execute().map {
                 TrackAction.fetchFileInfo("https:\($0.src)")
@@ -100,7 +95,7 @@ func trackReducer(
             if
                 let delegate = NSApp.delegate as? AppDelegate,
                 let station = delegate.store.state.collection.selected,
-                let album = delegate.store.state.track.current?.album?.id,
+                let album = delegate.store.state.track.current?.album.id,
                 let track = delegate.store.state.track.current?.id
             {
                 delegate.store.send(
