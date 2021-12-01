@@ -31,9 +31,7 @@ func trackReducer(
             .map {
                 TrackAction.update($0)
             }
-            .catch { error in
-                Empty(completeImmediately: true)
-            }
+            .ignoreError()
             .eraseToAnyPublisher()
     case let .update(response):
         if let current = response.tracks.first {
@@ -69,10 +67,9 @@ func trackReducer(
         {
             return Mp3Request(trackId: trackId, albumId: albumId).execute().map {
                 TrackAction.fetchFileInfo("https:\($0.src)")
-            }.catch { error in
-                BaseAction.dumb(error).next
-//                Empty(completeImmediately: true)
-            }.eraseToAnyPublisher()
+            }
+            .ignoreError()
+            .eraseToAnyPublisher()
         }
         else {
             return TrackAction.playMusic.next
@@ -81,9 +78,8 @@ func trackReducer(
         return FileRequest(path: path).execute()
             .map {
                 TrackAction.updateUrl($0)
-            }.catch { error in
-                Empty(completeImmediately: true)
-            }.eraseToAnyPublisher()
+            }.ignoreError()
+            .eraseToAnyPublisher()
     case let .updateUrl(response):
         let path = "https://\(response.host)/get-mp3/falfn2o3finf023nn02nd0120192n012/\(response.ts)\(response.path)"
         if let url = URL(string: path) {
@@ -92,7 +88,7 @@ func trackReducer(
         }
     case .playMusic:
         guard let track = state.current, let url = track.url else {
-            break
+            return TrackAction.fetch(type: state.lastType, tag: state.lastTag, queue: []).next
         }
         AudioProvider.instance.play(url: url)
         AudioProvider.instance.onFinish = {
@@ -126,7 +122,7 @@ func trackReducer(
         }
     case .playNext:
         state.current = state.next
-            state.next = nil
+        state.next = nil
 
         return TrackAction.fetchStorageHost.next
     case let .sendFeedback(type, tag, trackId, albumId):

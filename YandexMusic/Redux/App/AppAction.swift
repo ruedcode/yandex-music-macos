@@ -13,14 +13,21 @@ protocol AppAction {
 
 extension AppAction {
     var next: AnyPublisher<AppAction, Never> {
-        return Future<AppAction, Error>() { promise in
-            promise(.success(self))
-        }.catch { _ in
-            Empty(completeImmediately: true)
-        }.eraseToAnyPublisher()
+        let result = Result<AppAction, Never>.success(self)
+        return AnyPublisher(result.publisher)
     }
 }
 
 enum BaseAction: AppAction {
     case dumb(Error)
+}
+
+extension Publisher {
+    func ignoreError(_ action: ((Self.Failure) -> Void)? = nil) -> Publishers.Catch<Self, AnyPublisher<Self.Output, Never>> {
+        return self.catch { error -> AnyPublisher<Self.Output, Never> in
+            log(error)
+            action?(error)
+            return Empty(completeImmediately: true).eraseToAnyPublisher()
+        }
+    }
 }

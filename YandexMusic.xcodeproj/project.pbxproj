@@ -36,6 +36,7 @@
 		A12B809B27538BF3003213E9 /* Always.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B809A27538BF3003213E9 /* Always.swift */; };
 		A12B809D27538DFD003213E9 /* TrackReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B809C27538DFD003213E9 /* TrackReducer.swift */; };
 		A12B809F2753CC96003213E9 /* AudioProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B809E2753CC96003213E9 /* AudioProvider.swift */; };
+		A12B80A12757FE42003213E9 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B80A02757FE42003213E9 /* Logger.swift */; };
 		A17F671D275244A90094B5A3 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17F671C275244A90094B5A3 /* AppState.swift */; };
 		A17F671F275244C40094B5A3 /* AppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17F671E275244C40094B5A3 /* AppStore.swift */; };
 		A17F6723275245240094B5A3 /* AppAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17F6722275245240094B5A3 /* AppAction.swift */; };
@@ -79,6 +80,7 @@
 		A12B809A27538BF3003213E9 /* Always.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Always.swift; sourceTree = "<group>"; };
 		A12B809C27538DFD003213E9 /* TrackReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackReducer.swift; sourceTree = "<group>"; };
 		A12B809E2753CC96003213E9 /* AudioProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioProvider.swift; sourceTree = "<group>"; };
+		A12B80A02757FE42003213E9 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		A17F671C275244A90094B5A3 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		A17F671E275244C40094B5A3 /* AppStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStore.swift; sourceTree = "<group>"; };
 		A17F6722275245240094B5A3 /* AppAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAction.swift; sourceTree = "<group>"; };
@@ -249,6 +251,7 @@
 				A12B808B2752AF7E003213E9 /* Colors.swift */,
 				A12B80962753826A003213E9 /* UrlHelper.swift */,
 				A12B809A27538BF3003213E9 /* Always.swift */,
+				A12B80A02757FE42003213E9 /* Logger.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -385,6 +388,7 @@
 				A17F67272752460A0094B5A3 /* AuthState.swift in Sources */,
 				A12B807D275283F9003213E9 /* AppReducer.swift in Sources */,
 				A12B807F275285D8003213E9 /* NetworkCombine.swift in Sources */,
+				A12B80A12757FE42003213E9 /* Logger.swift in Sources */,
 				A12B808E2752B770003213E9 /* CustomView.swift in Sources */,
 				A12B809027537CF5003213E9 /* TrackDTO.swift in Sources */,
 				A12B80992753857D003213E9 /* TrackAction.swift in Sources */,
