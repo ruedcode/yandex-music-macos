@@ -22,6 +22,7 @@
 		A128ABA1275CD96300219FBF /* UserSettingsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A128ABA0275CD96300219FBF /* UserSettingsRequest.swift */; };
 		A128ABA3275D348A00219FBF /* LikeRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A128ABA2275D348A00219FBF /* LikeRequest.swift */; };
 		A128ABA6275D499A00219FBF /* StationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A128ABA5275D499A00219FBF /* StationView.swift */; };
+		A128ABA8275D5EAD00219FBF /* MediaApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = A128ABA7275D5EAD00219FBF /* MediaApplication.swift */; };
 		A12B806227524D27003213E9 /* PlayerButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B806127524D27003213E9 /* PlayerButtonView.swift */; };
 		A12B806627526F0B003213E9 /* CollectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B806527526F0B003213E9 /* CollectionState.swift */; };
 		A12B806927526F40003213E9 /* TrackState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B806827526F40003213E9 /* TrackState.swift */; };
@@ -73,6 +74,7 @@
 		A128ABA0275CD96300219FBF /* UserSettingsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsRequest.swift; sourceTree = "<group>"; };
 		A128ABA2275D348A00219FBF /* LikeRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeRequest.swift; sourceTree = "<group>"; };
 		A128ABA5275D499A00219FBF /* StationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationView.swift; sourceTree = "<group>"; };
+		A128ABA7275D5EAD00219FBF /* MediaApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaApplication.swift; sourceTree = "<group>"; };
 		A12B806127524D27003213E9 /* PlayerButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerButtonView.swift; sourceTree = "<group>"; };
 		A12B8063275255B8003213E9 /* YandexMusicDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = YandexMusicDebug.entitlements; sourceTree = "<group>"; };
 		A12B806527526F0B003213E9 /* CollectionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionState.swift; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 		459A278F23AA910B003D50EC /* YandexMusic */ = {
 			isa = PBXGroup;
 			children = (
+				A128ABA7275D5EAD00219FBF /* MediaApplication.swift */,
 				A12B80802752889D003213E9 /* Dto */,
 				A12B8063275255B8003213E9 /* YandexMusicDebug.entitlements */,
 				A17F672827524A420094B5A3 /* Views */,
@@ -422,6 +425,7 @@
 				A128AB97275CD35C00219FBF /* TrackRequest.swift in Sources */,
 				A12B80882752A008003213E9 /* CollectionReducer.swift in Sources */,
 				A17F67272752460A0094B5A3 /* AuthState.swift in Sources */,
+				A128ABA8275D5EAD00219FBF /* MediaApplication.swift in Sources */,
 				A12B807D275283F9003213E9 /* AppReducer.swift in Sources */,
 				A12B807F275285D8003213E9 /* NetworkCombine.swift in Sources */,
 				A128AB95275CD34200219FBF /* RecommendationRequest.swift in Sources */,
