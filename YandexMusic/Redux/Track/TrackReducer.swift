@@ -156,6 +156,26 @@ func trackReducer(
         }
         state.current?.liked = !track.liked
         sendFeedback(state: state, action: track.liked ? .unlike : .like)
+        let params = LikeRequest.Params(
+            trackId: track.id,
+            albumId: track.album.id,
+            like: !track.liked
+        )
+        return LikeRequest(params: params).execute()
+            .ignoreError()
+            .map {
+                TrackAction.updateLike(
+                    trackId: params.trackId,
+                    albumId: params.albumId,
+                    state: $0.success && $0.act != "remove"
+                )
+            }
+            .eraseToAnyPublisher()
+    case let TrackAction.updateLike(trackId, albumId, val):
+        guard state.current?.id == trackId, state.current?.album.id == albumId else {
+            return nil
+        }
+        state.current?.liked = val
 
     default: break
 

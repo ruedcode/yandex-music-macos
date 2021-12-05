@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 struct TrackFeedbackRequest: RequestType {
     typealias ResponseType = TrackFeedbackResponse
 

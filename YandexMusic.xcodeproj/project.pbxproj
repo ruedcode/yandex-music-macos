@@ -20,6 +20,7 @@
 		A128AB9D275CD3C200219FBF /* TrackFeedbackRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A128AB9C275CD3C200219FBF /* TrackFeedbackRequest.swift */; };
 		A128AB9F275CD7FC00219FBF /* TokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A128AB9E275CD7FC00219FBF /* TokenRequest.swift */; };
 		A128ABA1275CD96300219FBF /* UserSettingsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A128ABA0275CD96300219FBF /* UserSettingsRequest.swift */; };
+		A128ABA3275D348A00219FBF /* LikeRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A128ABA2275D348A00219FBF /* LikeRequest.swift */; };
 		A12B806227524D27003213E9 /* PlayerButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B806127524D27003213E9 /* PlayerButtonView.swift */; };
 		A12B806627526F0B003213E9 /* CollectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B806527526F0B003213E9 /* CollectionState.swift */; };
 		A12B806927526F40003213E9 /* TrackState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B806827526F40003213E9 /* TrackState.swift */; };
@@ -69,6 +70,7 @@
 		A128AB9C275CD3C200219FBF /* TrackFeedbackRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackFeedbackRequest.swift; sourceTree = "<group>"; };
 		A128AB9E275CD7FC00219FBF /* TokenRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenRequest.swift; sourceTree = "<group>"; };
 		A128ABA0275CD96300219FBF /* UserSettingsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsRequest.swift; sourceTree = "<group>"; };
+		A128ABA2275D348A00219FBF /* LikeRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeRequest.swift; sourceTree = "<group>"; };
 		A12B806127524D27003213E9 /* PlayerButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerButtonView.swift; sourceTree = "<group>"; };
 		A12B8063275255B8003213E9 /* YandexMusicDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = YandexMusicDebug.entitlements; sourceTree = "<group>"; };
 		A12B806527526F0B003213E9 /* CollectionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionState.swift; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 				A128AB9C275CD3C200219FBF /* TrackFeedbackRequest.swift */,
 				A128AB9E275CD7FC00219FBF /* TokenRequest.swift */,
 				A128ABA0275CD96300219FBF /* UserSettingsRequest.swift */,
+				A128ABA2275D348A00219FBF /* LikeRequest.swift */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -396,6 +399,7 @@
 				A12B807527528058003213E9 /* AuthAction.swift in Sources */,
 				A12B809B27538BF3003213E9 /* Always.swift in Sources */,
 				A12B807327527B90003213E9 /* Constants.swift in Sources */,
+				A128ABA3275D348A00219FBF /* LikeRequest.swift in Sources */,
 				A12B808627529D97003213E9 /* StationDTO.swift in Sources */,
 				A128AB9D275CD3C200219FBF /* TrackFeedbackRequest.swift in Sources */,
 				459A279323AA910B003D50EC /* ContentView.swift in Sources */,

@@ -14,6 +14,7 @@ enum TrackAction: AppAction {
     case play
     case pause
     case toggleLike
+    case updateLike(trackId: String, albumId: String, state: Bool)
     case playNext
     case fetchFile
     case updateUrl(URL)
