@@ -13,32 +13,19 @@ struct ContentView: View {
     @EnvironmentObject var store: Store<AppState, AppAction>
 
     var body: some View {
-        VStack(alignment: .leading) {
+        return VStack(alignment: .leading) {
 
             LazyVGrid(columns: columns(for: store.state.collection.stations), spacing: 20) {
                 ForEach(store.state.collection.stations, id: \.self) { item in
                     Button(action: {
                         store.send(CollectionAction.select(item, andPlay: true))
                     }) {
-                        VStack {
-                            CustomView {
-                                AsyncImage(url: URL(string: item.image)) { image in
-                                    image.resizable()
-                                        .aspectRatio(1, contentMode: .fit)
-                                        .clipped()
-                                        .frame(maxWidth: 50, maxHeight: 50)
-                                } placeholder: {
-                                    ProgressView()
-                                }
-                                .padding(8)
-                            }
-                            .background(
-                                Color(nsColor: hexStringToColor(hex: item.color))
-                            )
-                            .clipShape(Circle())
-                            Text(item.name)
-                                .font(.subheadline)
-                        }
+                        StationView(
+                            isPlaying: item == store.state.collection.selected && store.state.track.isPlaying,
+                            image: URL(string: item.image),
+                            color: hexStringToColor(hex: item.color),
+                            text: item.name
+                        )
                     }.buttonStyle(PlainButtonStyle())
                 }
             }
