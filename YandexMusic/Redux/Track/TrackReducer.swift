@@ -82,24 +82,26 @@ func trackReducer(
         AudioProvider.instance.play(url: url)
         AudioProvider.instance.onFinish = {
             if let delegate = NSApp.delegate as? AppDelegate {
+                sendFeedback(state: delegate.store.state.track, action: .trackFinished)
                 delegate.store.send(TrackAction.playNext)
             }
         }
-        AudioProvider.instance.onStart = {
-            if
-                let delegate = NSApp.delegate as? AppDelegate,
-                let station = delegate.store.state.collection.selected,
-                let album = delegate.store.state.track.current?.album.id,
-                let track = delegate.store.state.track.current?.id
-            {
+        AudioProvider.instance.onStart = { time in
+            if let delegate = NSApp.delegate as? AppDelegate {
+                delegate.store.send(TrackAction.updateTotal(time))
+                sendFeedback(state: delegate.store.state.track, action: .radioStarted)
                 delegate.store.send(
-                    TrackAction.sendFeedback(
-                        type: station.type,
-                        tag: station.tag,
-                        trackId: track,
-                        albumId: album
+                    TrackAction.feedbackStationStartUpdate(
+                        type: delegate.store.state.track.lastType,
+                        tag: delegate.store.state.track.lastTag
                     )
                 )
+                sendFeedback(state: delegate.store.state.track, action: .trackStarted)
+            }
+        }
+        AudioProvider.instance.onCurrentUpdate = { time in
+            if let delegate = NSApp.delegate as? AppDelegate {
+                delegate.store.send(TrackAction.updateCurrent(time))
             }
         }
         if state.next == nil {
@@ -109,21 +111,56 @@ func trackReducer(
                 queue: [track]
             ).next
         }
+        
     case TrackAction.playNext:
+        if let item = AudioProvider.instance.player?.currentItem {
+            let current = Int(item.currentTime().seconds)
+            let duration = Int(item.duration.seconds)
+            print("curr \(current) \(duration)")
+            if current != duration {
+                sendFeedback(state: state, action: .skip)
+            }
+        }
         state.current = state.next
         state.next = nil
 
         return TrackAction.fetchFile.next
-//    case let TrackAction.sendFeedback(type, tag, trackId, albumId):
-////        TrackFeedbackRequest(
-////            type: type,
-////            tag: tag,
-////            trackId: trackId,
-////            albumId: albumId
-//        ).execute(onComplete: { _ in})
+    case let TrackAction.feedbackStationStartUpdate(type, tag):
+        state.feedback.lastStation = tag + type
+
+    case let TrackAction.updateTotal(time):
+        state.totalTime = time
+
+    case let TrackAction.updateCurrent(time):
+        state.currentTime = time
+
     default: break
 
     }
     return nil
+}
+
+private func sendFeedback(state: TrackState, action: TrackFeedbackRequest.Action) {
+    guard let track = state.current else {
+        return
+    }
+    if action == .radioStarted, state.feedback.lastStation == state.lastTag + state.lastType {
+        return
+    }
+    let batchId = action == .radioStarted ? nil : track.batchId
+    let totalPlayed = action == .radioStarted ? nil : AudioProvider.instance.player?.currentTime().seconds
+
+    TrackFeedbackRequest(
+        params: TrackFeedbackRequest.Params(
+            type: state.lastType,
+            tag: state.lastTag,
+            trackId: track.id,
+            albumId: track.album.id,
+            action: action,
+            batchId: batchId,
+            totalPlayed: totalPlayed
+        )
+    ).execute(onComplete: {_ in})
+
 }
 

@@ -13,12 +13,13 @@ import AVFoundation
 final class AudioProvider {
     static let instance = AudioProvider()
 
-    private var player: AVPlayer?
+    private(set) var player: AVPlayer?
     private var lastURL: URL?
     private var observer: NSKeyValueObservation?
 
     var onFinish: () -> Void = {}
-    var onStart: () -> Void = {}
+    var onStart: (Double) -> Void = {_ in }
+    var onCurrentUpdate: (Double) -> Void = {_ in}
 
     func play(url: URL? = nil) {
         if let url = url, lastURL != url {
@@ -37,8 +38,12 @@ final class AudioProvider {
                  options: [.new],
                  changeHandler: { [weak self] player, values in
                      if player.status == .readyToPlay {
-                         self?.onStart()
+                         self?.onStart(player.duration.seconds)
                      }
+            })
+
+            player?.addPeriodicTimeObserver(forInterval: CMTime(value: 1, timescale: 2), queue: nil, using: { [weak self] time in
+                self?.onCurrentUpdate(time.seconds)
             })
         }
 

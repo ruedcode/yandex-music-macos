@@ -15,6 +15,8 @@ struct TrackState {
     var lastTag: String = ""
     var lastType: String = ""
     var feedback: TrackFeedback = TrackFeedback()
+    var currentTime: Double = 0
+    var totalTime: Double = 0
 }
 
 struct TrackFeedback {
@@ -29,6 +31,7 @@ struct Track {
     let artist: Artist
     let liked: Bool
     var url: URL?
+    let batchId: String
 
     var fullName: String {
         return [artist.name, name].joined(separator: " - ")
@@ -38,6 +41,7 @@ struct Track {
         self.id = model.track.id
         self.name = model.track.title
         self.liked = model.liked
+        self.batchId = model.track.batchId
         if let first = model.track.albums.first {
             self.album = Album(
                 name: first.title,

@@ -57,9 +57,19 @@ struct ContentView: View {
             .padding(.top, 16)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
 
-            Divider().padding([.leading, .trailing], 8)
+
+            ProgressView(
+                "",
+                value: store.state.track.currentTime,
+                total: store.state.track.totalTime
+            )
+                .padding([.leading, .trailing], 8)
+                .scaleEffect(x: 1, y: 0.5, anchor: .center)
+                .labelsHidden()
+                .tint(.accentColor)
 
             PlayerView().padding(.bottom, 8).padding([.leading, .trailing], 8)
+            Spacer()
         }
     }
 
