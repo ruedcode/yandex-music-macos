@@ -58,8 +58,8 @@ struct PlayerView: View {
                     store.send(TrackAction.toggleLike)
                 }
 
-                PlayerButtonView(imageName: "Block") {
-                }
+//                PlayerButtonView(imageName: "Block") {
+//                }
 
                 PlayerButtonView(imageName: shareIcon) {
                     store.send(TrackAction.share)

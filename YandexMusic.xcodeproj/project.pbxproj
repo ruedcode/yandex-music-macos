@@ -158,7 +158,7 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		A128AB93275CD31D00219FBF /* Features */ = {
+		A128ABA4275D3EF700219FBF /* Network */ = {
 			isa = PBXGroup;
 			children = (
 				A128AB90275CD30400219FBF /* LibraryRequest.swift */,
@@ -171,7 +171,7 @@
 				A128ABA0275CD96300219FBF /* UserSettingsRequest.swift */,
 				A128ABA2275D348A00219FBF /* LikeRequest.swift */,
 			);
-			path = Features;
+			path = Network;
 			sourceTree = "<group>";
 		};
 		A12B806027524D0E003213E9 /* Common */ = {
@@ -296,6 +296,7 @@
 		A1B3BD0027523918006AE32C /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				A128ABA4275D3EF700219FBF /* Network */,
 				A1B3BD012752391F006AE32C /* Auth */,
 				A12B809E2753CC96003213E9 /* AudioProvider.swift */,
 				A12B80A427580FE1003213E9 /* TrackService.swift */,
@@ -314,7 +315,6 @@
 		A1B3BD0227523935006AE32C /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				A128AB93275CD31D00219FBF /* Features */,
 				A1B3BD0327523947006AE32C /* NetworkService.swift */,
 				A12B807E275285D8003213E9 /* NetworkCombine.swift */,
 			);

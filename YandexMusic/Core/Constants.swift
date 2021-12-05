@@ -29,12 +29,12 @@ enum Constants {
         static let like = "https://music.yandex.ru/api/v2.1/handlers/track/%@:%@/web-radio_page-track-track-main/like/add"
         static let unlike = "https://music.yandex.ru/api/v2.1/handlers/track/%@:%@/web-radio_page-track-track-main/like/remove"
         static let share = "https://music.yandex.ru/album/%@/track/%@"
+        static let feedback2 = "https://music.yandex.ru/api/v2.1/handlers/track/%@:%@/web-radio-user-main/feedback/%@"
 
     }
 
     enum Common {
         static let imageSize = CGSize(width: 200, height: 200)
         static let primary: Color = Color(red: 1.00, green: 0.80, blue: 0.00)
-//        static let secondary: Color = Color(red: 1.00, green: 0.80, blue: 0.00)
     }
 }

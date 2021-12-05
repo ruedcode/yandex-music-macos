@@ -216,5 +216,42 @@ private func sendFeedback(state: TrackState, action: TrackFeedbackRequest.Action
         )
     ).execute(onComplete: {_ in})
 
+    let reason: TrackFeedbackRequest2.Reason?
+    let act: TrackFeedbackRequest2.Action?
+
+    switch action {
+    case .skip:
+        reason = .skip
+        act = .end
+    case .trackStarted:
+        reason = .trackStarted
+        act = .start
+    case .trackFinished:
+        reason = .end
+        act = .end
+    default:
+        reason = nil
+        act = nil
+
+    }
+    guard let reason = reason, let act = act else {
+        return
+    }
+
+    TrackFeedbackRequest2(
+        params: TrackFeedbackRequest2.Params(
+            trackId: track.id,
+            albumId: track.album.id,
+            nextTrackId: state.next?.id ?? "",
+            nextAlbumId: state.next?.album.id ?? "",
+            type: state.lastType,
+            tag: state.lastTag,
+            reason: reason,
+            totalPlayed: totalPlayed ?? 0,
+            duration: AudioProvider.instance.player?.currentItem?.duration.seconds ?? 0,
+            action: act
+        )
+    ).execute(onComplete: {_ in })
+
 }
 
