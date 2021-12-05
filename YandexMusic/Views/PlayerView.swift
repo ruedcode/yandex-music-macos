@@ -15,7 +15,12 @@ struct PlayerView: View {
     var body: some View {
         HStack {
             PlayerButtonView(imageName: store.state.track.isPlaying ? "Pause" : "Play") {
-                store.send(TrackAction.togglePlay)
+                if store.state.track.isPlaying {
+                    store.send(TrackAction.pause)
+                }
+                else {
+                    store.send(TrackAction.play)
+                }
             }
 
             PlayerButtonView(imageName: "Next") {

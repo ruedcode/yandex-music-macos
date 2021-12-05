@@ -18,7 +18,7 @@ struct ContentView: View {
             LazyVGrid(columns: columns(for: store.state.collection.stations), spacing: 20) {
                 ForEach(store.state.collection.stations, id: \.self) { item in
                     Button(action: {
-                        store.send(CollectionAction.select(item))
+                        store.send(CollectionAction.select(item, andPlay: true))
                     }) {
                         VStack {
                             CustomView {

@@ -15,8 +15,8 @@ func trackReducer(
     action: AppAction
 ) -> AnyPublisher<AppAction, Never>? {
     switch action {
-    case let TrackAction.fetch(type, tag, queue, resetCurrent):
-        if resetCurrent {
+    case let TrackAction.fetch(type, tag, queue, andPlay):
+        if andPlay {
             state.current = nil
         }
         state.lastTag = tag
@@ -27,11 +27,11 @@ func trackReducer(
 
         return TrackRequest(type: type, tag: tag, queue: queue).execute()
             .map {
-                TrackAction.update($0)
+                TrackAction.update($0, andPlay: andPlay)
             }
             .ignoreError()
             .eraseToAnyPublisher()
-    case let TrackAction.update(response):
+    case let TrackAction.update(response, andPlay):
         if let current = response.tracks.first {
             if state.current == nil {
                 state.current = Track(model: current)
@@ -43,31 +43,38 @@ func trackReducer(
                 state.next = Track(model: current)
             }
         }
-
-    case TrackAction.togglePlay:
-        state.isPlaying = !state.isPlaying
-        if state.isPlaying == true {
+        if andPlay {
+            state.isPlaying = !state.isPlaying
             if state.current?.url == nil {
                 return TrackAction.fetchFile.next
             }
             else {
-                return TrackAction.playMusic.next
+                return TrackAction.runPlayer.next
             }
         }
-        else {
-            AudioProvider.instance.pause()
+    case TrackAction.play:
+        state.isPlaying = true
+        if state.current?.url == nil {
+            return TrackAction.fetchFile.next
         }
+        else {
+            return TrackAction.runPlayer.next
+        }
+
+    case TrackAction.pause:
+        state.isPlaying = false
+        AudioProvider.instance.pause()
 
     case let TrackAction.updateUrl(url):
         state.current?.url = url
-        return TrackAction.playMusic.next
+        return TrackAction.runPlayer.next
 
     case TrackAction.fetchFile:
         guard
             let trackId = state.current?.id,
             let albumId = state.current?.album.id
         else {
-            return TrackAction.playMusic.next // TODO - error screen
+            return TrackAction.runPlayer.next // TODO - error screen
         }
 
         return TrackService(trackId: trackId, albumId: albumId)
@@ -78,9 +85,14 @@ func trackReducer(
             }
             .eraseToAnyPublisher()
 
-    case TrackAction.playMusic:
+    case TrackAction.runPlayer:
         guard let track = state.current, let url = track.url else {
-            return TrackAction.fetch(type: state.lastType, tag: state.lastTag, queue: [], resetCurrent: false).next
+            return TrackAction.fetch(
+                type: state.lastType,
+                tag: state.lastTag,
+                queue: [],
+                andPlay: true
+            ).next
         }
         AudioProvider.instance.play(url: url)
         AudioProvider.instance.onFinish = {
@@ -112,7 +124,7 @@ func trackReducer(
                 type: state.lastType,
                 tag: state.lastTag,
                 queue: [track],
-                resetCurrent: false
+                andPlay: false
             ).next
         }
         

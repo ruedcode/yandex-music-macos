@@ -9,14 +9,15 @@
 import Foundation
 
 enum TrackAction: AppAction {
-    case fetch(type: String, tag: String, queue: [Track], resetCurrent: Bool)
-    case update(TrackResponse)
-    case togglePlay
+    case fetch(type: String, tag: String, queue: [Track], andPlay: Bool)
+    case update(TrackResponse, andPlay: Bool)
+    case play
+    case pause
     case toggleLike
     case playNext
     case fetchFile
     case updateUrl(URL)
-    case playMusic
+    case runPlayer
     case feedbackStationStartUpdate(type: String, tag: String)
 
     case updateCurrent(Double)

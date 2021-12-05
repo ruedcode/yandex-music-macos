@@ -34,14 +34,19 @@ func collectionReducer(
         }
         state.stations = stations
         if state.selected == nil, let station = stations.first {
-            return CollectionAction.select(station).next
+            return CollectionAction.select(station, andPlay: false).next
         }
-    case let CollectionAction.select(station):
+    case let CollectionAction.select(station, andPlay):
         guard state.selected != station else {
             return nil
         }
         state.selected = station
-        return TrackAction.fetch(type: station.type, tag: station.tag, queue: [], resetCurrent: true).next
+        return TrackAction.fetch(
+            type: station.type,
+            tag: station.tag,
+            queue: [],
+            andPlay: andPlay
+        ).next
     default:
         break
     }
