@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 enum Constants {
     enum Auth {
@@ -29,5 +30,7 @@ enum Constants {
 
     enum Common {
         static let imageSize = CGSize(width: 200, height: 200)
+        static let primary: Color = Color(red: 1.00, green: 0.80, blue: 0.00)
+//        static let secondary: Color = Color(red: 1.00, green: 0.80, blue: 0.00)
     }
 }
