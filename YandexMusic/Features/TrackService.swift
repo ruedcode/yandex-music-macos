@@ -25,7 +25,7 @@ struct TrackService {
                 "https:\($0.src)"
             }
             .flatMap {
-                FileRequest(path: $0)
+                Mp3File(path: $0)
                     .execute()
                     .tryMap { cdn -> URL in
                         let path = "https://\(cdn.host)/get-mp3/falfn2o3finf023nn02nd0120192n012/\(cdn.ts)\(cdn.path)"
