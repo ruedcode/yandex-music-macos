@@ -9,6 +9,7 @@
 import Foundation
 import Combine
 import Cocoa
+import UserNotifications
 
 func trackReducer(
     state: inout TrackState,
@@ -94,6 +95,7 @@ func trackReducer(
                 andPlay: true
             ).next
         }
+        state.isPlaying = true
         AudioProvider.instance.play(url: url)
         AudioProvider.instance.onFinish = {
             if let delegate = NSApp.delegate as? AppDelegate {
@@ -176,6 +178,15 @@ func trackReducer(
             return nil
         }
         state.current?.liked = val
+
+    case TrackAction.share:
+        guard let track = state.current else {
+            return nil
+        }
+
+        let string = String(format: Constants.Track.share, track.album.id, track.id)
+        NSPasteboard.general.clearContents()
+        NSPasteboard.general.setString(string, forType: .URL)
 
     default: break
 

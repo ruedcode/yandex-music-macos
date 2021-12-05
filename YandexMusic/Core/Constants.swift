@@ -28,6 +28,8 @@ enum Constants {
         static let feedback = "https://music.yandex.ru/api/v2.1/handlers/radio/%@/%@/feedback/%@/%@:%@"
         static let like = "https://music.yandex.ru/api/v2.1/handlers/track/%@:%@/web-radio_page-track-track-main/like/add"
         static let unlike = "https://music.yandex.ru/api/v2.1/handlers/track/%@:%@/web-radio_page-track-track-main/like/remove"
+        static let share = "https://music.yandex.ru/album/%@/track/%@"
+
     }
 
     enum Common {

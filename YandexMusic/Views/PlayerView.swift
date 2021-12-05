@@ -11,6 +11,7 @@ import SwiftUI
 struct PlayerView: View {
     private let constants = Constants()
     @EnvironmentObject var store: Store<AppState, AppAction>
+    @State var shareIcon: String = "Share"
 
     var body: some View {
         HStack {
@@ -60,7 +61,12 @@ struct PlayerView: View {
                 PlayerButtonView(imageName: "Block") {
                 }
 
-                PlayerButtonView(imageName: "Share") {
+                PlayerButtonView(imageName: shareIcon) {
+                    store.send(TrackAction.share)
+                    shareIcon = "Copy"
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        shareIcon = "Share"
+                    }
                 }
             }
             .frame(alignment: .trailing)

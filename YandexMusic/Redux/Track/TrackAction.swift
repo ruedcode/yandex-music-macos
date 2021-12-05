@@ -20,6 +20,7 @@ enum TrackAction: AppAction {
     case updateUrl(URL)
     case runPlayer
     case feedbackStationStartUpdate(type: String, tag: String)
+    case share
 
     case updateCurrent(Double)
     case updateTotal(Double)
