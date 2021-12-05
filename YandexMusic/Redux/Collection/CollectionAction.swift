@@ -9,4 +9,5 @@
 enum CollectionAction: AppAction {
     case fetch
     case update(RecomendationResponse)
+    case select(Station)
 }

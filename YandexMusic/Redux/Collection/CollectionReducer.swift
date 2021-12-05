@@ -34,9 +34,14 @@ func collectionReducer(
         }
         state.stations = stations
         if state.selected == nil, let station = stations.first {
-            state.selected = station
-            return TrackAction.fetch(type: station.type, tag: station.tag, queue: []).next
+            return CollectionAction.select(station).next
         }
+    case let CollectionAction.select(station):
+        guard state.selected != station else {
+            return nil
+        }
+        state.selected = station
+        return TrackAction.fetch(type: station.type, tag: station.tag, queue: [], resetCurrent: true).next
     default:
         break
     }

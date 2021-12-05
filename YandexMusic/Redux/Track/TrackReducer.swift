@@ -15,7 +15,10 @@ func trackReducer(
     action: AppAction
 ) -> AnyPublisher<AppAction, Never>? {
     switch action {
-    case let TrackAction.fetch(type, tag, queue):
+    case let TrackAction.fetch(type, tag, queue, resetCurrent):
+        if resetCurrent {
+            state.current = nil
+        }
         state.lastTag = tag
         state.lastType = type
         let queue = queue.compactMap { item -> (String, String)? in
@@ -77,7 +80,7 @@ func trackReducer(
 
     case TrackAction.playMusic:
         guard let track = state.current, let url = track.url else {
-            return TrackAction.fetch(type: state.lastType, tag: state.lastTag, queue: []).next
+            return TrackAction.fetch(type: state.lastType, tag: state.lastTag, queue: [], resetCurrent: false).next
         }
         AudioProvider.instance.play(url: url)
         AudioProvider.instance.onFinish = {
@@ -108,7 +111,8 @@ func trackReducer(
             return TrackAction.fetch(
                 type: state.lastType,
                 tag: state.lastTag,
-                queue: [track]
+                queue: [track],
+                resetCurrent: false
             ).next
         }
         

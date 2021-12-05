@@ -9,7 +9,7 @@
 import Foundation
 
 enum TrackAction: AppAction {
-    case fetch(type: String, tag: String, queue: [Track])
+    case fetch(type: String, tag: String, queue: [Track], resetCurrent: Bool)
     case update(TrackResponse)
     case togglePlay
     case toggleLike

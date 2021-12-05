@@ -11,9 +11,6 @@ import SwiftUI
 struct ContentView: View {
 
     @EnvironmentObject var store: Store<AppState, AppAction>
-    @State var selectedId: String = ""
-    @State var isAtMaxScale = false
-    private let animation = Animation.linear(duration: 1).repeatForever()
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -21,13 +18,7 @@ struct ContentView: View {
             LazyVGrid(columns: columns(for: store.state.collection.stations), spacing: 20) {
                 ForEach(store.state.collection.stations, id: \.self) { item in
                     Button(action: {
-//                        if selectedId == item.id {
-//                            isAtMaxScale = false
-//                        }
-//                        else {
-//                            selectedId = item.id
-//                            isAtMaxScale = true
-//                        }
+                        store.send(CollectionAction.select(item))
                     }) {
                         VStack {
                             CustomView {
@@ -45,8 +36,6 @@ struct ContentView: View {
                                 Color(nsColor: hexStringToColor(hex: item.color))
                             )
                             .clipShape(Circle())
-//                            .scaleEffect(isAtMaxScale && item.id == selectedId ? 1.2 : 1)
-//                            .animation(item.id == selectedId ? animation : nil, value: isAtMaxScale)
                             Text(item.name)
                                 .font(.subheadline)
                         }
