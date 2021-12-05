@@ -12,6 +12,7 @@ enum TrackAction: AppAction {
     case fetch(type: String, tag: String, queue: [Track])
     case update(TrackResponse)
     case togglePlay
+    case toggleLike
     case playNext
     case fetchFile
     case updateUrl(URL)

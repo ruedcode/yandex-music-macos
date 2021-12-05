@@ -64,9 +64,8 @@ struct RequestData {
             var component = URLComponents()
             var items: [URLQueryItem] = []
             dict.enumerated().forEach {
-                if let name = $0.element.key as? String,
-                   let value = $0.element.value as? String {
-                    items.append(URLQueryItem(name: name, value: value))
+                if let name = $0.element.key as? String {
+                    items.append(URLQueryItem(name: name, value: $0.element.value.description))
                 }
             }
             component.queryItems = items

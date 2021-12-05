@@ -134,6 +134,13 @@ func trackReducer(
     case let TrackAction.updateCurrent(time):
         state.currentTime = time
 
+    case TrackAction.toggleLike:
+        guard let track = state.current else {
+            return nil
+        }
+        state.current?.liked = !track.liked
+        sendFeedback(state: state, action: track.liked ? .unlike : .like)
+
     default: break
 
     }

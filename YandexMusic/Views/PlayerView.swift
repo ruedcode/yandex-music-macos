@@ -49,7 +49,7 @@ struct PlayerView: View {
 
             HStack {
                 PlayerButtonView(imageName: store.state.track.current?.liked == true ? "Liked" : "Like") {
-    //                isLiked = !isLiked
+                    store.send(TrackAction.toggleLike)
                 }
 
                 PlayerButtonView(imageName: "Block") {

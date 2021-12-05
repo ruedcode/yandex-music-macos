@@ -29,7 +29,7 @@ struct Track {
     let name: String
     let album: Album
     let artist: Artist
-    let liked: Bool
+    var liked: Bool
     var url: URL?
     let batchId: String
 

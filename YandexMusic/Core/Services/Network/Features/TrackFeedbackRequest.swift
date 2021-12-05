@@ -46,6 +46,8 @@ struct TrackFeedbackRequest: RequestType {
         case trackStarted
         case trackFinished
         case skip
+        case like
+        case unlike
     }
 
     struct Params {
