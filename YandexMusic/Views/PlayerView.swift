@@ -44,7 +44,8 @@ struct PlayerView: View {
                     .help(store.state.track.current?.artist.name ?? "")
                     .frame(alignment: .leading)
             }
-            .frame(maxWidth: .infinity)
+
+            Spacer()
 
             HStack {
                 PlayerButtonView(imageName: store.state.track.current?.liked == true ? "Liked" : "Like") {
