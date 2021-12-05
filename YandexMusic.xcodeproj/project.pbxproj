@@ -12,12 +12,14 @@
 		459A279523AA910B003D50EC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 459A279423AA910B003D50EC /* Assets.xcassets */; };
 		459A279823AA910B003D50EC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 459A279723AA910B003D50EC /* Preview Assets.xcassets */; };
 		459A279B23AA910B003D50EC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 459A279923AA910B003D50EC /* Main.storyboard */; };
-		A128AB91275CD30400219FBF /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = A128AB90275CD30400219FBF /* Library.swift */; };
-		A128AB95275CD34200219FBF /* Recommendation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A128AB94275CD34200219FBF /* Recommendation.swift */; };
-		A128AB97275CD35C00219FBF /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = A128AB96275CD35C00219FBF /* Track.swift */; };
-		A128AB99275CD37A00219FBF /* Mp3.swift in Sources */ = {isa = PBXBuildFile; fileRef = A128AB98275CD37A00219FBF /* Mp3.swift */; };
-		A128AB9B275CD39600219FBF /* TrackFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A128AB9A275CD39600219FBF /* TrackFile.swift */; };
-		A128AB9D275CD3C200219FBF /* TrackFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = A128AB9C275CD3C200219FBF /* TrackFeedback.swift */; };
+		A128AB91275CD30400219FBF /* LibraryRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A128AB90275CD30400219FBF /* LibraryRequest.swift */; };
+		A128AB95275CD34200219FBF /* RecommendationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A128AB94275CD34200219FBF /* RecommendationRequest.swift */; };
+		A128AB97275CD35C00219FBF /* TrackRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A128AB96275CD35C00219FBF /* TrackRequest.swift */; };
+		A128AB99275CD37A00219FBF /* Mp3Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = A128AB98275CD37A00219FBF /* Mp3Request.swift */; };
+		A128AB9B275CD39600219FBF /* TrackFileRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A128AB9A275CD39600219FBF /* TrackFileRequest.swift */; };
+		A128AB9D275CD3C200219FBF /* TrackFeedbackRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A128AB9C275CD3C200219FBF /* TrackFeedbackRequest.swift */; };
+		A128AB9F275CD7FC00219FBF /* TokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A128AB9E275CD7FC00219FBF /* TokenRequest.swift */; };
+		A128ABA1275CD96300219FBF /* UserSettingsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A128ABA0275CD96300219FBF /* UserSettingsRequest.swift */; };
 		A12B806227524D27003213E9 /* PlayerButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B806127524D27003213E9 /* PlayerButtonView.swift */; };
 		A12B806627526F0B003213E9 /* CollectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B806527526F0B003213E9 /* CollectionState.swift */; };
 		A12B806927526F40003213E9 /* TrackState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B806827526F40003213E9 /* TrackState.swift */; };
@@ -28,7 +30,6 @@
 		A12B807727528080003213E9 /* AuthReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B807627528080003213E9 /* AuthReducer.swift */; };
 		A12B807D275283F9003213E9 /* AppReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B807C275283F9003213E9 /* AppReducer.swift */; };
 		A12B807F275285D8003213E9 /* NetworkCombine.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B807E275285D8003213E9 /* NetworkCombine.swift */; };
-		A12B8084275288C5003213E9 /* AuthDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B8083275288C5003213E9 /* AuthDTO.swift */; };
 		A12B808627529D97003213E9 /* StationDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B808527529D97003213E9 /* StationDTO.swift */; };
 		A12B80882752A008003213E9 /* CollectionReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B80872752A008003213E9 /* CollectionReducer.swift */; };
 		A12B808A2752A064003213E9 /* CollectionAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B80892752A064003213E9 /* CollectionAction.swift */; };
@@ -60,12 +61,14 @@
 		459A279A23AA910B003D50EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		459A279C23AA910B003D50EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		459A279D23AA910B003D50EC /* YandexMusic.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = YandexMusic.entitlements; sourceTree = "<group>"; };
-		A128AB90275CD30400219FBF /* Library.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Library.swift; sourceTree = "<group>"; };
-		A128AB94275CD34200219FBF /* Recommendation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recommendation.swift; sourceTree = "<group>"; };
-		A128AB96275CD35C00219FBF /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
-		A128AB98275CD37A00219FBF /* Mp3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mp3.swift; sourceTree = "<group>"; };
-		A128AB9A275CD39600219FBF /* TrackFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackFile.swift; sourceTree = "<group>"; };
-		A128AB9C275CD3C200219FBF /* TrackFeedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackFeedback.swift; sourceTree = "<group>"; };
+		A128AB90275CD30400219FBF /* LibraryRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryRequest.swift; sourceTree = "<group>"; };
+		A128AB94275CD34200219FBF /* RecommendationRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationRequest.swift; sourceTree = "<group>"; };
+		A128AB96275CD35C00219FBF /* TrackRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackRequest.swift; sourceTree = "<group>"; };
+		A128AB98275CD37A00219FBF /* Mp3Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mp3Request.swift; sourceTree = "<group>"; };
+		A128AB9A275CD39600219FBF /* TrackFileRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackFileRequest.swift; sourceTree = "<group>"; };
+		A128AB9C275CD3C200219FBF /* TrackFeedbackRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackFeedbackRequest.swift; sourceTree = "<group>"; };
+		A128AB9E275CD7FC00219FBF /* TokenRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenRequest.swift; sourceTree = "<group>"; };
+		A128ABA0275CD96300219FBF /* UserSettingsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsRequest.swift; sourceTree = "<group>"; };
 		A12B806127524D27003213E9 /* PlayerButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerButtonView.swift; sourceTree = "<group>"; };
 		A12B8063275255B8003213E9 /* YandexMusicDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = YandexMusicDebug.entitlements; sourceTree = "<group>"; };
 		A12B806527526F0B003213E9 /* CollectionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionState.swift; sourceTree = "<group>"; };
@@ -77,7 +80,6 @@
 		A12B807627528080003213E9 /* AuthReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthReducer.swift; sourceTree = "<group>"; };
 		A12B807C275283F9003213E9 /* AppReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppReducer.swift; sourceTree = "<group>"; };
 		A12B807E275285D8003213E9 /* NetworkCombine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkCombine.swift; sourceTree = "<group>"; };
-		A12B8083275288C5003213E9 /* AuthDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDTO.swift; sourceTree = "<group>"; };
 		A12B808527529D97003213E9 /* StationDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationDTO.swift; sourceTree = "<group>"; };
 		A12B80872752A008003213E9 /* CollectionReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionReducer.swift; sourceTree = "<group>"; };
 		A12B80892752A064003213E9 /* CollectionAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionAction.swift; sourceTree = "<group>"; };
@@ -157,12 +159,14 @@
 		A128AB93275CD31D00219FBF /* Features */ = {
 			isa = PBXGroup;
 			children = (
-				A128AB90275CD30400219FBF /* Library.swift */,
-				A128AB94275CD34200219FBF /* Recommendation.swift */,
-				A128AB96275CD35C00219FBF /* Track.swift */,
-				A128AB98275CD37A00219FBF /* Mp3.swift */,
-				A128AB9A275CD39600219FBF /* TrackFile.swift */,
-				A128AB9C275CD3C200219FBF /* TrackFeedback.swift */,
+				A128AB90275CD30400219FBF /* LibraryRequest.swift */,
+				A128AB94275CD34200219FBF /* RecommendationRequest.swift */,
+				A128AB96275CD35C00219FBF /* TrackRequest.swift */,
+				A128AB98275CD37A00219FBF /* Mp3Request.swift */,
+				A128AB9A275CD39600219FBF /* TrackFileRequest.swift */,
+				A128AB9C275CD3C200219FBF /* TrackFeedbackRequest.swift */,
+				A128AB9E275CD7FC00219FBF /* TokenRequest.swift */,
+				A128ABA0275CD96300219FBF /* UserSettingsRequest.swift */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -215,7 +219,6 @@
 		A12B80802752889D003213E9 /* Dto */ = {
 			isa = PBXGroup;
 			children = (
-				A12B8083275288C5003213E9 /* AuthDTO.swift */,
 				A12B808527529D97003213E9 /* StationDTO.swift */,
 				A12B808F27537CF5003213E9 /* TrackDTO.swift */,
 			);
@@ -387,7 +390,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A12B80972753826A003213E9 /* UrlHelper.swift in Sources */,
-				A12B8084275288C5003213E9 /* AuthDTO.swift in Sources */,
 				A12B80A527580FE1003213E9 /* TrackService.swift in Sources */,
 				A12B808C2752AF7E003213E9 /* Colors.swift in Sources */,
 				A17F672A27524A590094B5A3 /* PlayerView.swift in Sources */,
@@ -395,34 +397,36 @@
 				A12B809B27538BF3003213E9 /* Always.swift in Sources */,
 				A12B807327527B90003213E9 /* Constants.swift in Sources */,
 				A12B808627529D97003213E9 /* StationDTO.swift in Sources */,
-				A128AB9D275CD3C200219FBF /* TrackFeedback.swift in Sources */,
+				A128AB9D275CD3C200219FBF /* TrackFeedbackRequest.swift in Sources */,
 				459A279323AA910B003D50EC /* ContentView.swift in Sources */,
 				A1B3BD0427523947006AE32C /* NetworkService.swift in Sources */,
 				A12B807727528080003213E9 /* AuthReducer.swift in Sources */,
+				A128ABA1275CD96300219FBF /* UserSettingsRequest.swift in Sources */,
 				A1B3BD082752427B006AE32C /* AuthProvider.swift in Sources */,
 				A12B809D27538DFD003213E9 /* TrackReducer.swift in Sources */,
 				A12B806227524D27003213E9 /* PlayerButtonView.swift in Sources */,
-				A128AB9B275CD39600219FBF /* TrackFile.swift in Sources */,
+				A128AB9B275CD39600219FBF /* TrackFileRequest.swift in Sources */,
 				A17F6723275245240094B5A3 /* AppAction.swift in Sources */,
-				A128AB91275CD30400219FBF /* Library.swift in Sources */,
+				A128AB91275CD30400219FBF /* LibraryRequest.swift in Sources */,
 				A12B808A2752A064003213E9 /* CollectionAction.swift in Sources */,
 				A17F671D275244A90094B5A3 /* AppState.swift in Sources */,
 				459A279123AA910B003D50EC /* AppDelegate.swift in Sources */,
 				A12B806C27527745003213E9 /* AuthWindow.swift in Sources */,
-				A128AB97275CD35C00219FBF /* Track.swift in Sources */,
+				A128AB97275CD35C00219FBF /* TrackRequest.swift in Sources */,
 				A12B80882752A008003213E9 /* CollectionReducer.swift in Sources */,
 				A17F67272752460A0094B5A3 /* AuthState.swift in Sources */,
 				A12B807D275283F9003213E9 /* AppReducer.swift in Sources */,
 				A12B807F275285D8003213E9 /* NetworkCombine.swift in Sources */,
-				A128AB95275CD34200219FBF /* Recommendation.swift in Sources */,
+				A128AB95275CD34200219FBF /* RecommendationRequest.swift in Sources */,
 				A12B80A12757FE42003213E9 /* Logger.swift in Sources */,
 				A12B808E2752B770003213E9 /* CustomView.swift in Sources */,
+				A128AB9F275CD7FC00219FBF /* TokenRequest.swift in Sources */,
 				A12B809027537CF5003213E9 /* TrackDTO.swift in Sources */,
 				A12B80992753857D003213E9 /* TrackAction.swift in Sources */,
 				A12B809F2753CC96003213E9 /* AudioProvider.swift in Sources */,
 				A12B807127527A85003213E9 /* WebView.swift in Sources */,
 				A12B806627526F0B003213E9 /* CollectionState.swift in Sources */,
-				A128AB99275CD37A00219FBF /* Mp3.swift in Sources */,
+				A128AB99275CD37A00219FBF /* Mp3Request.swift in Sources */,
 				A17F671F275244C40094B5A3 /* AppStore.swift in Sources */,
 				A12B806927526F40003213E9 /* TrackState.swift in Sources */,
 			);

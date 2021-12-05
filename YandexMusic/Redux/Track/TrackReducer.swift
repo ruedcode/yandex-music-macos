@@ -114,13 +114,13 @@ func trackReducer(
         state.next = nil
 
         return TrackAction.fetchFile.next
-    case let TrackAction.sendFeedback(type, tag, trackId, albumId):
-        TrackFeedbackRequest(
-            type: type,
-            tag: tag,
-            trackId: trackId,
-            albumId: albumId
-        ).execute(onComplete: { _ in})
+//    case let TrackAction.sendFeedback(type, tag, trackId, albumId):
+////        TrackFeedbackRequest(
+////            type: type,
+////            tag: tag,
+////            trackId: trackId,
+////            albumId: albumId
+//        ).execute(onComplete: { _ in})
     default: break
 
     }

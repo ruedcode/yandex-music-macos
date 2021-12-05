@@ -16,13 +16,11 @@ func authReducer(
     switch action {
     case AuthAction.fetchToken(let code):
         return AuthProvider.instance
-            .requestToken(code: code)
+            .auth(with: code)
             .map {
                 AuthAction.updateToken
             }
-            .catch { _ in
-                Empty(completeImmediately: true)
-            }
+            .ignoreError()
             .eraseToAnyPublisher()
     case AuthAction.updateToken:
         state = AuthProvider.instance.token != nil ? .authorized : .unauthorized

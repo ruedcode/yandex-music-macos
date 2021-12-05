@@ -10,10 +10,11 @@ import Foundation
 
 enum Constants {
     enum Auth {
-        static let clietnId = "15bfc573dab24b5d83243a913ab314c0"
-        static let codeUrl = "https://oauth.yandex.ru/authorize?response_type=code&client_id=\(clietnId)"
+        static let clientId = "15bfc573dab24b5d83243a913ab314c0"
+        static let codeUrl = "https://oauth.yandex.ru/authorize?response_type=code&client_id=\(clientId)"
         static let tokenUrl = "https://oauth.yandex.ru/token"
         static let clientSecret = "236cbbffd5524a4687445768afe4c0d1"
+        static let userSettings = "https://music.yandex.ru/api/v2.1/handlers/auth?external-domain=music.yandex.ru&overembed=no"
     }
     enum Collection {
         static let library = "https://music.yandex.ru/handlers/radio-library.jsx?lang=ru"
@@ -23,7 +24,7 @@ enum Constants {
     enum Track {
         static let list = "https://music.yandex.ru/api/v2.1/handlers/radio/%@/%@/tracks?queue=%@"
         static let mp3 = "https://music.yandex.ru/api/v2.1/handlers/track/%@:%@/web-radio-user-saved/download/m?hq=0"
-        static let feedback = "https://music.yandex.ru/api/v2.1/handlers/radio/%@/%@/feedback/radioStarted/%@:%@"
+        static let feedback = "https://music.yandex.ru/api/v2.1/handlers/radio/%@/%@/feedback/%@/%@:%@"
     }
 
     enum Common {

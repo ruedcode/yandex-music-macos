@@ -14,6 +14,12 @@ struct TrackState {
     var isPlaying: Bool = false
     var lastTag: String = ""
     var lastType: String = ""
+    var feedback: TrackFeedback = TrackFeedback()
+}
+
+struct TrackFeedback {
+    var lastStation: String?
+    var lastTrack: String?
 }
 
 struct Track {

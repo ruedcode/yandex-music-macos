@@ -12,14 +12,18 @@ import Foundation
 struct TrackFeedbackRequest: RequestType {
     typealias ResponseType = TrackFeedbackResponse
 
-    let type: String
-    let tag: String
-    let trackId: String
-    let albumId: String
+    let params: Params
 
     var data: RequestData {
         return RequestData(
-            path: String(format: Constants.Track.feedback, type, tag, trackId, albumId),
+            path: String(
+                format: Constants.Track.feedback,
+                params.type,
+                params.tag,
+                params.action.rawValue,
+                params.trackId,
+                params.albumId
+            ),
             method: .post,
             auth: true,
             headers: [
@@ -27,6 +31,20 @@ struct TrackFeedbackRequest: RequestType {
                 "X-Yandex-Music-Client": "YandexMusicAPI"
             ]
         )
+    }
+
+    enum Action: String {
+        case radioStarted
+        case trackStarted
+        case skip
+    }
+
+    struct Params {
+        let type: String
+        let tag: String
+        let trackId: String
+        let albumId: String
+        let action: Action
     }
 }
 
