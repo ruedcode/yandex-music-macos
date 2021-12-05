@@ -53,6 +53,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             } else {
                 if case .authorized = store.state.auth {
                     self.popover.show(relativeTo: button.bounds, of: button, preferredEdge: NSRectEdge.minY)
+                    self.popover.contentViewController?.view.window?.makeKey()
                 }
                 else {
                     auth()
@@ -69,6 +70,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 self?.cancellable?.cancel()
                 if let button = self?.statusBarItem.button {
                     self?.popover.show(relativeTo: button.bounds, of: button, preferredEdge: NSRectEdge.minY)
+                    self?.popover.contentViewController?.view.window?.makeKey()
                     self?.store.send(CollectionAction.fetch)
                 }
             }
