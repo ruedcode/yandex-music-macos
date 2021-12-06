@@ -11,7 +11,7 @@ import SwiftUI
 struct StationView: View {
     let isPlaying: Bool
     let image: URL?
-    let color: NSColor
+    let color: Color
     let text: String
 
     @State private var isAnimated: Bool = false
@@ -30,9 +30,7 @@ struct StationView: View {
                 }
                 .padding(8)
             }
-            .background(
-                Color(nsColor: color)
-            )
+            .background(color)
             .clipShape(Circle())
             .scaleEffect(isAnimated ? 0.8 : 1)
             .animation(isPlaying

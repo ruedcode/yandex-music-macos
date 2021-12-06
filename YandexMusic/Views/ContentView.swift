@@ -42,7 +42,7 @@ struct ContentView: View {
                 .padding([.leading, .trailing], 8)
                 .scaleEffect(x: 1, y: 0.5, anchor: .center)
                 .labelsHidden()
-                .tint(Constants.Common.primary)
+                .progressViewStyle(LinearProgressViewStyle(tint: Constants.Common.primary))
 
             PlayerView().padding(.bottom, 8).padding([.leading, .trailing], 8)
             Spacer()

@@ -51,6 +51,9 @@
 		A17F6723275245240094B5A3 /* AppAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17F6722275245240094B5A3 /* AppAction.swift */; };
 		A17F67272752460A0094B5A3 /* AuthState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17F67262752460A0094B5A3 /* AuthState.swift */; };
 		A17F672A27524A590094B5A3 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17F672927524A590094B5A3 /* PlayerView.swift */; };
+		A18D63B8275E9DC0007D83A9 /* AsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18D63B7275E9DC0007D83A9 /* AsyncImage.swift */; };
+		A18D63BA275E9DD6007D83A9 /* AsyncImagePhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18D63B9275E9DD6007D83A9 /* AsyncImagePhase.swift */; };
+		A18D63BC275E9DF3007D83A9 /* BackportAsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18D63BB275E9DF3007D83A9 /* BackportAsyncImage.swift */; };
 		A1B3BD0427523947006AE32C /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B3BD0327523947006AE32C /* NetworkService.swift */; };
 		A1B3BD082752427B006AE32C /* AuthProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B3BD072752427B006AE32C /* AuthProvider.swift */; };
 /* End PBXBuildFile section */
@@ -104,6 +107,9 @@
 		A17F6722275245240094B5A3 /* AppAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAction.swift; sourceTree = "<group>"; };
 		A17F67262752460A0094B5A3 /* AuthState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthState.swift; sourceTree = "<group>"; };
 		A17F672927524A590094B5A3 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
+		A18D63B7275E9DC0007D83A9 /* AsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncImage.swift; sourceTree = "<group>"; };
+		A18D63B9275E9DD6007D83A9 /* AsyncImagePhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncImagePhase.swift; sourceTree = "<group>"; };
+		A18D63BB275E9DF3007D83A9 /* BackportAsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackportAsyncImage.swift; sourceTree = "<group>"; };
 		A1B3BD0327523947006AE32C /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		A1B3BD072752427B006AE32C /* AuthProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthProvider.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -274,6 +280,7 @@
 				459A279223AA910B003D50EC /* ContentView.swift */,
 				A17F672927524A590094B5A3 /* PlayerView.swift */,
 				A128ABA5275D499A00219FBF /* StationView.swift */,
+				A18D63B7275E9DC0007D83A9 /* AsyncImage.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -287,6 +294,8 @@
 				A12B80962753826A003213E9 /* UrlHelper.swift */,
 				A12B809A27538BF3003213E9 /* Always.swift */,
 				A12B80A02757FE42003213E9 /* Logger.swift */,
+				A18D63B9275E9DD6007D83A9 /* AsyncImagePhase.swift */,
+				A18D63BB275E9DF3007D83A9 /* BackportAsyncImage.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -400,6 +409,7 @@
 			files = (
 				A12B80972753826A003213E9 /* UrlHelper.swift in Sources */,
 				A12B80A527580FE1003213E9 /* TrackService.swift in Sources */,
+				A18D63BA275E9DD6007D83A9 /* AsyncImagePhase.swift in Sources */,
 				A12B808C2752AF7E003213E9 /* Colors.swift in Sources */,
 				A17F672A27524A590094B5A3 /* PlayerView.swift in Sources */,
 				A12B807527528058003213E9 /* AuthAction.swift in Sources */,
@@ -413,7 +423,9 @@
 				A12B807727528080003213E9 /* AuthReducer.swift in Sources */,
 				A128ABA1275CD96300219FBF /* UserSettingsRequest.swift in Sources */,
 				A1B3BD082752427B006AE32C /* AuthProvider.swift in Sources */,
+				A18D63BC275E9DF3007D83A9 /* BackportAsyncImage.swift in Sources */,
 				A12B809D27538DFD003213E9 /* TrackReducer.swift in Sources */,
+				A18D63B8275E9DC0007D83A9 /* AsyncImage.swift in Sources */,
 				A12B806227524D27003213E9 /* PlayerButtonView.swift in Sources */,
 				A128AB9B275CD39600219FBF /* TrackFileRequest.swift in Sources */,
 				A17F6723275245240094B5A3 /* AppAction.swift in Sources */,
@@ -590,7 +602,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "ru.edcode.yandex-music";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -614,7 +626,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "ru.edcode.yandex-music";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
