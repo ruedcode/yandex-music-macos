@@ -97,13 +97,18 @@ func trackReducer(
         }
         state.isPlaying = true
         AudioProvider.instance.play(url: url)
+
         AudioProvider.instance.onFinish = {
             if let delegate = NSApp.delegate as? AppDelegate {
                 sendFeedback(state: delegate.store.state.track, action: .trackFinished)
                 delegate.store.send(TrackAction.playNext)
+                NowPlayingProvider.instance.set(state: .stopped)
             }
         }
         AudioProvider.instance.onStart = { time in
+            NowPlayingProvider.instance.set(track: track)
+            NowPlayingProvider.instance.set(duration: time)
+            NowPlayingProvider.instance.set(state: .playing)
             if let delegate = NSApp.delegate as? AppDelegate {
                 delegate.store.send(TrackAction.updateTotal(time))
                 sendFeedback(state: delegate.store.state.track, action: .radioStarted)
@@ -117,9 +122,16 @@ func trackReducer(
             }
         }
         AudioProvider.instance.onCurrentUpdate = { time in
+            NowPlayingProvider.instance.set(currentTime: time)
             if let delegate = NSApp.delegate as? AppDelegate {
                 delegate.store.send(TrackAction.updateCurrent(time))
             }
+        }
+        AudioProvider.instance.onPause = {
+            NowPlayingProvider.instance.set(state: .paused)
+        }
+        AudioProvider.instance.onResume = {
+            NowPlayingProvider.instance.set(state: .playing)
         }
         if state.next == nil {
             return TrackAction.fetch(
@@ -134,7 +146,6 @@ func trackReducer(
         if let item = AudioProvider.instance.player?.currentItem {
             let current = Int(item.currentTime().seconds)
             let duration = Int(item.duration.seconds)
-            print("curr \(current) \(duration)")
             if current != duration {
                 sendFeedback(state: state, action: .skip)
             }

@@ -19,6 +19,8 @@ final class AudioProvider {
 
     var onFinish: () -> Void = {}
     var onStart: (Double) -> Void = {_ in }
+    var onPause: () -> Void = {}
+    var onResume: () -> Void = {}
     var onCurrentUpdate: (Double) -> Void = {_ in}
 
     func play(url: URL? = nil) {
@@ -46,12 +48,16 @@ final class AudioProvider {
                 self?.onCurrentUpdate(time.seconds)
             })
         }
+        else {
+            onResume()
+        }
 
         player?.play()
     }
 
     func pause() {
         player?.pause()
+        onPause()
     }
 
     @objc private func playerDidFinishPlaying(sender: Notification) {

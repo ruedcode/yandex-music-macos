@@ -54,6 +54,7 @@
 		A18D63B8275E9DC0007D83A9 /* AsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18D63B7275E9DC0007D83A9 /* AsyncImage.swift */; };
 		A18D63BA275E9DD6007D83A9 /* AsyncImagePhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18D63B9275E9DD6007D83A9 /* AsyncImagePhase.swift */; };
 		A18D63BC275E9DF3007D83A9 /* BackportAsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18D63BB275E9DF3007D83A9 /* BackportAsyncImage.swift */; };
+		A18D63BE275FD801007D83A9 /* NowPlayingProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18D63BD275FD801007D83A9 /* NowPlayingProvider.swift */; };
 		A1B3BD0427523947006AE32C /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B3BD0327523947006AE32C /* NetworkService.swift */; };
 		A1B3BD082752427B006AE32C /* AuthProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B3BD072752427B006AE32C /* AuthProvider.swift */; };
 /* End PBXBuildFile section */
@@ -110,6 +111,7 @@
 		A18D63B7275E9DC0007D83A9 /* AsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncImage.swift; sourceTree = "<group>"; };
 		A18D63B9275E9DD6007D83A9 /* AsyncImagePhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncImagePhase.swift; sourceTree = "<group>"; };
 		A18D63BB275E9DF3007D83A9 /* BackportAsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackportAsyncImage.swift; sourceTree = "<group>"; };
+		A18D63BD275FD801007D83A9 /* NowPlayingProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingProvider.swift; sourceTree = "<group>"; };
 		A1B3BD0327523947006AE32C /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		A1B3BD072752427B006AE32C /* AuthProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthProvider.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -315,6 +317,7 @@
 				A1B3BD012752391F006AE32C /* Auth */,
 				A12B809E2753CC96003213E9 /* AudioProvider.swift */,
 				A12B80A427580FE1003213E9 /* TrackService.swift */,
+				A18D63BD275FD801007D83A9 /* NowPlayingProvider.swift */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -452,6 +455,7 @@
 				A12B806627526F0B003213E9 /* CollectionState.swift in Sources */,
 				A128AB99275CD37A00219FBF /* Mp3Request.swift in Sources */,
 				A17F671F275244C40094B5A3 /* AppStore.swift in Sources */,
+				A18D63BE275FD801007D83A9 /* NowPlayingProvider.swift in Sources */,
 				A12B806927526F40003213E9 /* TrackState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

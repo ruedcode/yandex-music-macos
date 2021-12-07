@@ -44,6 +44,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         
         NSApp.activate(ignoringOtherApps: true)
+
+        NowPlayingProvider.instance.onPlay = { [weak self] in
+            self?.store.send(TrackAction.play)
+        }
+
+        NowPlayingProvider.instance.onNext = { [weak self] in
+            self?.store.send(TrackAction.playNext)
+        }
+
+        NowPlayingProvider.instance.onPause = { [weak self] in
+            self?.store.send(TrackAction.pause)
+        }
     }
     
     @objc func togglePopover(_ sender: AnyObject?) {
