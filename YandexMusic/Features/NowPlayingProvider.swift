@@ -28,16 +28,16 @@ final class NowPlayingProvider {
             self?.onPause()
             return .success
         }
-        MPRemoteCommandCenter.shared().previousTrackCommand.isEnabled = false
-
         MPRemoteCommandCenter.shared().nextTrackCommand.addTarget { [weak self] _ in
             self?.onNext()
             return .success
         }
-    }
-
-    func set(image: Image) {
-
+        MPRemoteCommandCenter.shared().changePlaybackPositionCommand.isEnabled = false
+        MPRemoteCommandCenter.shared().changePlaybackPositionCommand.addTarget(handler: { [weak self] _ in
+            self?.set(state: .interrupted)
+            self?.set(state: .playing)
+            return .noActionableNowPlayingItem
+        })
     }
 
     func set(currentTime: Double) {
@@ -72,6 +72,6 @@ final class NowPlayingProvider {
     }
 
     private func notify() {
-        MPNowPlayingInfoCenter.default().nowPlayingInfo = self.nowPlayingInfo
+        MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
     }
 }
