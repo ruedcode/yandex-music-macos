@@ -144,8 +144,8 @@ func trackReducer(
         
     case TrackAction.playNext:
         if let item = AudioProvider.instance.player?.currentItem {
-            let current = Int(item.currentTime().seconds)
-            let duration = Int(item.duration.seconds)
+            let current = item.currentTime().seconds.asInt
+            let duration = item.duration.seconds.asInt
             if current != duration {
                 sendFeedback(state: state, action: .skip)
             }
