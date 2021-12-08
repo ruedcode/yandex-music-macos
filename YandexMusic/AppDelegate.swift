@@ -46,6 +46,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let menu = NSMenu(title: "Menu")
 
         menu.addItem(
+            withTitle: "Settings",
+            action: #selector(openSettings),
+            keyEquivalent: "s")
+
+        menu.addItem(.separator())
+
+        menu.addItem(
             withTitle: "Quit",
             action: #selector(NSApplication.terminate(_:)),
             keyEquivalent: "q")
@@ -66,7 +73,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             self?.store.send(TrackAction.pause)
         }
 
-        auth()
+        auth(showPopover: false)
     }
     
     @objc func togglePopover(_ sender: AnyObject?) {
@@ -85,15 +92,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
 
-    private func auth() {
+    @objc private func openSettings() {
+        SettingsView().openInWindow(title: "Settings", sender: self)
+    }
+
+    private func auth(showPopover: Bool = true) {
         authWindow?.close()
         authWindow = AuthWindow(store: store)
         cancellable = self.store.$state.sink { [weak self] state in
             if case .authorized = state.auth {
                 self?.cancellable?.cancel()
                 if let button = self?.statusBarItem.button {
-                    self?.popover.show(relativeTo: button.bounds, of: button, preferredEdge: NSRectEdge.minY)
-                    self?.popover.contentViewController?.view.window?.makeKey()
+                    if showPopover {
+                        self?.popover.show(relativeTo: button.bounds, of: button, preferredEdge: NSRectEdge.minY)
+                        self?.popover.contentViewController?.view.window?.makeKey()
+                    }
                     self?.store.send(CollectionAction.fetch)
                 }
             }

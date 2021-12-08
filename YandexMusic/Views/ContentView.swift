@@ -19,7 +19,7 @@ struct ContentView: View {
             HStack {
                 Spacer()
 
-                Button("Logout") {
+                PlayerButtonView(imageName: "Logout") {
                     showingLogoutAlert = true
                 }
                 .alert(isPresented: $showingLogoutAlert) {
@@ -29,18 +29,18 @@ struct ContentView: View {
                           secondaryButton: .cancel()
                     )
                   }
-                .padding(5)
                 .buttonStyle(PlainButtonStyle())
+                .help("Logout")
 
-                Button("⚙️") {
+                PlayerButtonView(imageName: "Settings") {
                     SettingsView().openInWindow(title: "Settings", sender: self)
                 }
-                .padding(5)
                 .buttonStyle(PlainButtonStyle())
+                .help("Settings")
             }
             .padding([.leading, .trailing], 12)
             .padding(.top, 10)
-            .frame(maxWidth: .infinity)
+            .frame(height: 30)
 
             Divider()
                 .padding([.leading, .trailing], 8)
