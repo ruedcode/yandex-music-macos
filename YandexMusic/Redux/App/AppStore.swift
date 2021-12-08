@@ -12,19 +12,19 @@ import Combine
 typealias Reducer<State, Action> =
     (inout State, Action) -> AnyPublisher<Action, Never>?
 
-typealias Middleware<Store, Action> = (Store, Action) -> Void
+typealias Middleware<State, Action> = () -> ((Store<State, Action>, Action) -> Void)
 
 final class Store<State, Action>: ObservableObject {
     @Published private(set) var state: State
 
     private let reducer: Reducer<State, Action>
-    private let middlewares: [Middleware<Store, Action>]
-    private var effectCancellables: Set<AnyCancellable> = []
+    private let middlewares: [Middleware<State, Action>]
+    var effectCancellables: Set<AnyCancellable> = []
 
     init(
         initialState: State,
-        middlewares: [Middleware<Store, Action>] = [],
-        appReducer: @escaping Reducer<State, Action>
+        appReducer: @escaping Reducer<State, Action>,
+        middlewares: [Middleware<State, Action>] = []
     ) {
         self.state = initialState
         self.reducer = appReducer
@@ -34,7 +34,7 @@ final class Store<State, Action>: ObservableObject {
     func send(_ action: Action) {
 
         middlewares.forEach {
-            $0(self, action)
+            $0()(self, action)
         }
         
         guard let effect = reducer(&state, action) else {

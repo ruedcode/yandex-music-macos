@@ -17,7 +17,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     lazy var store: Store<AppState, AppAction> = {
         return Store<AppState, AppAction>(
             initialState: .init(),
-            appReducer: appReducer
+            appReducer: appReducer,
+            middlewares: [
+                authMiddleware
+            ]
         )
     }()
 

@@ -9,5 +9,5 @@
 import Foundation
 
 func log(_ error: Error) {
-    NSLog("Error %@", error.localizedDescription)
+    NSLog("-->> Error %@", error.localizedDescription)
 }

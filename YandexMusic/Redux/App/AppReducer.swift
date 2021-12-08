@@ -33,11 +33,11 @@ func appReducer(
     case is BaseAction:
         switch action as? BaseAction {
         case let .dumb(error):
-            print("-->> error: \(error.localizedDescription)")
+            log(error)
         case .none:
             break
         }
     default: break
     }
-    return Empty().eraseToAnyPublisher()
+    return nil
 }
