@@ -12,8 +12,8 @@ import Combine
 final class AuthProvider {
     static let instance = AuthProvider()
 
-    @KeychainValue(key: .token) private(set) var token: TokenResponse?
-    @KeychainValue(key: .profile) private(set) var profile: UserSettingsResponse?
+    private(set) var token: TokenResponse?
+    private(set) var profile: UserSettingsResponse?
 
     func auth(with code: String) -> AnyPublisher<Void, Error> {
         return requestToken(code: code).flatMap { _ in

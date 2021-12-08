@@ -66,13 +66,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             self?.store.send(TrackAction.pause)
         }
 
-        store.send(AuthAction.updateToken)
-        switch store.state.auth {
-        case .unauthorized:
-            auth()
-        case .authorized:
-            store.send(CollectionAction.fetch)
-        }
+        auth()
     }
     
     @objc func togglePopover(_ sender: AnyObject?) {
@@ -92,9 +86,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     private func auth() {
-        guard authWindow?.isKeyWindow != true else { return }
+        authWindow?.close()
         authWindow = AuthWindow(store: store)
-        authWindow?.makeKeyAndOrderFront(self)
         cancellable = self.store.$state.sink { [weak self] state in
             if case .authorized = state.auth {
                 self?.cancellable?.cancel()

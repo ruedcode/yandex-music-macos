@@ -34,7 +34,7 @@ struct TokenRequest: RequestType {
     }
 }
 
-struct TokenResponse: Codable {
+struct TokenResponse: Decodable {
     let token_type: String
     let access_token: String
     let expires_in: Int

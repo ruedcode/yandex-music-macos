@@ -14,7 +14,6 @@
 		459A279B23AA910B003D50EC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 459A279923AA910B003D50EC /* Main.storyboard */; };
 		85C7DF8E27607C4300F9ED75 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85C7DF8D27607C4300F9ED75 /* SettingsView.swift */; };
 		85C7DF912760800400F9ED75 /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85C7DF902760800400F9ED75 /* ViewExtension.swift */; };
-		85C7DF932760903E00F9ED75 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85C7DF922760903E00F9ED75 /* Keychain.swift */; };
 		A128AB91275CD30400219FBF /* LibraryRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A128AB90275CD30400219FBF /* LibraryRequest.swift */; };
 		A128AB95275CD34200219FBF /* RecommendationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A128AB94275CD34200219FBF /* RecommendationRequest.swift */; };
 		A128AB97275CD35C00219FBF /* TrackRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A128AB96275CD35C00219FBF /* TrackRequest.swift */; };
@@ -73,7 +72,6 @@
 		459A279D23AA910B003D50EC /* YandexMusic.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = YandexMusic.entitlements; sourceTree = "<group>"; };
 		85C7DF8D27607C4300F9ED75 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		85C7DF902760800400F9ED75 /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
-		85C7DF922760903E00F9ED75 /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		A128AB90275CD30400219FBF /* LibraryRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryRequest.swift; sourceTree = "<group>"; };
 		A128AB94275CD34200219FBF /* RecommendationRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationRequest.swift; sourceTree = "<group>"; };
 		A128AB96275CD35C00219FBF /* TrackRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackRequest.swift; sourceTree = "<group>"; };
@@ -322,7 +320,6 @@
 			isa = PBXGroup;
 			children = (
 				A1B3BD0227523935006AE32C /* Network */,
-				85C7DF922760903E00F9ED75 /* Keychain.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -446,7 +443,6 @@
 				A128ABA1275CD96300219FBF /* UserSettingsRequest.swift in Sources */,
 				A1B3BD082752427B006AE32C /* AuthProvider.swift in Sources */,
 				A18D63BC275E9DF3007D83A9 /* BackportAsyncImage.swift in Sources */,
-				85C7DF932760903E00F9ED75 /* Keychain.swift in Sources */,
 				A12B809D27538DFD003213E9 /* TrackReducer.swift in Sources */,
 				A18D63B8275E9DC0007D83A9 /* AsyncImage.swift in Sources */,
 				A12B806227524D27003213E9 /* PlayerButtonView.swift in Sources */,

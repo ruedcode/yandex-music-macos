@@ -32,23 +32,29 @@ final class AuthWindow: NSWindow {
         Bundle.main.infoDictionary?["CFBundleName"]
             .flatMap { title = "\($0) - Login" }
         level = .popUpMenu
-        makeKeyAndOrderFront(nil)
         isReleasedWhenClosed = false
         styleMask.insert(NSWindow.StyleMask.fullSizeContentView)
         let viewModel = WebViewModel(link: Constants.Auth.codeUrl)
         contentView = NSHostingView(rootView: WebView(viewModel: viewModel))
         cancellable = viewModel.$link.sink { [weak self] link in
-            guard
-                let components = URLComponents(string: link),
+            guard let components = URLComponents(string: link) else { return }
+
+            if
+                components.host == "passport.yandex.ru",
+                components.path == "/auth"
+            {
+                self?.makeKeyAndOrderFront(nil)
+            }
+
+            if
                 components.path == "/verification_code",
                 let code = components.queryItems?.first(where: {
                     $0.name == "code" && $0.value?.isEmpty == false
                 })?.value
-            else {
-                return
+            {
+                self?.store.send(AuthAction.fetchToken(code: code))
+                self?.close()
             }
-            self?.store.send(AuthAction.fetchToken(code: code))
-            self?.close()
         }
     }
 }

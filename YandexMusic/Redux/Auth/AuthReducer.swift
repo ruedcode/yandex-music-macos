@@ -17,11 +17,10 @@ func authReducer(
     case AuthAction.fetchToken(let code):
         return AuthProvider.instance
             .auth(with: code)
-            .map {
-                AuthAction.updateToken
-            }
+            .map { AuthAction.updateToken }
             .ignoreError()
             .eraseToAnyPublisher()
+
     case AuthAction.updateToken:
         state = AuthProvider.instance.token != nil ? .authorized : .unauthorized
 
@@ -30,10 +29,13 @@ func authReducer(
             .cookies?
             .forEach { HTTPCookieStorage.shared.deleteCookie($0) }
         AuthProvider.instance.logout()
-        return Just(AuthAction.updateToken).eraseToAnyPublisher()
+        return Just(AuthAction.updateToken)
+            .eraseToAnyPublisher()
 
     default:
         break
     }
-    return Empty().eraseToAnyPublisher()
+
+    return Empty()
+        .eraseToAnyPublisher()
 }
