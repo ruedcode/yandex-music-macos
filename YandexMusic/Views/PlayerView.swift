@@ -12,6 +12,17 @@ struct PlayerView: View {
     private let constants = Constants()
     @EnvironmentObject var store: Store<AppState, AppAction>
     @State var shareIcon: String = "Share"
+    @State private var showingVolumePopover = false
+    @State private var soundLevel: Float = AudioProvider.instance.volume
+
+    private var soundIconName: String {
+        switch soundLevel {
+        case 0: return "SpeakerOff"
+        case 0...0.3: return "SpeakerLow"
+        case 0.3...0.7: return "SpeakerMid"
+        default: return "SpeakerHigh"
+        }
+    }
 
     var body: some View {
         HStack {
@@ -64,6 +75,25 @@ struct PlayerView: View {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                         shareIcon = "Share"
                     }
+                }
+
+                PlayerButtonView(imageName: soundIconName) {
+                    showingVolumePopover = true
+                }
+                .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .global).onEnded({
+                    let change = Float(($0.location.x - $0.startLocation.x) / 200)
+                    let old = AudioProvider.instance.volume
+                    let new = min(max(old + change, 0), 1)
+                    soundLevel = new
+                    AudioProvider.instance.volume = new
+                }))
+                .popover(isPresented: $showingVolumePopover) {
+                    Slider(value: $soundLevel, in: 0...1)
+                        .onChange(of: soundLevel, perform: { newValue in
+                            AudioProvider.instance.volume = newValue
+                        })
+                        .frame(minWidth: 100)
+                        .padding()
                 }
             }
             .frame(alignment: .trailing)
