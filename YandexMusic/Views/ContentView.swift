@@ -11,9 +11,39 @@ import SwiftUI
 struct ContentView: View {
 
     @EnvironmentObject var store: Store<AppState, AppAction>
+    @State private var showingLogoutAlert = false
 
     var body: some View {
         return VStack(alignment: .leading) {
+
+            HStack {
+                Spacer()
+
+                Button("Logout") {
+                    showingLogoutAlert = true
+                }
+                .alert(isPresented: $showingLogoutAlert) {
+                    Alert(title: Text("Logout"),
+                          message: Text("Do you really want to logout?"),
+                          primaryButton: .destructive(Text("Logout"), action: { store.send(AuthAction.logout) }),
+                          secondaryButton: .cancel()
+                    )
+                  }
+                .padding(5)
+                .buttonStyle(PlainButtonStyle())
+
+                Button("⚙️") {
+                    SettingsView().openInWindow(title: "Settings", sender: self)
+                }
+                .padding(5)
+                .buttonStyle(PlainButtonStyle())
+            }
+            .padding([.leading, .trailing], 12)
+            .padding(.top, 10)
+            .frame(maxWidth: .infinity)
+
+            Divider()
+                .padding([.leading, .trailing], 8)
 
             LazyVGrid(columns: columns(for: store.state.collection.stations), spacing: 20) {
                 ForEach(store.state.collection.stations, id: \.self) { item in
@@ -30,7 +60,6 @@ struct ContentView: View {
                 }
             }
             .padding([.leading, .trailing], 8)
-            .padding(.top, 16)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
 
 
@@ -46,7 +75,7 @@ struct ContentView: View {
 
             PlayerView().padding(.bottom, 8).padding([.leading, .trailing], 8)
             Spacer()
-        }
+        }.frame(minWidth: 380)
     }
 
     private func columns(for stations: [Station]) -> [GridItem] {
@@ -55,8 +84,11 @@ struct ContentView: View {
 }
 
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}
+//struct ContentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ContentView().environmentObject(Store<AppState, AppAction>(
+//            initialState: .init(),
+//            appReducer: appReducer
+//        ))
+//    }
+//}

@@ -11,3 +11,7 @@ import Foundation
 func log(_ error: Error) {
     NSLog("Error %@", error.localizedDescription)
 }
+
+func log(_ info: String) {
+    NSLog("%@", info)
+}

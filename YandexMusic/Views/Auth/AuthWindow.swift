@@ -16,7 +16,7 @@ final class AuthWindow: NSWindow {
 
     init(store: Store<AppState, AppAction>) {
         self.store = store
-        let size = CGSize(width: 480, height: 320)
+        let size = CGSize(width: 480, height: 850)
         var point = CGPoint.zero
         if let frame = NSScreen.main?.frame {
             point.x = (frame.width - size.width) / 2
@@ -29,6 +29,9 @@ final class AuthWindow: NSWindow {
             backing: .buffered,
             defer: false
         )
+        Bundle.main.infoDictionary?["CFBundleName"]
+            .flatMap { title = "\($0) - Login" }
+        level = .popUpMenu
         makeKeyAndOrderFront(nil)
         isReleasedWhenClosed = false
         styleMask.insert(NSWindow.StyleMask.fullSizeContentView)

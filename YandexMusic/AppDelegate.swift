@@ -13,6 +13,7 @@ import SwiftUI
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     private var cancellable: AnyCancellable?
+    private var authWindow: AuthWindow?
 
     lazy var store: Store<AppState, AppAction> = {
         return Store<AppState, AppAction>(
@@ -30,7 +31,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         // Create the popover
         let popover = NSPopover()
-        popover.contentSize = NSSize(width: 380, height: 150)
         popover.behavior = .transient
         popover.contentViewController = NSHostingController(rootView: contentView)
         self.popover = popover
@@ -42,6 +42,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             button.image = NSImage(named: "Music")
             button.action = #selector(togglePopover(_:))
         }
+
+        let menu = NSMenu(title: "Menu")
+
+        menu.addItem(
+            withTitle: "Quit",
+            action: #selector(NSApplication.terminate(_:)),
+            keyEquivalent: "q")
+
+        statusBarItem?.button?.menu = menu
         
         NSApp.activate(ignoringOtherApps: true)
 
@@ -55,6 +64,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         NowPlayingProvider.instance.onPause = { [weak self] in
             self?.store.send(TrackAction.pause)
+        }
+
+        store.send(AuthAction.updateToken)
+        switch store.state.auth {
+        case .unauthorized:
+            auth()
+        case .authorized:
+            store.send(CollectionAction.fetch)
         }
     }
     
@@ -75,8 +92,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     private func auth() {
-        let authWindow = AuthWindow(store: store)
-        authWindow.makeKeyAndOrderFront(self)
+        guard authWindow?.isKeyWindow != true else { return }
+        authWindow = AuthWindow(store: store)
+        authWindow?.makeKeyAndOrderFront(self)
         cancellable = self.store.$state.sink { [weak self] state in
             if case .authorized = state.auth {
                 self?.cancellable?.cancel()

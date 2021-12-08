@@ -24,7 +24,7 @@ struct UserSettingsRequest: RequestType {
     }
 }
 
-struct UserSettingsResponse: Decodable {
+struct UserSettingsResponse: Codable {
     let csrf: String
     let freshCsrf: String
     let login: String

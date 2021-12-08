@@ -11,13 +11,19 @@ import Combine
 
 final class AuthProvider {
     static let instance = AuthProvider()
-    private(set) var token: TokenResponse?
-    private(set) var profile: UserSettingsResponse?
+
+    @KeychainValue(key: .token) private(set) var token: TokenResponse?
+    @KeychainValue(key: .profile) private(set) var profile: UserSettingsResponse?
 
     func auth(with code: String) -> AnyPublisher<Void, Error> {
         return requestToken(code: code).flatMap { _ in
             self.requestSettings().eraseToAnyPublisher()
         }.eraseToAnyPublisher()
+    }
+
+    func logout() {
+        token = nil
+        profile = nil
     }
 
     private func requestToken(code: String) -> AnyPublisher<Void, Error> {
