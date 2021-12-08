@@ -80,10 +80,18 @@ struct PlayerView: View {
                 PlayerButtonView(imageName: soundIconName) {
                     showingVolumePopover = true
                 }
+                .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .global).onEnded({
+                    let change = Float(($0.location.x - $0.startLocation.x) / 200)
+                    let old = AudioProvider.instance.volume
+                    let new = min(max(old + change, 0), 1)
+                    soundLevel = new
+                    AudioProvider.instance.volume = new
+                }))
                 .popover(isPresented: $showingVolumePopover) {
-                    Slider(value: $soundLevel, in: 0...1, onEditingChanged: { _ in
-                        AudioProvider.instance.volume = soundLevel
-                    })
+                    Slider(value: $soundLevel, in: 0...1)
+                        .onChange(of: soundLevel, perform: { newValue in
+                            AudioProvider.instance.volume = newValue
+                        })
                         .frame(minWidth: 100)
                         .padding()
                 }
