@@ -20,9 +20,9 @@ func appReducer(
             state: &state.auth,
             action: action
         )
-    case is CollectionAction:
-        return collectionReducer(
-            state: &state.collection,
+    case is SectionAction:
+        return sectionReducer(
+            state: &state.section,
             action: action
         )
     case is TrackAction:

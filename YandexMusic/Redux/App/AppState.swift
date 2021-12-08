@@ -8,6 +8,6 @@
 
 struct AppState {
     var auth: AuthState = AuthState.unauthorized
-    var collection: CollectionState = CollectionState()
+    var section: SectionState = SectionState()
     var track: TrackState = TrackState()
 }
