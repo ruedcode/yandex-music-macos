@@ -12,6 +12,17 @@ struct PlayerView: View {
     private let constants = Constants()
     @EnvironmentObject var store: Store<AppState, AppAction>
     @State var shareIcon: String = "Share"
+    @State private var showingVolumePopover = false
+    @State private var soundLevel: Float = AudioProvider.instance.volume
+
+    private var soundIconName: String {
+        switch soundLevel {
+        case 0: return "SpeakerOff"
+        case 0...0.3: return "SpeakerLow"
+        case 0.3...0.7: return "SpeakerMid"
+        default: return "SpeakerHigh"
+        }
+    }
 
     var body: some View {
         HStack {
@@ -64,6 +75,17 @@ struct PlayerView: View {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                         shareIcon = "Share"
                     }
+                }
+
+                PlayerButtonView(imageName: soundIconName) {
+                    showingVolumePopover = true
+                }
+                .popover(isPresented: $showingVolumePopover) {
+                    Slider(value: $soundLevel, in: 0...1, onEditingChanged: { _ in
+                        AudioProvider.instance.volume = soundLevel
+                    })
+                        .frame(minWidth: 100)
+                        .padding()
                 }
             }
             .frame(alignment: .trailing)

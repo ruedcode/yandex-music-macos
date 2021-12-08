@@ -13,6 +13,8 @@ import AVFoundation
 final class AudioProvider {
     static let instance = AudioProvider()
 
+    private let volumeDefaultsKey = "music_volume"
+
     private(set) var player: AVPlayer?
     private var lastURL: URL?
     private var observer: NSKeyValueObservation?
@@ -22,6 +24,14 @@ final class AudioProvider {
     var onPause: () -> Void = {}
     var onResume: () -> Void = {}
     var onCurrentUpdate: (Double) -> Void = {_ in}
+
+    var volume: Float {
+        get { UserDefaults.standard.object(forKey: volumeDefaultsKey) as? Float ?? 1 }
+        set {
+            UserDefaults.standard.set(newValue, forKey: volumeDefaultsKey)
+            player?.volume = newValue
+        }
+    }
 
     func play(url: URL? = nil) {
         if let url = url, lastURL != url {
@@ -34,6 +44,7 @@ final class AudioProvider {
                 object: nil
             )
             player = AVPlayer(playerItem: playerItem)
+            player?.volume = volume
             player?.rate = 1
             observer = playerItem.observe(
                 \.status,
