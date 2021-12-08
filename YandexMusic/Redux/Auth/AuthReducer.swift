@@ -29,6 +29,7 @@ func authReducer(
             .cookies?
             .forEach(HTTPCookieStorage.shared.deleteCookie)
         URLCache.shared.removeAllCachedResponses()
+        URLSession.shared.invalidateAndCancel()
         AuthProvider.instance.logout()
         return Just(AuthAction.updateToken)
             .eraseToAnyPublisher()
@@ -37,6 +38,5 @@ func authReducer(
         break
     }
 
-    return Empty()
-        .eraseToAnyPublisher()
+    return nil
 }

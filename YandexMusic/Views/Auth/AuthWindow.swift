@@ -31,7 +31,6 @@ final class AuthWindow: NSWindow {
         )
         Bundle.main.infoDictionary?["CFBundleName"]
             .flatMap { title = "\($0) - Login" }
-        level = .popUpMenu
         isReleasedWhenClosed = false
         styleMask.insert(NSWindow.StyleMask.fullSizeContentView)
         let viewModel = WebViewModel(link: Constants.Auth.codeUrl)
