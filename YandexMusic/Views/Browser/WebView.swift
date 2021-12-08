@@ -29,7 +29,10 @@ struct WebView: NSViewRepresentable {
     public func makeNSView(context: NSViewRepresentableContext<WebView>) -> WKWebView {
         webView.navigationDelegate = context.coordinator
         webView.uiDelegate = context.coordinator as? WKUIDelegate
-        webView.load(URLRequest(url: URL(string: viewModel.link)!))
+        webView.configuration.websiteDataStore.httpCookieStore.getAllCookies { items in
+            items.forEach { webView.configuration.websiteDataStore.httpCookieStore.delete($0, completionHandler: nil) }
+            webView.load(URLRequest(url: URL(string: viewModel.link)!))
+        }
         return webView
     }
 

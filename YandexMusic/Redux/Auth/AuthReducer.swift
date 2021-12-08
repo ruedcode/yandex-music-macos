@@ -27,7 +27,8 @@ func authReducer(
     case AuthAction.logout:
         HTTPCookieStorage.shared
             .cookies?
-            .forEach { HTTPCookieStorage.shared.deleteCookie($0) }
+            .forEach(HTTPCookieStorage.shared.deleteCookie)
+        URLCache.shared.removeAllCachedResponses()
         AuthProvider.instance.logout()
         return Just(AuthAction.updateToken)
             .eraseToAnyPublisher()
