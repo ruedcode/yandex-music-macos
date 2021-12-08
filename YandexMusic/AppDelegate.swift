@@ -46,13 +46,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let menu = NSMenu(title: "Menu")
 
         menu.addItem(
-            withTitle: "Settings",
-            action: #selector(openSettings),
-            keyEquivalent: "s")
-
-        menu.addItem(.separator())
-
-        menu.addItem(
             withTitle: "Quit",
             action: #selector(NSApplication.terminate(_:)),
             keyEquivalent: "q")
@@ -90,10 +83,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 }
             }
         }
-    }
-
-    @objc private func openSettings() {
-        SettingsView().openInWindow(title: "Settings", sender: self)
     }
 
     private func auth(showPopover: Bool = true) {

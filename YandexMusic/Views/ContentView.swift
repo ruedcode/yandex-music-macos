@@ -31,12 +31,6 @@ struct ContentView: View {
                   }
                 .buttonStyle(PlainButtonStyle())
                 .help("Logout")
-
-                PlayerButtonView(imageName: "Settings") {
-                    SettingsView().openInWindow(title: "Settings", sender: self)
-                }
-                .buttonStyle(PlainButtonStyle())
-                .help("Settings")
             }
             .padding([.leading, .trailing], 12)
             .padding(.top, 10)
@@ -84,11 +78,11 @@ struct ContentView: View {
 }
 
 
-//struct ContentView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ContentView().environmentObject(Store<AppState, AppAction>(
-//            initialState: .init(),
-//            appReducer: appReducer
-//        ))
-//    }
-//}
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView().environmentObject(Store<AppState, AppAction>(
+            initialState: .init(),
+            appReducer: appReducer
+        ))
+    }
+}

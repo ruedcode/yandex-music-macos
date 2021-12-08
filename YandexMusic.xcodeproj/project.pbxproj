@@ -12,8 +12,6 @@
 		459A279523AA910B003D50EC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 459A279423AA910B003D50EC /* Assets.xcassets */; };
 		459A279823AA910B003D50EC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 459A279723AA910B003D50EC /* Preview Assets.xcassets */; };
 		459A279B23AA910B003D50EC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 459A279923AA910B003D50EC /* Main.storyboard */; };
-		85C7DF8E27607C4300F9ED75 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85C7DF8D27607C4300F9ED75 /* SettingsView.swift */; };
-		85C7DF912760800400F9ED75 /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85C7DF902760800400F9ED75 /* ViewExtension.swift */; };
 		A128AB91275CD30400219FBF /* LibraryRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A128AB90275CD30400219FBF /* LibraryRequest.swift */; };
 		A128AB95275CD34200219FBF /* RecommendationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A128AB94275CD34200219FBF /* RecommendationRequest.swift */; };
 		A128AB97275CD35C00219FBF /* TrackRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A128AB96275CD35C00219FBF /* TrackRequest.swift */; };
@@ -70,8 +68,6 @@
 		459A279A23AA910B003D50EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		459A279C23AA910B003D50EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		459A279D23AA910B003D50EC /* YandexMusic.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = YandexMusic.entitlements; sourceTree = "<group>"; };
-		85C7DF8D27607C4300F9ED75 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		85C7DF902760800400F9ED75 /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
 		A128AB90275CD30400219FBF /* LibraryRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryRequest.swift; sourceTree = "<group>"; };
 		A128AB94275CD34200219FBF /* RecommendationRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationRequest.swift; sourceTree = "<group>"; };
 		A128AB96275CD35C00219FBF /* TrackRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackRequest.swift; sourceTree = "<group>"; };
@@ -173,14 +169,6 @@
 				459A279723AA910B003D50EC /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		85C7DF8F27607FF400F9ED75 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				85C7DF902760800400F9ED75 /* ViewExtension.swift */,
-			);
-			path = Extensions;
 			sourceTree = "<group>";
 		};
 		A128ABA4275D3EF700219FBF /* Network */ = {
@@ -295,7 +283,6 @@
 				A17F672927524A590094B5A3 /* PlayerView.swift */,
 				A128ABA5275D499A00219FBF /* StationView.swift */,
 				A18D63B7275E9DC0007D83A9 /* AsyncImage.swift */,
-				85C7DF8D27607C4300F9ED75 /* SettingsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -303,7 +290,6 @@
 		A1B3BCFE2752390E006AE32C /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				85C7DF8F27607FF400F9ED75 /* Extensions */,
 				A1B3BCFF27523912006AE32C /* Services */,
 				A12B807227527B90003213E9 /* Constants.swift */,
 				A12B808B2752AF7E003213E9 /* Colors.swift */,
@@ -433,8 +419,6 @@
 				A12B809B27538BF3003213E9 /* Always.swift in Sources */,
 				A12B807327527B90003213E9 /* Constants.swift in Sources */,
 				A128ABA3275D348A00219FBF /* LikeRequest.swift in Sources */,
-				85C7DF8E27607C4300F9ED75 /* SettingsView.swift in Sources */,
-				85C7DF912760800400F9ED75 /* ViewExtension.swift in Sources */,
 				A12B808627529D97003213E9 /* StationDTO.swift in Sources */,
 				A128AB9D275CD3C200219FBF /* TrackFeedbackRequest.swift in Sources */,
 				459A279323AA910B003D50EC /* ContentView.swift in Sources */,
