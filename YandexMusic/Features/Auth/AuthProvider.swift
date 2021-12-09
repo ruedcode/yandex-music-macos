@@ -11,45 +11,42 @@ import Combine
 
 final class AuthProvider {
     static let instance = AuthProvider()
+
     private(set) var token: TokenResponse?
     private(set) var profile: UserSettingsResponse?
 
     func auth(with code: String) -> AnyPublisher<Void, Error> {
-        return requestToken(code: code).flatMap { _ in
-            self.requestSettings().eraseToAnyPublisher()
-        }.eraseToAnyPublisher()
+        requestToken(code: code)
+            .flatMap { self.requestSettings() }
+            .eraseToAnyPublisher()
     }
 
     private func requestToken(code: String) -> AnyPublisher<Void, Error> {
-        return Future() { promise in
-            TokenRequest(code: code).execute { [weak self] result in
-                switch result {
-                case let .success(token):
-                    self?.token = token
-                    self?.profile = nil
-                    promise(.success(()))
-                case let .failure(error):
-                    self?.token = nil
-                    self?.profile = nil
-                    promise(.failure(error))
-                }
+        TokenRequest(code: code)
+            .execute()
+            .map { [weak self] token -> Void in
+                self?.token = token
+                self?.profile = nil
             }
-        }.eraseToAnyPublisher()
+            .mapError { [weak self] error -> Error in
+                self?.token = nil
+                self?.profile = nil
+                return error
+            }
+            .eraseToAnyPublisher()
     }
 
     private func requestSettings() -> AnyPublisher<Void, Error> {
-        return Future() { promise in
-            UserSettingsRequest().execute { [weak self] result in
-                switch result {
-                case let .success(profile):
-                    self?.profile = profile
-                    promise(.success(()))
-                case let .failure(error):
-                    self?.profile = nil
-                    self?.token = nil
-                    promise(.failure(error))
-                }
+        UserSettingsRequest()
+            .execute()
+            .map { [weak self] profile -> Void in
+                self?.profile = profile
             }
-        }.eraseToAnyPublisher()
+            .mapError { [weak self] error -> Error in
+                self?.token = nil
+                self?.profile = nil
+                return error
+            }
+            .eraseToAnyPublisher()
     }
 }

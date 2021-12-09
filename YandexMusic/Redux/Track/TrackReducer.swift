@@ -215,7 +215,7 @@ private func sendFeedback(state: TrackState, action: TrackFeedbackRequest.Action
     let batchId = action == .radioStarted ? nil : track.batchId
     let totalPlayed = action == .radioStarted ? nil : AudioProvider.instance.player?.currentTime().seconds
 
-    TrackFeedbackRequest(
+    let _ = TrackFeedbackRequest(
         params: TrackFeedbackRequest.Params(
             type: state.lastType,
             tag: state.lastTag,
@@ -225,7 +225,7 @@ private func sendFeedback(state: TrackState, action: TrackFeedbackRequest.Action
             batchId: batchId,
             totalPlayed: totalPlayed
         )
-    ).execute(onComplete: {_ in})
+    ).execute()
 
     let reason: TrackFeedbackRequest2.Reason?
     let act: TrackFeedbackRequest2.Action?
@@ -249,7 +249,7 @@ private func sendFeedback(state: TrackState, action: TrackFeedbackRequest.Action
         return
     }
 
-    TrackFeedbackRequest2(
+    let _ = TrackFeedbackRequest2(
         params: TrackFeedbackRequest2.Params(
             trackId: track.id,
             albumId: track.album.id,
@@ -262,7 +262,7 @@ private func sendFeedback(state: TrackState, action: TrackFeedbackRequest.Action
             duration: AudioProvider.instance.player?.currentItem?.duration.seconds ?? 0,
             action: act
         )
-    ).execute(onComplete: {_ in })
+    ).execute()
 
 }
 

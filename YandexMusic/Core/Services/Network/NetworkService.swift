@@ -6,6 +6,7 @@
 //  Copyright © 2021 Eugene Kalyada. All rights reserved.
 //
 
+import Combine
 import Foundation
 
 enum NetworkError: Error {
@@ -73,8 +74,6 @@ struct RequestData {
                 data: component.query?.data(using: .utf8),
                 headers: [:]
             )
-
-
         }
     }
 }
@@ -87,83 +86,55 @@ protocol RequestType {
 
 extension RequestType {
     func execute (
-        dispatcher: NetworkDispatcher = URLSessionNetworkDispatcher.instance,
-        onComplete: @escaping (Result<ResponseType, Error>) -> Void
-    ) {
-        dispatcher.dispatch(request: self.data) { result in
-            switch result {
-            case let .success(responseData):
-                do {
-                    let jsonDecoder = JSONDecoder()
-                    let result = try jsonDecoder.decode(ResponseType.self, from: responseData)
-                    DispatchQueue.main.async {
-                        onComplete(.success(result))
-                    }
-                } catch let error {
-                    print("Error parsing \(error.localizedDescription)")
-                    DispatchQueue.main.async {
-                        onComplete(.failure(error))
-                    }
-                }
-            case let .failure(error):
-                DispatchQueue.main.async {
-                    onComplete(.failure(error))
-                }
-            }
-        }
+        dispatcher: NetworkDispatcher = URLSessionNetworkDispatcher.instance
+    ) -> AnyPublisher<ResponseType, Error> {
+        dispatcher.dispatch(request: self.data)
+            .tryMap { try JSONDecoder().decode(ResponseType.self, from: $0) }
+            .eraseToAnyPublisher()
     }
 }
 
 protocol NetworkDispatcher {
-    func dispatch(request: RequestData, onComplete: @escaping (Result<Data, Error>) -> Void)
+    func dispatch(request: RequestData) -> AnyPublisher<Data, Error>
 }
 
 struct URLSessionNetworkDispatcher: NetworkDispatcher {
     static let instance = URLSessionNetworkDispatcher()
     private init() {}
 
-    func dispatch(request: RequestData, onComplete: @escaping (Result<Data, Error>) -> Void) {
+    func dispatch(request: RequestData) -> AnyPublisher<Data, Error> {
         guard let url = URL(string: request.path) else {
-            onComplete(.failure(NetworkError.invalidURL))
-            return
+            return Fail(error: NetworkError.invalidURL)
+                .eraseToAnyPublisher()
         }
 
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = request.method.rawValue
 
-        if let params = request.params {
+        request.params.flatMap { params in
             urlRequest.httpBody = params.data
             params.headers.forEach {
                 urlRequest.setValue($0.value, forHTTPHeaderField: $0.key)
             }
         }
 
-        if let headers = request.headers {
-            urlRequest.allHTTPHeaderFields = headers
-        }
+        request.headers
+            .flatMap { urlRequest.allHTTPHeaderFields = $0 }
 
         if request.auth {
             if let token = AuthProvider.instance.token?.access_token {
                 urlRequest.setValue(token, forHTTPHeaderField: "Authorization")
             }
             else {
-                onComplete(.failure(NetworkError.noAuthToken))
-                return
+                return Fail(error: NetworkError.noAuthToken)
+                    .eraseToAnyPublisher()
             }
         }
 
-        URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
-            if let error = error {
-                onComplete(.failure(error))
-                return
-            }
-
-            guard let _data = data else {
-                onComplete(.failure(NetworkError.emptyResponse))
-                return
-            }
-
-            onComplete(.success(_data))
-        }.resume()
+        return URLSession.shared
+            .dataTaskPublisher(for: urlRequest)
+            .map { $0.data }
+            .mapError { $0 }
+            .eraseToAnyPublisher()
     }
 }

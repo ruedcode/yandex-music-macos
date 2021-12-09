@@ -32,7 +32,6 @@
 		A12B807527528058003213E9 /* AuthAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B807427528058003213E9 /* AuthAction.swift */; };
 		A12B807727528080003213E9 /* AuthReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B807627528080003213E9 /* AuthReducer.swift */; };
 		A12B807D275283F9003213E9 /* AppReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B807C275283F9003213E9 /* AppReducer.swift */; };
-		A12B807F275285D8003213E9 /* NetworkCombine.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B807E275285D8003213E9 /* NetworkCombine.swift */; };
 		A12B808627529D97003213E9 /* StationDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B808527529D97003213E9 /* StationDTO.swift */; };
 		A12B80882752A008003213E9 /* CollectionReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B80872752A008003213E9 /* CollectionReducer.swift */; };
 		A12B808A2752A064003213E9 /* CollectionAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B80892752A064003213E9 /* CollectionAction.swift */; };
@@ -90,7 +89,6 @@
 		A12B807427528058003213E9 /* AuthAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAction.swift; sourceTree = "<group>"; };
 		A12B807627528080003213E9 /* AuthReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthReducer.swift; sourceTree = "<group>"; };
 		A12B807C275283F9003213E9 /* AppReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppReducer.swift; sourceTree = "<group>"; };
-		A12B807E275285D8003213E9 /* NetworkCombine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkCombine.swift; sourceTree = "<group>"; };
 		A12B808527529D97003213E9 /* StationDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationDTO.swift; sourceTree = "<group>"; };
 		A12B80872752A008003213E9 /* CollectionReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionReducer.swift; sourceTree = "<group>"; };
 		A12B80892752A064003213E9 /* CollectionAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionAction.swift; sourceTree = "<group>"; };
@@ -337,7 +335,6 @@
 			isa = PBXGroup;
 			children = (
 				A1B3BD0327523947006AE32C /* NetworkService.swift */,
-				A12B807E275285D8003213E9 /* NetworkCombine.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -446,7 +443,6 @@
 				A17F67272752460A0094B5A3 /* AuthState.swift in Sources */,
 				A128ABA8275D5EAD00219FBF /* MediaApplication.swift in Sources */,
 				A12B807D275283F9003213E9 /* AppReducer.swift in Sources */,
-				A12B807F275285D8003213E9 /* NetworkCombine.swift in Sources */,
 				A128AB95275CD34200219FBF /* RecommendationRequest.swift in Sources */,
 				A12B80A12757FE42003213E9 /* Logger.swift in Sources */,
 				A128ABA6275D499A00219FBF /* StationView.swift in Sources */,
