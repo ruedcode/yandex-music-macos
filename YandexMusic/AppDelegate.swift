@@ -45,16 +45,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         NSApp.activate(ignoringOtherApps: true)
 
-        NowPlayingProvider.instance.onPlay = { [weak self] in
-            self?.store.send(TrackAction.play)
-        }
-
-        NowPlayingProvider.instance.onNext = { [weak self] in
-            self?.store.send(TrackAction.playNext)
-        }
-
-        NowPlayingProvider.instance.onPause = { [weak self] in
-            self?.store.send(TrackAction.pause)
+        // Connect MPNowPlayingInfoCenter
+        NowPlayingProvider.instance.handler = { [weak self] event in
+            switch event {
+            case .next: self?.store.send(TrackAction.playNext)
+            case .play: self?.store.send(TrackAction.play)
+            case .pause: self?.store.send(TrackAction.pause)
+            }
         }
     }
     

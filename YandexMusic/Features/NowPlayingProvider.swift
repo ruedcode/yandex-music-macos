@@ -11,25 +11,34 @@ import SwiftUI
 import Cocoa
 
 final class NowPlayingProvider {
+
+    enum Event {
+        case play
+        case pause
+        case next
+    }
+
     static let instance = NowPlayingProvider()
 
-    private var nowPlayingInfo: [String: Any] = [:]
+    private var nowPlayingInfo: [String: Any] = [:] {
+        didSet {
+            MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
+        }
+    }
 
-    var onPause: () -> Void = {}
-    var onPlay: () -> Void = {}
-    var onNext: () -> Void = {}
+    var handler: (Event) -> Void = { _ in }
 
     init() {
         MPRemoteCommandCenter.shared().playCommand.addTarget { [weak self] _ in
-            self?.onPlay()
+            self?.handler(.play)
             return .success
         }
         MPRemoteCommandCenter.shared().pauseCommand.addTarget { [weak self] _ in
-            self?.onPause()
+            self?.handler(.pause)
             return .success
         }
         MPRemoteCommandCenter.shared().nextTrackCommand.addTarget { [weak self] _ in
-            self?.onNext()
+            self?.handler(.next)
             return .success
         }
         MPRemoteCommandCenter.shared().changePlaybackPositionCommand.isEnabled = false
@@ -42,18 +51,15 @@ final class NowPlayingProvider {
 
     func set(currentTime: Double) {
         nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = currentTime
-        notify()
     }
 
     func set(duration: Double) {
         nowPlayingInfo[MPMediaItemPropertyPlaybackDuration] = duration
-        notify()
     }
 
     func set(track: Track) {
         nowPlayingInfo[MPMediaItemPropertyTitle] = track.name
         nowPlayingInfo[MPMediaItemPropertyArtist] = track.artist.name
-        notify()
         if let url = track.album.image {
             URLSession.shared.dataTask(with: url, completionHandler: { [weak self] (data, _, _) in
                 if let data = data, let image = NSImage(data: data) {
@@ -61,7 +67,6 @@ final class NowPlayingProvider {
                         image
                     }
                     self?.nowPlayingInfo[MPMediaItemPropertyArtwork] = artwork
-                    self?.notify()
                 }
             }).resume()
         }
@@ -71,7 +76,10 @@ final class NowPlayingProvider {
         MPNowPlayingInfoCenter.default().playbackState = state
     }
 
-    private func notify() {
-        MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
+    // TODO: Connect to logout flow
+    func reset() {
+        nowPlayingInfo.removeAll()
+        MPNowPlayingInfoCenter.default().playbackState = .unknown
     }
+
 }
