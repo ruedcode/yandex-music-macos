@@ -11,9 +11,33 @@ import SwiftUI
 struct ContentView: View {
 
     @EnvironmentObject var store: Store<AppState, AppAction>
+    @State private var showingLogoutAlert = false
 
     var body: some View {
         return VStack(alignment: .leading) {
+
+            HStack {
+                Spacer()
+
+                PlayerButtonView(imageName: "Logout") {
+                    showingLogoutAlert = true
+                }
+                .alert(isPresented: $showingLogoutAlert) {
+                    Alert(title: Text("logout-title"),
+                          message: Text("logout-message"),
+                          primaryButton: .destructive(Text("logout-accept"), action: { store.send(AuthAction.logout) }),
+                          secondaryButton: .cancel()
+                    )
+                  }
+                .buttonStyle(PlainButtonStyle())
+                .help("logout-title")
+            }
+            .padding([.leading, .trailing], 12)
+            .padding(.top, 10)
+            .frame(height: 30)
+
+            Divider()
+                .padding([.leading, .trailing], 8)
 
             LazyVGrid(columns: columns(for: store.state.section.stations), spacing: 20) {
                 ForEach(store.state.section.stations, id: \.self) { item in
@@ -30,7 +54,6 @@ struct ContentView: View {
                 }
             }
             .padding([.leading, .trailing], 8)
-            .padding(.top, 16)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
 
 
@@ -46,7 +69,7 @@ struct ContentView: View {
 
             PlayerView().padding(.bottom, 8).padding([.leading, .trailing], 8)
             Spacer()
-        }
+        }.frame(minWidth: 380)
     }
 
     private func columns(for stations: [Station]) -> [GridItem] {
@@ -57,6 +80,9 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView().environmentObject(Store<AppState, AppAction>(
+            initialState: .init(),
+            appReducer: appReducer
+        ))
     }
 }

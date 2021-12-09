@@ -30,3 +30,7 @@ func log(_ closure: @autoclosure () -> Any?, level: LogLevel = .debug, functionN
         String(describing: closure)
     )
 }
+
+func log(_ info: String) {
+    NSLog("%@", info)
+}

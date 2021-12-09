@@ -10,4 +10,5 @@ enum AuthAction: AppAction {
     case fetchToken(code: String)
     case updateToken
     case authFailed
+    case logout
 }

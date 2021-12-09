@@ -17,8 +17,13 @@ func authReducer(
     case AuthAction.updateToken:
         state = AuthProvider.instance.token != nil ? .authorized : .unauthorized
 
+    case AuthAction.logout:
+        return Just(AuthAction.updateToken)
+            .eraseToAnyPublisher()
+
     default:
         break
     }
+
     return nil
 }
