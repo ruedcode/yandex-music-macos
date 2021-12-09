@@ -48,8 +48,11 @@ struct UserSettingsResponse: Decodable {
         csrf = try values.decode(String.self, forKey: .csrf)
         freshCsrf = try values.decode(String.self, forKey: .freshCsrf)
         login = try values.decodeIfPresent(String.self, forKey: .login)
-        uid = try values.decodeIfPresent(Int64.self, forKey: .uid)?.description
-            ?? (try values.decode(String.self, forKey: .uid))
+        if let _uid = try? values.decodeIfPresent(Int64.self, forKey: .uid)?.description {
+            uid = _uid
+        } else {
+            uid = try values.decode(String.self, forKey: .uid)
+        }
         yandexuid = try values.decode(String.self, forKey: .yandexuid)
         premium = try values.decode(Bool.self, forKey: .premium)
         deviceId = try values.decode(String.self, forKey: .deviceId)

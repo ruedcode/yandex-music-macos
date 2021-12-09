@@ -39,13 +39,13 @@ struct ContentView: View {
             Divider()
                 .padding([.leading, .trailing], 8)
 
-            LazyVGrid(columns: columns(for: store.state.collection.stations), spacing: 20) {
-                ForEach(store.state.collection.stations, id: \.self) { item in
+            LazyVGrid(columns: columns(for: store.state.section.stations), spacing: 20) {
+                ForEach(store.state.section.stations, id: \.self) { item in
                     Button(action: {
-                        store.send(CollectionAction.select(item, andPlay: true))
+                        store.send(SectionAction.select(item, andPlay: true))
                     }) {
                         StationView(
-                            isPlaying: item == store.state.collection.selected && store.state.track.isPlaying,
+                            isPlaying: item == store.state.section.selected && store.state.track.isPlaying,
                             image: URL(string: item.image),
                             color: hexStringToColor(hex: item.color),
                             text: item.name

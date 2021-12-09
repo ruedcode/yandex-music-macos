@@ -18,7 +18,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     lazy var store: Store<AppState, AppAction> = {
         return Store<AppState, AppAction>(
             initialState: .init(),
-            appReducer: appReducer
+            appReducer: appReducer,
+            middlewares: [
+                authMiddleware
+            ]
         )
     }()
 
@@ -55,16 +58,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         NSApp.activate(ignoringOtherApps: true)
 
-        NowPlayingProvider.instance.onPlay = { [weak self] in
-            self?.store.send(TrackAction.play)
-        }
-
-        NowPlayingProvider.instance.onNext = { [weak self] in
-            self?.store.send(TrackAction.playNext)
-        }
-
-        NowPlayingProvider.instance.onPause = { [weak self] in
-            self?.store.send(TrackAction.pause)
+        // Connect MPNowPlayingInfoCenter
+        NowPlayingProvider.instance.handler = { [weak self] event in
+            switch event {
+            case .next: self?.store.send(TrackAction.playNext)
+            case .play: self?.store.send(TrackAction.play)
+            case .pause: self?.store.send(TrackAction.pause)
+            }
         }
 
         auth()
@@ -94,7 +94,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             guard let button = self?.statusBarItem.button else { return }
             self?.popover.show(relativeTo: button.bounds, of: button, preferredEdge: NSRectEdge.minY)
             self?.popover.contentViewController?.view.window?.makeKey()
-            self?.store.send(CollectionAction.fetch)
+            self?.store.send(SectionAction.fetch)
         }
     }
 }

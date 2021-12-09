@@ -38,7 +38,6 @@ struct PlayerView: View {
             PlayerButtonView(imageName: "Next") {
                 store.send(TrackAction.playNext)
             }
-                .padding(.leading, constants.padding)
                 .padding([.top, .bottom], constants.padding)
                 .help(store.state.track.next?.fullName ?? "")
 

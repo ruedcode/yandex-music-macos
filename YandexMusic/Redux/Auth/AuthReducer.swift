@@ -14,13 +14,6 @@ func authReducer(
     action: AppAction
 ) -> AnyPublisher<AppAction, Never>? {
     switch action {
-    case AuthAction.fetchToken(let code):
-        return AuthProvider.instance
-            .auth(with: code)
-            .map { AuthAction.updateToken }
-            .ignoreError()
-            .eraseToAnyPublisher()
-
     case AuthAction.updateToken:
         state = AuthProvider.instance.token != nil ? .authorized : .unauthorized
 
@@ -37,6 +30,5 @@ func authReducer(
     default:
         break
     }
-
     return nil
 }

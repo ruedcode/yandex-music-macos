@@ -26,7 +26,7 @@
 		A128ABA6275D499A00219FBF /* StationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A128ABA5275D499A00219FBF /* StationView.swift */; };
 		A128ABA8275D5EAD00219FBF /* MediaApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = A128ABA7275D5EAD00219FBF /* MediaApplication.swift */; };
 		A12B806227524D27003213E9 /* PlayerButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B806127524D27003213E9 /* PlayerButtonView.swift */; };
-		A12B806627526F0B003213E9 /* CollectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B806527526F0B003213E9 /* CollectionState.swift */; };
+		A12B806627526F0B003213E9 /* SectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B806527526F0B003213E9 /* SectionState.swift */; };
 		A12B806927526F40003213E9 /* TrackState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B806827526F40003213E9 /* TrackState.swift */; };
 		A12B806C27527745003213E9 /* AuthWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B806B27527745003213E9 /* AuthWindow.swift */; };
 		A12B807127527A85003213E9 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B807027527A85003213E9 /* WebView.swift */; };
@@ -36,8 +36,8 @@
 		A12B807D275283F9003213E9 /* AppReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B807C275283F9003213E9 /* AppReducer.swift */; };
 		A12B807F275285D8003213E9 /* NetworkCombine.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B807E275285D8003213E9 /* NetworkCombine.swift */; };
 		A12B808627529D97003213E9 /* StationDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B808527529D97003213E9 /* StationDTO.swift */; };
-		A12B80882752A008003213E9 /* CollectionReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B80872752A008003213E9 /* CollectionReducer.swift */; };
-		A12B808A2752A064003213E9 /* CollectionAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B80892752A064003213E9 /* CollectionAction.swift */; };
+		A12B80882752A008003213E9 /* SectionReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B80872752A008003213E9 /* SectionReducer.swift */; };
+		A12B808A2752A064003213E9 /* SectionAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B80892752A064003213E9 /* SectionAction.swift */; };
 		A12B808C2752AF7E003213E9 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B808B2752AF7E003213E9 /* Colors.swift */; };
 		A12B808E2752B770003213E9 /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B808D2752B770003213E9 /* CustomView.swift */; };
 		A12B809027537CF5003213E9 /* TrackDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B808F27537CF5003213E9 /* TrackDTO.swift */; };
@@ -58,6 +58,7 @@
 		A18D63BC275E9DF3007D83A9 /* BackportAsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18D63BB275E9DF3007D83A9 /* BackportAsyncImage.swift */; };
 		A18D63BE275FD801007D83A9 /* NowPlayingProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18D63BD275FD801007D83A9 /* NowPlayingProvider.swift */; };
 		A1A329C82760073C0094BF4F /* DoubleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A329C72760073C0094BF4F /* DoubleHelper.swift */; };
+		A1A329CA27612E3C0094BF4F /* AuthMiddleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A329C927612E3C0094BF4F /* AuthMiddleware.swift */; };
 		A1B3BD0427523947006AE32C /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B3BD0327523947006AE32C /* NetworkService.swift */; };
 		A1B3BD082752427B006AE32C /* AuthProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B3BD072752427B006AE32C /* AuthProvider.swift */; };
 /* End PBXBuildFile section */
@@ -87,7 +88,7 @@
 		A128ABA7275D5EAD00219FBF /* MediaApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaApplication.swift; sourceTree = "<group>"; };
 		A12B806127524D27003213E9 /* PlayerButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerButtonView.swift; sourceTree = "<group>"; };
 		A12B8063275255B8003213E9 /* YandexMusicDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = YandexMusicDebug.entitlements; sourceTree = "<group>"; };
-		A12B806527526F0B003213E9 /* CollectionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionState.swift; sourceTree = "<group>"; };
+		A12B806527526F0B003213E9 /* SectionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionState.swift; sourceTree = "<group>"; };
 		A12B806827526F40003213E9 /* TrackState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackState.swift; sourceTree = "<group>"; };
 		A12B806B27527745003213E9 /* AuthWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthWindow.swift; sourceTree = "<group>"; };
 		A12B807027527A85003213E9 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
@@ -97,8 +98,8 @@
 		A12B807C275283F9003213E9 /* AppReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppReducer.swift; sourceTree = "<group>"; };
 		A12B807E275285D8003213E9 /* NetworkCombine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkCombine.swift; sourceTree = "<group>"; };
 		A12B808527529D97003213E9 /* StationDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationDTO.swift; sourceTree = "<group>"; };
-		A12B80872752A008003213E9 /* CollectionReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionReducer.swift; sourceTree = "<group>"; };
-		A12B80892752A064003213E9 /* CollectionAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionAction.swift; sourceTree = "<group>"; };
+		A12B80872752A008003213E9 /* SectionReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionReducer.swift; sourceTree = "<group>"; };
+		A12B80892752A064003213E9 /* SectionAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionAction.swift; sourceTree = "<group>"; };
 		A12B808B2752AF7E003213E9 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		A12B808D2752B770003213E9 /* CustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
 		A12B808F27537CF5003213E9 /* TrackDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackDTO.swift; sourceTree = "<group>"; };
@@ -119,6 +120,7 @@
 		A18D63BB275E9DF3007D83A9 /* BackportAsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackportAsyncImage.swift; sourceTree = "<group>"; };
 		A18D63BD275FD801007D83A9 /* NowPlayingProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingProvider.swift; sourceTree = "<group>"; };
 		A1A329C72760073C0094BF4F /* DoubleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleHelper.swift; sourceTree = "<group>"; };
+		A1A329C927612E3C0094BF4F /* AuthMiddleware.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthMiddleware.swift; sourceTree = "<group>"; };
 		A1B3BD0327523947006AE32C /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		A1B3BD072752427B006AE32C /* AuthProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthProvider.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -204,14 +206,14 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
-		A12B806427526EFE003213E9 /* Collection */ = {
+		A12B806427526EFE003213E9 /* Station */ = {
 			isa = PBXGroup;
 			children = (
-				A12B806527526F0B003213E9 /* CollectionState.swift */,
-				A12B80872752A008003213E9 /* CollectionReducer.swift */,
-				A12B80892752A064003213E9 /* CollectionAction.swift */,
+				A12B806527526F0B003213E9 /* SectionState.swift */,
+				A12B80892752A064003213E9 /* SectionAction.swift */,
+				A12B80872752A008003213E9 /* SectionReducer.swift */,
 			);
-			path = Collection;
+			path = Station;
 			sourceTree = "<group>";
 		};
 		A12B806727526F34003213E9 /* Track */ = {
@@ -253,7 +255,7 @@
 			isa = PBXGroup;
 			children = (
 				A12B806727526F34003213E9 /* Track */,
-				A12B806427526EFE003213E9 /* Collection */,
+				A12B806427526EFE003213E9 /* Station */,
 				A17F6725275245840094B5A3 /* Auth */,
 				A17F67242752452E0094B5A3 /* App */,
 			);
@@ -277,6 +279,7 @@
 				A17F67262752460A0094B5A3 /* AuthState.swift */,
 				A12B807427528058003213E9 /* AuthAction.swift */,
 				A12B807627528080003213E9 /* AuthReducer.swift */,
+				A1A329C927612E3C0094BF4F /* AuthMiddleware.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -442,16 +445,17 @@
 				A12B809D27538DFD003213E9 /* TrackReducer.swift in Sources */,
 				A18D63B8275E9DC0007D83A9 /* AsyncImage.swift in Sources */,
 				A12B806227524D27003213E9 /* PlayerButtonView.swift in Sources */,
+				A1A329CA27612E3C0094BF4F /* AuthMiddleware.swift in Sources */,
 				A128AB9B275CD39600219FBF /* TrackFileRequest.swift in Sources */,
 				A17F6723275245240094B5A3 /* AppAction.swift in Sources */,
 				A128AB91275CD30400219FBF /* LibraryRequest.swift in Sources */,
-				A12B808A2752A064003213E9 /* CollectionAction.swift in Sources */,
+				A12B808A2752A064003213E9 /* SectionAction.swift in Sources */,
 				A1A329C82760073C0094BF4F /* DoubleHelper.swift in Sources */,
 				A17F671D275244A90094B5A3 /* AppState.swift in Sources */,
 				459A279123AA910B003D50EC /* AppDelegate.swift in Sources */,
 				A12B806C27527745003213E9 /* AuthWindow.swift in Sources */,
 				A128AB97275CD35C00219FBF /* TrackRequest.swift in Sources */,
-				A12B80882752A008003213E9 /* CollectionReducer.swift in Sources */,
+				A12B80882752A008003213E9 /* SectionReducer.swift in Sources */,
 				A17F67272752460A0094B5A3 /* AuthState.swift in Sources */,
 				A128ABA8275D5EAD00219FBF /* MediaApplication.swift in Sources */,
 				A12B807D275283F9003213E9 /* AppReducer.swift in Sources */,
@@ -465,7 +469,7 @@
 				A12B80992753857D003213E9 /* TrackAction.swift in Sources */,
 				A12B809F2753CC96003213E9 /* AudioProvider.swift in Sources */,
 				A12B807127527A85003213E9 /* WebView.swift in Sources */,
-				A12B806627526F0B003213E9 /* CollectionState.swift in Sources */,
+				A12B806627526F0B003213E9 /* SectionState.swift in Sources */,
 				85D258872761D84C004CD896 /* Localization.swift in Sources */,
 				A128AB99275CD37A00219FBF /* Mp3Request.swift in Sources */,
 				A17F671F275244C40094B5A3 /* AppStore.swift in Sources */,
