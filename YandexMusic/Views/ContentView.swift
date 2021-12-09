@@ -23,14 +23,14 @@ struct ContentView: View {
                     showingLogoutAlert = true
                 }
                 .alert(isPresented: $showingLogoutAlert) {
-                    Alert(title: Text("Logout"),
-                          message: Text("Do you really want to logout?"),
-                          primaryButton: .destructive(Text("Logout"), action: { store.send(AuthAction.logout) }),
+                    Alert(title: Text("logout-title"),
+                          message: Text("logout-message"),
+                          primaryButton: .destructive(Text("logout-accept"), action: { store.send(AuthAction.logout) }),
                           secondaryButton: .cancel()
                     )
                   }
                 .buttonStyle(PlainButtonStyle())
-                .help("Logout")
+                .help("logout-title")
             }
             .padding([.leading, .trailing], 12)
             .padding(.top, 10)

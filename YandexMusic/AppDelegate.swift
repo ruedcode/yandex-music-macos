@@ -44,10 +44,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
 
         // Create context menu
-        let menu = NSMenu(title: "Menu")
+        let menu = NSMenu(title: "context-menu".localized)
 
         menu.addItem(
-            withTitle: "Quit",
+            withTitle: "quit".localized,
             action: #selector(NSApplication.terminate(_:)),
             keyEquivalent: "q")
 

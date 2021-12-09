@@ -30,7 +30,7 @@ final class AuthWindow: NSWindow {
             defer: false
         )
         Bundle.main.infoDictionary?["CFBundleName"]
-            .flatMap { title = "\($0) - Login" }
+            .flatMap { title = "\($0) - \("login-title".localized)" }
         isReleasedWhenClosed = false
         styleMask.insert(NSWindow.StyleMask.fullSizeContentView)
         let viewModel = WebViewModel(link: Constants.Auth.codeUrl)
