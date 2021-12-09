@@ -6,6 +6,7 @@
 //  Copyright © 2021 Eugene Kalyada. All rights reserved.
 //
 
+import Combine
 import Foundation
 
 enum NetworkError: Error {
@@ -73,8 +74,6 @@ struct RequestData {
                 data: component.query?.data(using: .utf8),
                 headers: [:]
             )
-
-
         }
     }
 }
@@ -87,83 +86,101 @@ protocol RequestType {
 
 extension RequestType {
     func execute (
-        dispatcher: NetworkDispatcher = URLSessionNetworkDispatcher.instance,
-        onComplete: @escaping (Result<ResponseType, Error>) -> Void
-    ) {
-        dispatcher.dispatch(request: self.data) { result in
-            switch result {
-            case let .success(responseData):
-                do {
-                    let jsonDecoder = JSONDecoder()
-                    let result = try jsonDecoder.decode(ResponseType.self, from: responseData)
-                    DispatchQueue.main.async {
-                        onComplete(.success(result))
-                    }
-                } catch let error {
-                    print("Error parsing \(error.localizedDescription)")
-                    DispatchQueue.main.async {
-                        onComplete(.failure(error))
-                    }
-                }
-            case let .failure(error):
-                DispatchQueue.main.async {
-                    onComplete(.failure(error))
-                }
+        dispatcher: NetworkDispatcher = URLSessionNetworkDispatcher.instance
+    ) -> AnyPublisher<ResponseType, Error> {
+        dispatcher.dispatch(request: self.data)
+            .decode(type: ResponseType.self, decoder: JSONDecoder())
+            .mapError {
+                log("Request error: \($0)", level: .error)
+                return $0
             }
-        }
+            .eraseToAnyPublisher()
     }
 }
 
 protocol NetworkDispatcher {
-    func dispatch(request: RequestData, onComplete: @escaping (Result<Data, Error>) -> Void)
+    func dispatch(request: RequestData) -> AnyPublisher<Data, Error>
 }
 
 struct URLSessionNetworkDispatcher: NetworkDispatcher {
     static let instance = URLSessionNetworkDispatcher()
     private init() {}
 
-    func dispatch(request: RequestData, onComplete: @escaping (Result<Data, Error>) -> Void) {
+    func dispatch(request: RequestData) -> AnyPublisher<Data, Error> {
         guard let url = URL(string: request.path) else {
-            onComplete(.failure(NetworkError.invalidURL))
-            return
+            return Fail(error: NetworkError.invalidURL)
+                .eraseToAnyPublisher()
         }
 
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = request.method.rawValue
 
-        if let params = request.params {
+        request.params.flatMap { params in
             urlRequest.httpBody = params.data
             params.headers.forEach {
                 urlRequest.setValue($0.value, forHTTPHeaderField: $0.key)
             }
         }
 
-        if let headers = request.headers {
-            urlRequest.allHTTPHeaderFields = headers
-        }
+        request.headers
+            .flatMap { urlRequest.allHTTPHeaderFields = $0 }
 
         if request.auth {
             if let token = AuthProvider.instance.token?.access_token {
                 urlRequest.setValue(token, forHTTPHeaderField: "Authorization")
-            }
-            else {
-                onComplete(.failure(NetworkError.noAuthToken))
-                return
+            } else {
+                return Fail(error: NetworkError.noAuthToken)
+                    .eraseToAnyPublisher()
             }
         }
 
-        URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
-            if let error = error {
-                onComplete(.failure(error))
-                return
-            }
+        log("Request started:\n\(urlRequest.asCURL)", level: .debug)
 
-            guard let _data = data else {
-                onComplete(.failure(NetworkError.emptyResponse))
-                return
-            }
-
-            onComplete(.success(_data))
-        }.resume()
+        return URLSession.shared
+            .dataTaskPublisher(for: urlRequest)
+            .map(mapResponse)
+            .mapError { $0 }
+            .receive(on: DispatchQueue.main)
+            .eraseToAnyPublisher()
     }
+
+    private func mapResponse(data: Data, response: URLResponse) -> Data {
+        var logMessage = "Request finished with:"
+        if let httpResponse = response as? HTTPURLResponse {
+            logMessage += "\nResponse code: \(httpResponse.statusCode)"
+        }
+        logMessage += "\nResponse data: \(String(data: data, encoding: .utf8) ?? "none")"
+        log(logMessage, level: .debug)
+        return data
+    }
+}
+
+private extension URLRequest {
+    var asCURL: String {
+        guard let url = url else { return "" }
+        var baseCommand = #"curl "\#(url.absoluteString)""#
+
+        if httpMethod == "HEAD" {
+            baseCommand += " --head"
+        }
+
+        var command = [baseCommand]
+
+        if let method = httpMethod, method != "GET" && method != "HEAD" {
+            command.append("-X \(method)")
+        }
+
+        if let headers = allHTTPHeaderFields {
+            for (key, value) in headers where key != "Cookie" {
+                command.append("-H '\(key): \(value)'")
+            }
+        }
+
+        if let data = httpBody, let body = String(data: data, encoding: .utf8) {
+            command.append("-d '\(body)'")
+        }
+
+        return command.joined(separator: " \\\n\t")
+    }
+
 }
