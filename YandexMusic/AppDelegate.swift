@@ -19,7 +19,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             initialState: .init(),
             appReducer: appReducer,
             middlewares: [
-                authMiddleware
+                authMiddleware,
+                stationMiddleware
             ]
         )
     }()
@@ -83,7 +84,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 if let button = self?.statusBarItem.button {
                     self?.popover.show(relativeTo: button.bounds, of: button, preferredEdge: NSRectEdge.minY)
                     self?.popover.contentViewController?.view.window?.makeKey()
-                    self?.store.send(SectionAction.fetch)
+                    self?.store.send(StationAction.fetch)
                 }
             }
         }
