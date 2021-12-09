@@ -17,7 +17,17 @@ var authMiddleware: Middleware<AppState, AppAction> = { store, action in
             .ignoreError()
             .sink { _ in
                 store.send(AuthAction.updateToken)
-            }.store(in: &store.effectCancellables)
+            }
+            .store(in: &store.effectCancellables)
+
+    case AuthAction.logout:
+        HTTPCookieStorage.shared
+            .cookies?
+            .forEach(HTTPCookieStorage.shared.deleteCookie)
+        URLCache.shared.removeAllCachedResponses()
+        URLSession.shared.invalidateAndCancel()
+        AuthProvider.instance.logout()
+
     default:
         break
     }

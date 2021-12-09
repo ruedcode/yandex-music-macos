@@ -18,17 +18,12 @@ func authReducer(
         state = AuthProvider.instance.token != nil ? .authorized : .unauthorized
 
     case AuthAction.logout:
-        HTTPCookieStorage.shared
-            .cookies?
-            .forEach(HTTPCookieStorage.shared.deleteCookie)
-        URLCache.shared.removeAllCachedResponses()
-        URLSession.shared.invalidateAndCancel()
-        AuthProvider.instance.logout()
         return Just(AuthAction.updateToken)
             .eraseToAnyPublisher()
 
     default:
         break
     }
+
     return nil
 }
