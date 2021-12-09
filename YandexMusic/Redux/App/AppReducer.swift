@@ -20,9 +20,9 @@ func appReducer(
             state: &state.auth,
             action: action
         )
-    case is CollectionAction:
-        return collectionReducer(
-            state: &state.collection,
+    case is SectionAction:
+        return sectionReducer(
+            state: &state.section,
             action: action
         )
     case is TrackAction:
@@ -33,11 +33,11 @@ func appReducer(
     case is BaseAction:
         switch action as? BaseAction {
         case let .dumb(error):
-            print("-->> error: \(error.localizedDescription)")
+            log(error)
         case .none:
             break
         }
     default: break
     }
-    return Empty().eraseToAnyPublisher()
+    return nil
 }
