@@ -89,7 +89,11 @@ extension RequestType {
         dispatcher: NetworkDispatcher = URLSessionNetworkDispatcher.instance
     ) -> AnyPublisher<ResponseType, Error> {
         dispatcher.dispatch(request: self.data)
-            .tryMap { try JSONDecoder().decode(ResponseType.self, from: $0) }
+            .decode(type: ResponseType.self, decoder: JSONDecoder())
+            .mapError {
+                log("Request error: \($0)", level: .error)
+                return $0
+            }
             .eraseToAnyPublisher()
     }
 }
@@ -124,17 +128,59 @@ struct URLSessionNetworkDispatcher: NetworkDispatcher {
         if request.auth {
             if let token = AuthProvider.instance.token?.access_token {
                 urlRequest.setValue(token, forHTTPHeaderField: "Authorization")
-            }
-            else {
+            } else {
                 return Fail(error: NetworkError.noAuthToken)
                     .eraseToAnyPublisher()
             }
         }
 
+        log("Request started:\n\(urlRequest.asCURL)", level: .debug)
+
         return URLSession.shared
             .dataTaskPublisher(for: urlRequest)
-            .map { $0.data }
+            .map(mapResponse)
             .mapError { $0 }
+            .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
     }
+
+    private func mapResponse(data: Data, response: URLResponse) -> Data {
+        var logMessage = "Request finished with:"
+        if let httpResponse = response as? HTTPURLResponse {
+            logMessage += "\nResponse code: \(httpResponse.statusCode)"
+        }
+        logMessage += "\nResponse data: \(String(data: data, encoding: .utf8) ?? "none")"
+        log(logMessage, level: .debug)
+        return data
+    }
+}
+
+private extension URLRequest {
+    var asCURL: String {
+        guard let url = url else { return "" }
+        var baseCommand = #"curl "\#(url.absoluteString)""#
+
+        if httpMethod == "HEAD" {
+            baseCommand += " --head"
+        }
+
+        var command = [baseCommand]
+
+        if let method = httpMethod, method != "GET" && method != "HEAD" {
+            command.append("-X \(method)")
+        }
+
+        if let headers = allHTTPHeaderFields {
+            for (key, value) in headers where key != "Cookie" {
+                command.append("-H '\(key): \(value)'")
+            }
+        }
+
+        if let data = httpBody, let body = String(data: data, encoding: .utf8) {
+            command.append("-d '\(body)'")
+        }
+
+        return command.joined(separator: " \\\n\t")
+    }
+
 }
