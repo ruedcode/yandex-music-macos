@@ -29,8 +29,13 @@ struct WebView: NSViewRepresentable {
     public func makeNSView(context: NSViewRepresentableContext<WebView>) -> WKWebView {
         webView.navigationDelegate = context.coordinator
         webView.uiDelegate = context.coordinator as? WKUIDelegate
-        webView.configuration.websiteDataStore.httpCookieStore.getAllCookies { items in
-            items.forEach { webView.configuration.websiteDataStore.httpCookieStore.delete($0, completionHandler: nil) }
+        if AuthProvider.instance.isNeedResetAuth {
+            webView.configuration.websiteDataStore.httpCookieStore.getAllCookies { items in
+                items.forEach { webView.configuration.websiteDataStore.httpCookieStore.delete($0, completionHandler: nil) }
+                AuthProvider.instance.isNeedResetAuth = false
+                webView.load(URLRequest(url: URL(string: viewModel.link)!))
+            }
+        } else {
             webView.load(URLRequest(url: URL(string: viewModel.link)!))
         }
         return webView
