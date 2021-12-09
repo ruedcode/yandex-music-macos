@@ -21,6 +21,6 @@ struct LibraryRequest: RequestType {
 }
 
 struct LibraryResponse: Decodable {
-    let types: GroupsDTO?
+    let types: GroupsDTO
 }
 

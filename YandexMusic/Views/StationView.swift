@@ -46,7 +46,10 @@ struct StationView: View {
                     isAnimated = false
                 }
             }
-            Text(text).font(.subheadline)
+            Text(text)
+                .font(.subheadline)
+                .multilineTextAlignment(.center)
+                .frame(height: 28, alignment: .top)
         }
     }
 }

@@ -15,23 +15,7 @@ struct ContentView: View {
     var body: some View {
         return VStack(alignment: .leading) {
 
-            LazyVGrid(columns: columns(for: store.state.section.stations), spacing: 20) {
-                ForEach(store.state.section.stations, id: \.self) { item in
-                    Button(action: {
-                        store.send(StationAction.select(item, andPlay: true))
-                    }) {
-                        StationView(
-                            isPlaying: item == store.state.section.selected && store.state.track.isPlaying,
-                            image: URL(string: item.image),
-                            color: hexStringToColor(hex: item.color),
-                            text: item.name
-                        )
-                    }.buttonStyle(PlainButtonStyle())
-                }
-            }
-            .padding([.leading, .trailing], 8)
-            .padding(.top, 16)
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            StationListView()
 
 
             ProgressView(
@@ -47,10 +31,6 @@ struct ContentView: View {
             PlayerView().padding(.bottom, 8).padding([.leading, .trailing], 8)
             Spacer()
         }
-    }
-
-    private func columns(for stations: [Station]) -> [GridItem] {
-        return stations.map { _ in GridItem(.flexible()) }
     }
 }
 
