@@ -12,13 +12,26 @@ import Combine
 final class AuthProvider {
     static let instance = AuthProvider()
 
+    private let isNeedResetAuthKey = "isNeedResetAuth"
+
     private(set) var token: TokenResponse?
     private(set) var profile: UserSettingsResponse?
+
+    var isNeedResetAuth: Bool {
+        get { UserDefaults.standard.bool(forKey: isNeedResetAuthKey) }
+        set { UserDefaults.standard.set(newValue, forKey: isNeedResetAuthKey) }
+    }
 
     func auth(with code: String) -> AnyPublisher<Void, Error> {
         requestToken(code: code)
             .flatMap { self.requestSettings() }
             .eraseToAnyPublisher()
+    }
+
+    func logout() {
+        isNeedResetAuth = true
+        token = nil
+        profile = nil
     }
 
     private func requestToken(code: String) -> AnyPublisher<Void, Error> {

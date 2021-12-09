@@ -1,0 +1,17 @@
+/* 
+  Localizable.strings
+  YandexMusic
+
+  Created by Mike Price on 09.12.2021.
+  Copyright © 2021 Eugene Kalyada. All rights reserved.
+*/
+
+"context-menu" = "Menu";
+
+"quit" = "Quit";
+
+"login-title" = "Login";
+
+"logout-title" = "Logout";
+"logout-message" = "Do you really want to logout?";
+"logout-accept" = "Logout";

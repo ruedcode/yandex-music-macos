@@ -23,13 +23,23 @@ import WebKit
 struct WebView: NSViewRepresentable {
 
     public typealias NSViewType = WKWebView
-    @ObservedObject var viewModel: WebViewModel
 
     private let webView: WKWebView = WKWebView()
+
+    @ObservedObject var viewModel: WebViewModel
+    var withResetCookies: Bool = false
+
     public func makeNSView(context: NSViewRepresentableContext<WebView>) -> WKWebView {
         webView.navigationDelegate = context.coordinator
         webView.uiDelegate = context.coordinator as? WKUIDelegate
-        webView.load(URLRequest(url: URL(string: viewModel.link)!))
+        if withResetCookies {
+            webView.configuration.websiteDataStore.httpCookieStore.getAllCookies { items in
+                items.forEach { webView.configuration.websiteDataStore.httpCookieStore.delete($0, completionHandler: nil) }
+                webView.load(URLRequest(url: URL(string: viewModel.link)!))
+            }
+        } else {
+            webView.load(URLRequest(url: URL(string: viewModel.link)!))
+        }
         return webView
     }
 

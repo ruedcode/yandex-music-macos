@@ -13,6 +13,7 @@ import SwiftUI
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     private var cancellable: AnyCancellable?
+    private var authWindow: AuthWindow?
 
     lazy var store: Store<AppState, AppAction> = {
         return Store<AppState, AppAction>(
@@ -34,18 +35,28 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         // Create the popover
         let popover = NSPopover()
-        popover.contentSize = NSSize(width: 380, height: 150)
         popover.behavior = .transient
         popover.contentViewController = NSHostingController(rootView: contentView)
         self.popover = popover
         
         // Create the status item
-        self.statusBarItem = NSStatusBar.system.statusItem(withLength: CGFloat(NSStatusItem.variableLength))
+        self.statusBarItem = NSStatusBar.system.statusItem(withLength: CGFloat(NSStatusItem.squareLength))
         
         if let button = self.statusBarItem.button {
             button.image = NSImage(named: "Music")
+            button.image?.size = CGSize(width: 18, height: 18)
             button.action = #selector(togglePopover(_:))
         }
+
+        // Create context menu
+        let menu = NSMenu(title: "context-menu".localized)
+
+        menu.addItem(
+            withTitle: "quit".localized,
+            action: #selector(NSApplication.terminate(_:)),
+            keyEquivalent: "q")
+
+        statusBarItem?.button?.menu = menu
         
         NSApp.activate(ignoringOtherApps: true)
 
@@ -57,36 +68,35 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             case .pause: self?.store.send(TrackAction.pause)
             }
         }
+
+        auth()
     }
     
     @objc func togglePopover(_ sender: AnyObject?) {
-        if let button = self.statusBarItem.button {
-            if self.popover.isShown {
-                self.popover.performClose(sender)
-            } else {
-                if case .authorized = store.state.auth {
-                    self.popover.show(relativeTo: button.bounds, of: button, preferredEdge: NSRectEdge.minY)
-                    self.popover.contentViewController?.view.window?.makeKey()
-                }
-                else {
-                    auth()
-                }
+        guard let button = self.statusBarItem.button else { return }
+        if self.popover.isShown {
+            self.popover.performClose(sender)
+        } else {
+            if case .authorized = store.state.auth {
+                self.popover.show(relativeTo: button.bounds, of: button, preferredEdge: NSRectEdge.minY)
+                self.popover.contentViewController?.view.window?.makeKey()
+            }
+            else {
+                auth()
             }
         }
     }
 
     private func auth() {
-        let authWindow = AuthWindow(store: store)
-        authWindow.makeKeyAndOrderFront(self)
+        authWindow?.close()
+        authWindow = AuthWindow(store: store)
         cancellable = self.store.$state.sink { [weak self] state in
-            if case .authorized = state.auth {
-                self?.cancellable?.cancel()
-                if let button = self?.statusBarItem.button {
-                    self?.popover.show(relativeTo: button.bounds, of: button, preferredEdge: NSRectEdge.minY)
-                    self?.popover.contentViewController?.view.window?.makeKey()
-                    self?.store.send(StationAction.fetch)
-                }
-            }
+            guard case .authorized = state.auth else { return }
+            self?.cancellable?.cancel()
+            guard let button = self?.statusBarItem.button else { return }
+            self?.popover.show(relativeTo: button.bounds, of: button, preferredEdge: NSRectEdge.minY)
+            self?.popover.contentViewController?.view.window?.makeKey()
+            self?.store.send(StationAction.fetch)
         }
     }
 }
