@@ -18,3 +18,13 @@ struct Station: Hashable {
     let color: String
     let image: String
 }
+
+extension Station {
+    init(_ dto: StationDTO) {
+        type = dto.id.type
+        tag = dto.id.tag
+        name = dto.name
+        color = dto.icon.backgroundColor
+        image = link(from: dto.icon.imageUrl)
+    }
+}
