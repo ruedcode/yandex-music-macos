@@ -6,8 +6,8 @@
 //  Copyright © 2021 Eugene Kalyada. All rights reserved.
 //
 
-enum SectionAction: AppAction {
+enum StationAction: AppAction {
     case fetch
-    case update(RecomendationResponse)
+    case update([StationDTO])
     case select(Station, andPlay: Bool)
 }

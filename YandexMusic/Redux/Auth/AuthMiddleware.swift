@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Combine
 
 var authMiddleware: Middleware<AppState, AppAction> = { store, action in
     switch action {
