@@ -9,20 +9,20 @@
 import Foundation
 import Combine
 
-func collectionReducer(
-    state: inout CollectionState,
+func sectionReducer(
+    state: inout SectionState,
     action: AppAction
 ) -> AnyPublisher<AppAction, Never>? {
     let fetcher = RecommendationRequest()
     switch action {
-    case CollectionAction.fetch:
+    case SectionAction.fetch:
         return fetcher.execute()
             .map {
-                CollectionAction.update($0)
+                SectionAction.update($0)
             }
             .ignoreError()
             .eraseToAnyPublisher()
-    case CollectionAction.update(let items):
+    case SectionAction.update(let items):
         let stations = items.stations.compactMap {
             Station(
                 type: $0.station.id.type,
@@ -34,9 +34,9 @@ func collectionReducer(
         }
         state.stations = stations
         if state.selected == nil, let station = stations.first {
-            return CollectionAction.select(station, andPlay: false).next
+            return SectionAction.select(station, andPlay: false).next
         }
-    case let CollectionAction.select(station, andPlay):
+    case let SectionAction.select(station, andPlay):
         guard state.selected != station else {
             return nil
         }
