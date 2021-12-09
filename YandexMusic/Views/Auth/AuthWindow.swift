@@ -34,7 +34,11 @@ final class AuthWindow: NSWindow {
         isReleasedWhenClosed = false
         styleMask.insert(NSWindow.StyleMask.fullSizeContentView)
         let viewModel = WebViewModel(link: Constants.Auth.codeUrl)
-        contentView = NSHostingView(rootView: WebView(viewModel: viewModel))
+        contentView = NSHostingView(rootView: WebView(
+            viewModel: viewModel,
+            withResetCookies: AuthProvider.instance.isNeedResetAuth
+        ))
+        AuthProvider.instance.isNeedResetAuth = false
         cancellable = viewModel.$link.sink { [weak self] link in
             guard let components = URLComponents(string: link) else { return }
 
