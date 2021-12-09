@@ -9,19 +9,16 @@
 import Foundation
 import Combine
 
-var authMiddleware: Middleware<AppState, AppAction> = {
-    { store, action in
-        switch action {
-        case AuthAction.fetchToken(let code):
-            AuthProvider.instance
-                .auth(with: code)
-                .ignoreError()
-                .sink { _ in
-                    store.send(AuthAction.updateToken)
-                }.store(in: &store.effectCancellables)
-        default:
-            break
-        }
+var authMiddleware: Middleware<AppState, AppAction> = { store, action in
+    switch action {
+    case AuthAction.fetchToken(let code):
+        AuthProvider.instance
+            .auth(with: code)
+            .ignoreError()
+            .sink { _ in
+                store.send(AuthAction.updateToken)
+            }.store(in: &store.effectCancellables)
+    default:
+        break
     }
 }
-

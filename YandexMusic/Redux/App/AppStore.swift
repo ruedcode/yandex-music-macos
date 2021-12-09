@@ -12,7 +12,7 @@ import Combine
 typealias Reducer<State, Action> =
     (inout State, Action) -> AnyPublisher<Action, Never>?
 
-typealias Middleware<State, Action> = () -> ((Store<State, Action>, Action) -> Void)
+typealias Middleware<State, Action> = (Store<State, Action>, Action) -> Void
 
 final class Store<State, Action>: ObservableObject {
     @Published private(set) var state: State
@@ -34,7 +34,7 @@ final class Store<State, Action>: ObservableObject {
     func send(_ action: Action) {
 
         middlewares.forEach {
-            $0()(self, action)
+            $0(self, action)
         }
         
         guard let effect = reducer(&state, action) else {
