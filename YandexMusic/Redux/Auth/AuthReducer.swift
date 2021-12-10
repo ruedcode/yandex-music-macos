@@ -19,6 +19,8 @@ func authReducer(
 
     case AuthAction.logout:
         return Just(AuthAction.updateToken)
+            .merge(with: Just(TrackAction.resetPlayer))
+            .merge(with: Just(BaseAction.resetState))
             .eraseToAnyPublisher()
 
     default:

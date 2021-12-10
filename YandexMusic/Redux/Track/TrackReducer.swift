@@ -141,6 +141,10 @@ func trackReducer(
                 andPlay: false
             ).next
         }
+
+    case TrackAction.resetPlayer:
+        AudioProvider.instance.reset()
+        NowPlayingProvider.instance.reset()
         
     case TrackAction.playNext:
         if let item = AudioProvider.instance.player?.currentItem {
