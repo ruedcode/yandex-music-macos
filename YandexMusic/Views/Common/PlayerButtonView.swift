@@ -10,21 +10,41 @@ import SwiftUI
 
 struct PlayerButtonView: View {
 
+    enum ImageSize {
+        case `default`
+        case large
+
+        fileprivate var asFont: Font {
+            switch self {
+            case .default: return .system(size: 20)
+            case .large: return .system(size: 36)
+            }
+        }
+
+        fileprivate var minSize: CGFloat {
+            switch self {
+            case .default: return 25
+            case .large: return 44
+            }
+        }
+    }
+
     private let imageName: String
+    private let imageSize: ImageSize
     private let buttonAction: () -> Void
 
-    init(imageName: String, action: @escaping () -> Void = {}) {
+    init(imageName: String, imageSize: ImageSize = .default, action: @escaping () -> Void = {}) {
         self.imageName = imageName
+        self.imageSize = imageSize
         self.buttonAction = action
     }
 
     var body: some View {
         Button(action: buttonAction) {
-            Image(imageName)
-                .resizable()
-                .aspectRatio(1, contentMode: .fit)
-                .clipped()
+            Image(systemName: imageName)
+                .font(imageSize.asFont)
         }
+        .frame(minWidth: imageSize.minSize, minHeight: imageSize.minSize)
         .foregroundColor(Color("Primary"))
         .buttonStyle(PlainButtonStyle())
     }
@@ -32,6 +52,6 @@ struct PlayerButtonView: View {
 
 struct PlayerButtonView_Previews: PreviewProvider {
     static var previews: some View {
-        PlayerButtonView(imageName: "Next")
+        PlayerButtonView(imageName: "next")
     }
 }
