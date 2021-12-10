@@ -48,6 +48,7 @@
 		A12B809F2753CC96003213E9 /* AudioProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B809E2753CC96003213E9 /* AudioProvider.swift */; };
 		A12B80A12757FE42003213E9 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B80A02757FE42003213E9 /* Logger.swift */; };
 		A12B80A527580FE1003213E9 /* TrackService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B80A427580FE1003213E9 /* TrackService.swift */; };
+		A12C77442763DE5B00A22FDF /* TrackMiddleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12C77432763DE5B00A22FDF /* TrackMiddleware.swift */; };
 		A17F671D275244A90094B5A3 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17F671C275244A90094B5A3 /* AppState.swift */; };
 		A17F671F275244C40094B5A3 /* AppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17F671E275244C40094B5A3 /* AppStore.swift */; };
 		A17F6723275245240094B5A3 /* AppAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17F6722275245240094B5A3 /* AppAction.swift */; };
@@ -72,6 +73,8 @@
 		459A279A23AA910B003D50EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		459A279C23AA910B003D50EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		459A279D23AA910B003D50EC /* YandexMusic.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = YandexMusic.entitlements; sourceTree = "<group>"; };
+		8558F36A2763F3E500D6A34E /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		8558F36B2763F3F400D6A34E /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		85D2588227615137004CD896 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		85D2588427615145004CD896 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		85D258862761D84C004CD896 /* Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
@@ -110,6 +113,7 @@
 		A12B809E2753CC96003213E9 /* AudioProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioProvider.swift; sourceTree = "<group>"; };
 		A12B80A02757FE42003213E9 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		A12B80A427580FE1003213E9 /* TrackService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackService.swift; sourceTree = "<group>"; };
+		A12C77432763DE5B00A22FDF /* TrackMiddleware.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackMiddleware.swift; sourceTree = "<group>"; };
 		A17F671C275244A90094B5A3 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		A17F671E275244C40094B5A3 /* AppStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStore.swift; sourceTree = "<group>"; };
 		A17F6722275245240094B5A3 /* AppAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAction.swift; sourceTree = "<group>"; };
@@ -155,20 +159,14 @@
 		459A278F23AA910B003D50EC /* YandexMusic */ = {
 			isa = PBXGroup;
 			children = (
-				A128ABA7275D5EAD00219FBF /* MediaApplication.swift */,
-				A12B80802752889D003213E9 /* Dto */,
-				A12B8063275255B8003213E9 /* YandexMusicDebug.entitlements */,
-				A17F672827524A420094B5A3 /* Views */,
-				A17F671B275244560094B5A3 /* Redux */,
-				A1B3BD0027523918006AE32C /* Features */,
 				A1B3BCFE2752390E006AE32C /* Core */,
+				A1B3BD0027523918006AE32C /* Features */,
+				A12B80802752889D003213E9 /* Dto */,
+				A17F671B275244560094B5A3 /* Redux */,
+				A17F672827524A420094B5A3 /* Views */,
 				459A279023AA910B003D50EC /* AppDelegate.swift */,
-				459A279423AA910B003D50EC /* Assets.xcassets */,
-				459A279923AA910B003D50EC /* Main.storyboard */,
-				459A279C23AA910B003D50EC /* Info.plist */,
-				459A279D23AA910B003D50EC /* YandexMusic.entitlements */,
-				459A279623AA910B003D50EC /* Preview Content */,
-				85D2588327615137004CD896 /* Localizable.strings */,
+				A128ABA7275D5EAD00219FBF /* MediaApplication.swift */,
+				8558F3672763F2CB00D6A34E /* Resources */,
 			);
 			path = YandexMusic;
 			sourceTree = "<group>";
@@ -179,6 +177,38 @@
 				459A279723AA910B003D50EC /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		8558F3672763F2CB00D6A34E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				8558F3692763F39900D6A34E /* XCConfigs */,
+				8558F3682763F36F00D6A34E /* Entitlements */,
+				459A279423AA910B003D50EC /* Assets.xcassets */,
+				459A279923AA910B003D50EC /* Main.storyboard */,
+				459A279C23AA910B003D50EC /* Info.plist */,
+				459A279623AA910B003D50EC /* Preview Content */,
+				85D2588327615137004CD896 /* Localizable.strings */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		8558F3682763F36F00D6A34E /* Entitlements */ = {
+			isa = PBXGroup;
+			children = (
+				A12B8063275255B8003213E9 /* YandexMusicDebug.entitlements */,
+				459A279D23AA910B003D50EC /* YandexMusic.entitlements */,
+			);
+			path = Entitlements;
+			sourceTree = "<group>";
+		};
+		8558F3692763F39900D6A34E /* XCConfigs */ = {
+			isa = PBXGroup;
+			children = (
+				8558F36A2763F3E500D6A34E /* Debug.xcconfig */,
+				8558F36B2763F3F400D6A34E /* Release.xcconfig */,
+			);
+			path = XCConfigs;
 			sourceTree = "<group>";
 		};
 		A128ABA4275D3EF700219FBF /* Network */ = {
@@ -223,6 +253,7 @@
 				A12B806827526F40003213E9 /* TrackState.swift */,
 				A12B80982753857D003213E9 /* TrackAction.swift */,
 				A12B809C27538DFD003213E9 /* TrackReducer.swift */,
+				A12C77432763DE5B00A22FDF /* TrackMiddleware.swift */,
 			);
 			path = Track;
 			sourceTree = "<group>";
@@ -430,6 +461,7 @@
 				A18D63BA275E9DD6007D83A9 /* AsyncImagePhase.swift in Sources */,
 				A12B808C2752AF7E003213E9 /* Colors.swift in Sources */,
 				A17F672A27524A590094B5A3 /* PlayerView.swift in Sources */,
+				A12C77442763DE5B00A22FDF /* TrackMiddleware.swift in Sources */,
 				A12B807527528058003213E9 /* AuthAction.swift in Sources */,
 				A12B809B27538BF3003213E9 /* Always.swift in Sources */,
 				A12B807327527B90003213E9 /* Constants.swift in Sources */,
@@ -503,6 +535,7 @@
 /* Begin XCBuildConfiguration section */
 		459A279E23AA910B003D50EC /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8558F36A2763F3E500D6A34E /* Debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -565,6 +598,7 @@
 		};
 		459A279F23AA910B003D50EC /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8558F36B2763F3F400D6A34E /* Release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -620,18 +654,19 @@
 		};
 		459A27A123AA910B003D50EC /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8558F36A2763F3E500D6A34E /* Debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
-				CODE_SIGN_ENTITLEMENTS = YandexMusic/YandexMusicDebug.entitlements;
+				CODE_SIGN_ENTITLEMENTS = YandexMusic/Resources/Entitlements/YandexMusicDebug.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_ASSET_PATHS = "YandexMusic/Preview\\ Content/Preview\\ Assets.xcassets YandexMusic/Assets.xcassets";
+				DEVELOPMENT_ASSET_PATHS = "YandexMusic/Resources/Preview\\ Content/Preview\\ Assets.xcassets YandexMusic/Resources/Assets.xcassets";
 				DEVELOPMENT_TEAM = 3LLP5BAPPE;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = YandexMusic/Info.plist;
+				INFOPLIST_FILE = YandexMusic/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -645,18 +680,19 @@
 		};
 		459A27A223AA910B003D50EC /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8558F36B2763F3F400D6A34E /* Release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
-				CODE_SIGN_ENTITLEMENTS = YandexMusic/YandexMusic.entitlements;
+				CODE_SIGN_ENTITLEMENTS = YandexMusic/Resources/Entitlements/YandexMusic.entitlements;
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_ASSET_PATHS = "YandexMusic/Preview\\ Content/Preview\\ Assets.xcassets YandexMusic/Assets.xcassets";
+				DEVELOPMENT_ASSET_PATHS = "YandexMusic/Resources/Preview\\ Content/Preview\\ Assets.xcassets YandexMusic/Resources/Assets.xcassets";
 				DEVELOPMENT_TEAM = 3LLP5BAPPE;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = YandexMusic/Info.plist;
+				INFOPLIST_FILE = YandexMusic/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",

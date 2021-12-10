@@ -21,7 +21,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             appReducer: appReducer,
             middlewares: [
                 authMiddleware,
-                stationMiddleware
+                stationMiddleware,
+                trackMiddleware
             ]
         )
     }()
@@ -38,7 +39,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         popover.behavior = .transient
         popover.contentViewController = NSHostingController(rootView: contentView)
         self.popover = popover
-        
+
         // Create the status item
         self.statusBarItem = NSStatusBar.system.statusItem(withLength: CGFloat(NSStatusItem.variableLength))
         
