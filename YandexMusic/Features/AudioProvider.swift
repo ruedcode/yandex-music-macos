@@ -33,6 +33,10 @@ final class AudioProvider {
         }
     }
 
+    deinit {
+        reset()
+    }
+
     func play(url: URL? = nil) {
         if let url = url, lastURL != url {
             lastURL = url
@@ -69,6 +73,13 @@ final class AudioProvider {
     func pause() {
         player?.pause()
         onPause()
+    }
+
+    func reset() {
+        player?.pause()
+        onPause()
+        NotificationCenter.default.removeObserver(self)
+        player = nil
     }
 
     @objc private func playerDidFinishPlaying(sender: Notification) {
