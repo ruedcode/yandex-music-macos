@@ -21,7 +21,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             appReducer: appReducer,
             middlewares: [
                 authMiddleware,
-                stationMiddleware
+                stationMiddleware,
+                trackMiddleware
             ]
         )
     }()

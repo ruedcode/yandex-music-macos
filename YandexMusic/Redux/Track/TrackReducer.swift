@@ -100,7 +100,7 @@ func trackReducer(
 
         AudioProvider.instance.onFinish = {
             if let delegate = NSApp.delegate as? AppDelegate {
-                sendFeedback(state: delegate.store.state.track, action: .trackFinished)
+                delegate.store.send(TrackAction.sendFeedback(.trackFinished))
                 delegate.store.send(TrackAction.playNext)
                 NowPlayingProvider.instance.set(state: .stopped)
             }
@@ -111,14 +111,14 @@ func trackReducer(
             NowPlayingProvider.instance.set(state: .playing)
             if let delegate = NSApp.delegate as? AppDelegate {
                 delegate.store.send(TrackAction.updateTotal(time))
-                sendFeedback(state: delegate.store.state.track, action: .radioStarted)
+                delegate.store.send(TrackAction.sendFeedback(.radioStarted))
                 delegate.store.send(
                     TrackAction.feedbackStationStartUpdate(
                         type: delegate.store.state.track.lastType,
                         tag: delegate.store.state.track.lastTag
                     )
                 )
-                sendFeedback(state: delegate.store.state.track, action: .trackStarted)
+                delegate.store.send(TrackAction.sendFeedback(.trackStarted))
             }
         }
         AudioProvider.instance.onCurrentUpdate = { time in
@@ -147,13 +147,6 @@ func trackReducer(
         NowPlayingProvider.instance.reset()
         
     case TrackAction.playNext:
-        if let item = AudioProvider.instance.player?.currentItem {
-            let current = item.currentTime().seconds.asInt
-            let duration = item.duration.seconds.asInt
-            if current != duration {
-                sendFeedback(state: state, action: .skip)
-            }
-        }
         state.current = state.next
         state.next = nil
 
@@ -167,27 +160,6 @@ func trackReducer(
     case let TrackAction.updateCurrent(time):
         state.currentTime = time
 
-    case TrackAction.toggleLike:
-        guard let track = state.current else {
-            return nil
-        }
-        state.current?.liked = !track.liked
-        sendFeedback(state: state, action: track.liked ? .unlike : .like)
-        let params = LikeRequest.Params(
-            trackId: track.id,
-            albumId: track.album.id,
-            like: !track.liked
-        )
-        return LikeRequest(params: params).execute()
-            .ignoreError()
-            .map {
-                TrackAction.updateLike(
-                    trackId: params.trackId,
-                    albumId: params.albumId,
-                    state: $0.success && $0.act != "remove"
-                )
-            }
-            .eraseToAnyPublisher()
     case let TrackAction.updateLike(trackId, albumId, val):
         guard state.current?.id == trackId, state.current?.album.id == albumId else {
             return nil
@@ -208,65 +180,3 @@ func trackReducer(
     }
     return nil
 }
-
-private func sendFeedback(state: TrackState, action: TrackFeedbackRequest.Action) {
-    guard let track = state.current else {
-        return
-    }
-    if action == .radioStarted, state.feedback.lastStation == state.lastTag + state.lastType {
-        return
-    }
-    let batchId = action == .radioStarted ? nil : track.batchId
-    let totalPlayed = action == .radioStarted ? nil : AudioProvider.instance.player?.currentTime().seconds
-
-    let _ = TrackFeedbackRequest(
-        params: TrackFeedbackRequest.Params(
-            type: state.lastType,
-            tag: state.lastTag,
-            trackId: track.id,
-            albumId: track.album.id,
-            action: action,
-            batchId: batchId,
-            totalPlayed: totalPlayed
-        )
-    ).execute()
-
-    let reason: TrackFeedbackRequest2.Reason?
-    let act: TrackFeedbackRequest2.Action?
-
-    switch action {
-    case .skip:
-        reason = .skip
-        act = .end
-    case .trackStarted:
-        reason = .trackStarted
-        act = .start
-    case .trackFinished:
-        reason = .end
-        act = .end
-    default:
-        reason = nil
-        act = nil
-
-    }
-    guard let reason = reason, let act = act else {
-        return
-    }
-
-    let _ = TrackFeedbackRequest2(
-        params: TrackFeedbackRequest2.Params(
-            trackId: track.id,
-            albumId: track.album.id,
-            nextTrackId: state.next?.id ?? "",
-            nextAlbumId: state.next?.album.id ?? "",
-            type: state.lastType,
-            tag: state.lastTag,
-            reason: reason,
-            totalPlayed: totalPlayed ?? 0,
-            duration: AudioProvider.instance.player?.currentItem?.duration.seconds ?? 0,
-            action: act
-        )
-    ).execute()
-
-}
-
