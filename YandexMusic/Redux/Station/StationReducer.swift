@@ -18,9 +18,12 @@ func stationReducer(
         let stations = items.compactMap(Station.init)
         state.stations = stations
         if state.selected == nil, let station = stations.first {
-            return StationAction.select(station, andPlay: false).next
+            return StationAction.select(station, andPlay: false, isPlaying: false).next
         }
-    case let StationAction.select(station, andPlay):
+    case let StationAction.select(station, andPlay, isPlaying):
+        guard state.selected != station || !isPlaying else {
+            return nil
+        }
         state.selected = station
         return TrackAction.fetch(
             type: station.type,

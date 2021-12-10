@@ -42,7 +42,7 @@ struct ContentView: View {
             LazyVGrid(columns: columns(for: store.state.section.stations), spacing: 20) {
                 ForEach(store.state.section.stations, id: \.self) { item in
                     Button(action: {
-                        store.send(StationAction.select(item, andPlay: true))
+                        store.send(StationAction.select(item, andPlay: true, isPlaying: store.state.track.isPlaying))
                     }) {
                         StationView(
                             isPlaying: item == store.state.section.selected && store.state.track.isPlaying,

@@ -9,5 +9,5 @@
 enum StationAction: AppAction {
     case fetch
     case update([StationDTO])
-    case select(Station, andPlay: Bool)
+    case select(Station, andPlay: Bool, isPlaying: Bool)
 }
