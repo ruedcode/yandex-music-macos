@@ -21,9 +21,6 @@ func stationReducer(
             return StationAction.select(station, andPlay: false).next
         }
     case let StationAction.select(station, andPlay):
-        guard state.selected != station else {
-            return nil
-        }
         state.selected = station
         return TrackAction.fetch(
             type: station.type,
