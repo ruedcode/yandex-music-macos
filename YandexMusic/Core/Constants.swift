@@ -11,10 +11,10 @@ import SwiftUI
 
 enum Constants {
     enum Auth {
-        static let clientId = "15bfc573dab24b5d83243a913ab314c0"
+        static let clientId = getFromConfig(key: "API_CLIENT_ID")
         static let codeUrl = "https://oauth.yandex.ru/authorize?response_type=code&client_id=\(clientId)"
         static let tokenUrl = "https://oauth.yandex.ru/token"
-        static let clientSecret = "236cbbffd5524a4687445768afe4c0d1"
+        static let clientSecret = getFromConfig(key: "API_CLIENT_SECRET")
         static let userSettings = "https://music.yandex.ru/api/v2.1/handlers/auth?external-domain=music.yandex.ru&overembed=no"
     }
     enum Collection {
@@ -37,4 +37,11 @@ enum Constants {
         static let imageSize = CGSize(width: 200, height: 200)
         static let primary: Color = Color(red: 1.00, green: 0.80, blue: 0.00)
     }
+}
+
+fileprivate func getFromConfig(key: String) -> String {
+    guard let val = Bundle.main.object(forInfoDictionaryKey: key) else {
+        fatalError("Key '\(key)' not found in XCConfig")
+    }
+    return String(describing: val)
 }

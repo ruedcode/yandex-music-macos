@@ -1,0 +1,14 @@
+//
+//  Release.xcconfig
+//  YandexMusic
+//
+//  Created by Mike Price on 11.12.2021.
+//  Copyright © 2021 Eugene Kalyada. All rights reserved.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+// TODO: Change to actual values before release
+API_CLIENT_ID = 15bfc573dab24b5d83243a913ab314c0
+API_CLIENT_SECRET = 236cbbffd5524a4687445768afe4c0d1
