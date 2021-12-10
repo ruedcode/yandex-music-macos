@@ -1,61 +1,61 @@
 {
   "images" : [
     {
-      "filename" : "Subtract-13.png",
+      "filename" : "Icon-16.png",
       "idiom" : "mac",
       "scale" : "1x",
       "size" : "16x16"
     },
     {
-      "filename" : "Subtract-15.png",
+      "filename" : "Icon-33.png",
       "idiom" : "mac",
       "scale" : "2x",
       "size" : "16x16"
     },
     {
-      "filename" : "Subtract-14.png",
+      "filename" : "Icon-32.png",
       "idiom" : "mac",
       "scale" : "1x",
       "size" : "32x32"
     },
     {
-      "filename" : "Subtract-12.png",
+      "filename" : "Icon-64.png",
       "idiom" : "mac",
       "scale" : "2x",
       "size" : "32x32"
     },
     {
-      "filename" : "Subtract-11.png",
+      "filename" : "Icon-128.png",
       "idiom" : "mac",
       "scale" : "1x",
       "size" : "128x128"
     },
     {
-      "filename" : "Subtract-10.png",
+      "filename" : "Icon-257.png",
       "idiom" : "mac",
       "scale" : "2x",
       "size" : "128x128"
     },
     {
-      "filename" : "Subtract-9.png",
+      "filename" : "Icon-256.png",
       "idiom" : "mac",
       "scale" : "1x",
       "size" : "256x256"
     },
     {
-      "filename" : "Subtract-8.png",
+      "filename" : "Icon-513.png",
       "idiom" : "mac",
       "scale" : "2x",
       "size" : "256x256"
     },
     {
-      "filename" : "Subtract-7.png",
+      "filename" : "Icon-512.png",
       "idiom" : "mac",
       "scale" : "1x",
       "size" : "512x512"
     },
     {
-      "filename" : "Subtract-3.png",
+      "filename" : "Icon-1024.png",
       "idiom" : "mac",
       "scale" : "2x",
       "size" : "512x512"
