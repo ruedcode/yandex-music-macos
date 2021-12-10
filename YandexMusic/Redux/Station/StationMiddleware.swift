@@ -12,15 +12,8 @@ var stationMiddleware: Middleware<AppState, AppAction> = { store, action in
         LibraryRequest()
             .execute()
             .ignoreError()
-            .sink {
-                var stations: [StationDTO] = []
-                stations.append(contentsOf: $0.types.user.children)
-                stations.append(contentsOf: $0.types.activity.children)
-                stations.append(contentsOf: $0.types.author.children)
-                stations.append(contentsOf: $0.types.epoch.children)
-                stations.append(contentsOf: $0.types.genre.children)
-                stations.append(contentsOf: $0.types.mood.children)
-                store.send(StationAction.update(stations))
+            .sink { 
+                store.send(StationAction.update($0.groups))
             }
             .store(in: &store.effectCancellables)
     default:

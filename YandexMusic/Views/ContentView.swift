@@ -17,9 +17,26 @@ struct ContentView: View {
         return VStack(alignment: .leading) {
 
             HStack {
+                Menu(store.state.station.stationGroup?.name ?? "") {
+                    ForEach(store.state.station.groups, id: \.self) { item in
+                        Button(action: {
+                            store.send(StationAction.selectGroup(item, andPlay: true))
+                        }) {
+                            Text(item.name)
+                        }
+                    }
+                }
+                .menuStyle(.borderlessButton)
+                .fixedSize()
+
                 Spacer()
 
-                PlayerButtonView(imageName: "rectangle.portrait.and.arrow.right") {
+                Text(AuthProvider.instance.profile?.login ?? "")
+
+                PlayerButtonView(
+                    imageName: "rectangle.portrait.and.arrow.right",
+                    imageSize: .small
+                ) {
                     showingLogoutAlert = true
                 }
                 .alert(isPresented: $showingLogoutAlert) {

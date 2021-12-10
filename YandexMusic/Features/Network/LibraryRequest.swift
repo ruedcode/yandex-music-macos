@@ -21,6 +21,15 @@ struct LibraryRequest: RequestType {
 }
 
 struct LibraryResponse: Decodable {
-    let types: GroupsDTO
+    let groups: [GroupDTO]
+    enum CodingKeys: String, CodingKey {
+        case types
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let dictionary = try container.decode([String: GroupDTO].self, forKey: .types) as [String: GroupDTO]
+        groups = dictionary.map { $0.value }
+    }
 }
 

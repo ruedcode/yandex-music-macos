@@ -14,13 +14,13 @@ struct StationListView: View {
 
     var body: some View {
         ScrollView {
-            LazyVGrid(columns: columns(for: store.state.section.stations), spacing: 20) {
-                ForEach(store.state.section.stations, id: \.self) { item in
+            LazyVGrid(columns: columns(for: store.state.station.stations), spacing: 20) {
+                ForEach(store.state.station.stations, id: \.self) { item in
                     Button(action: {
                         store.send(StationAction.select(item, andPlay: true))
                     }) {
                         StationView(
-                            isPlaying: item == store.state.section.selected && store.state.track.isPlaying,
+                            isPlaying: item == store.state.station.station && store.state.track.isPlaying,
                             image: URL(string: item.image),
                             color: hexStringToColor(hex: item.color),
                             text: item.name
@@ -32,11 +32,11 @@ struct StationListView: View {
             .padding(.top, 16)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
-        .frame(minHeight: store.state.section.stations.count > 4 ? 250 : 100)
+        .frame(minHeight: store.state.station.stations.count > 4 ? 250 : 100)
     }
 
     private func columns(for stations: [Station]) -> [GridItem] {
-        Array(repeating: .init(.flexible()), count: 4)
+        Array(repeating: .init(.flexible()), count: min(stations.count, 4))
     }
 }
 

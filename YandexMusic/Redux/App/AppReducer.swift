@@ -22,7 +22,7 @@ func appReducer(
         )
     case is StationAction:
         return stationReducer(
-            state: &state.section,
+            state: &state.station,
             action: action
         )
     case is TrackAction:
