@@ -32,7 +32,7 @@ struct PlayerView: View {
 
     private var playIcon: String {
         store.state.track.isPlaying
-            ? "pause.fill"
+            ? "pause"
             : "play.fill"
     }
 
