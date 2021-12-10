@@ -40,11 +40,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         self.popover = popover
         
         // Create the status item
-        self.statusBarItem = NSStatusBar.system.statusItem(withLength: CGFloat(NSStatusItem.squareLength))
+        self.statusBarItem = NSStatusBar.system.statusItem(withLength: CGFloat(NSStatusItem.variableLength))
         
         if let button = self.statusBarItem.button {
-            button.image = NSImage(named: "Music")
-            button.image?.size = CGSize(width: 18, height: 18)
+            button.image = NSImage(systemSymbolName: "music.note", accessibilityDescription: nil)
             button.action = #selector(togglePopover(_:))
         }
 
