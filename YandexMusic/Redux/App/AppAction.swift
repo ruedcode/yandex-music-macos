@@ -20,6 +20,7 @@ extension AppAction {
 
 enum BaseAction: AppAction {
     case dumb(Error)
+    case resetState
 }
 
 extension Publisher {
