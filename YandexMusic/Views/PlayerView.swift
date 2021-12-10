@@ -58,6 +58,7 @@ struct PlayerView: View {
             }
                 .padding([.top, .bottom], constants.padding)
                 .help(store.state.track.next?.fullName ?? "")
+                .padding([.trailing], constants.padding)
 
             AsyncImage(url: store.state.track.current?.album.image) { image in
                 image.resizable()

@@ -19,6 +19,7 @@ enum TrackAction: AppAction {
     case fetchFile
     case updateUrl(URL)
     case runPlayer
+    case sendFeedback(TrackFeedbackRequest.Action)
     case feedbackStationStartUpdate(type: String, tag: String)
     case share
 

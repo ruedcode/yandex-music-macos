@@ -48,6 +48,7 @@
 		A12B809F2753CC96003213E9 /* AudioProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B809E2753CC96003213E9 /* AudioProvider.swift */; };
 		A12B80A12757FE42003213E9 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B80A02757FE42003213E9 /* Logger.swift */; };
 		A12B80A527580FE1003213E9 /* TrackService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B80A427580FE1003213E9 /* TrackService.swift */; };
+		A12C77442763DE5B00A22FDF /* TrackMiddleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12C77432763DE5B00A22FDF /* TrackMiddleware.swift */; };
 		A17F671D275244A90094B5A3 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17F671C275244A90094B5A3 /* AppState.swift */; };
 		A17F671F275244C40094B5A3 /* AppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17F671E275244C40094B5A3 /* AppStore.swift */; };
 		A17F6723275245240094B5A3 /* AppAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17F6722275245240094B5A3 /* AppAction.swift */; };
@@ -110,6 +111,7 @@
 		A12B809E2753CC96003213E9 /* AudioProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioProvider.swift; sourceTree = "<group>"; };
 		A12B80A02757FE42003213E9 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		A12B80A427580FE1003213E9 /* TrackService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackService.swift; sourceTree = "<group>"; };
+		A12C77432763DE5B00A22FDF /* TrackMiddleware.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackMiddleware.swift; sourceTree = "<group>"; };
 		A17F671C275244A90094B5A3 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		A17F671E275244C40094B5A3 /* AppStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStore.swift; sourceTree = "<group>"; };
 		A17F6722275245240094B5A3 /* AppAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAction.swift; sourceTree = "<group>"; };
@@ -223,6 +225,7 @@
 				A12B806827526F40003213E9 /* TrackState.swift */,
 				A12B80982753857D003213E9 /* TrackAction.swift */,
 				A12B809C27538DFD003213E9 /* TrackReducer.swift */,
+				A12C77432763DE5B00A22FDF /* TrackMiddleware.swift */,
 			);
 			path = Track;
 			sourceTree = "<group>";
@@ -430,6 +433,7 @@
 				A18D63BA275E9DD6007D83A9 /* AsyncImagePhase.swift in Sources */,
 				A12B808C2752AF7E003213E9 /* Colors.swift in Sources */,
 				A17F672A27524A590094B5A3 /* PlayerView.swift in Sources */,
+				A12C77442763DE5B00A22FDF /* TrackMiddleware.swift in Sources */,
 				A12B807527528058003213E9 /* AuthAction.swift in Sources */,
 				A12B809B27538BF3003213E9 /* Always.swift in Sources */,
 				A12B807327527B90003213E9 /* Constants.swift in Sources */,
