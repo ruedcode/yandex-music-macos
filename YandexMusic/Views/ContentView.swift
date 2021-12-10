@@ -19,7 +19,7 @@ struct ContentView: View {
             HStack {
                 Spacer()
 
-                PlayerButtonView(imageName: "Logout") {
+                PlayerButtonView(imageName: "rectangle.portrait.and.arrow.right") {
                     showingLogoutAlert = true
                 }
                 .alert(isPresented: $showingLogoutAlert) {

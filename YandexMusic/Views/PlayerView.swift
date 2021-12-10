@@ -11,22 +11,40 @@ import SwiftUI
 struct PlayerView: View {
     private let constants = Constants()
     @EnvironmentObject var store: Store<AppState, AppAction>
-    @State var shareIcon: String = "Share"
+    @State var isShareMode: Bool = false
     @State private var showingVolumePopover = false
     @State private var soundLevel: Float = AudioProvider.instance.volume
 
     private var soundIconName: String {
         switch soundLevel {
-        case 0: return "SpeakerOff"
-        case 0...0.3: return "SpeakerLow"
-        case 0.3...0.7: return "SpeakerMid"
-        default: return "SpeakerHigh"
+        case 0: return "speaker.slash"
+        case 0...0.3: return "speaker"
+        case 0.3...0.7: return "speaker.wave.1"
+        default: return "speaker.wave.2"
         }
+    }
+
+    private var shareIcon: String {
+        isShareMode
+            ? "personalhotspot"
+            : "square.and.arrow.up"
+    }
+
+    private var playIcon: String {
+        store.state.track.isPlaying
+            ? "pause"
+            : "play.fill"
+    }
+
+    private var likeIcon: String {
+        store.state.track.current?.liked == true
+            ? "heart.fill"
+            : "heart"
     }
 
     var body: some View {
         HStack {
-            PlayerButtonView(imageName: store.state.track.isPlaying ? "Pause" : "Play") {
+            PlayerButtonView(imageName: playIcon, imageSize: .large) {
                 if store.state.track.isPlaying {
                     store.send(TrackAction.pause)
                 }
@@ -35,7 +53,7 @@ struct PlayerView: View {
                 }
             }
 
-            PlayerButtonView(imageName: "Next") {
+            PlayerButtonView(imageName: "forward") {
                 store.send(TrackAction.playNext)
             }
                 .padding([.top, .bottom], constants.padding)
@@ -64,15 +82,15 @@ struct PlayerView: View {
             Spacer()
 
             HStack {
-                PlayerButtonView(imageName: store.state.track.current?.liked == true ? "Liked" : "Like") {
+                PlayerButtonView(imageName: likeIcon) {
                     store.send(TrackAction.toggleLike)
                 }
 
                 PlayerButtonView(imageName: shareIcon) {
                     store.send(TrackAction.share)
-                    shareIcon = "Copy"
+                    isShareMode = true
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                        shareIcon = "Share"
+                        isShareMode = false
                     }
                 }
 
