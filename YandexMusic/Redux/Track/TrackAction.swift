@@ -23,6 +23,7 @@ enum TrackAction: AppAction {
     case resetPlayer
     case feedbackStationStartUpdate(type: String, tag: String)
     case share
+    case ban
 
     case updateCurrent(Double)
     case updateTotal(Double)

@@ -17,6 +17,24 @@ var trackMiddleware: Middleware<AppState, AppAction> = { store, action in
             in: &store.effectCancellables
         )
 
+    case TrackAction.ban:
+        guard let track = store.state.track.current else {
+            return
+        }
+        let params = BanRequest.Params(
+            trackId: track.id,
+            albumId: track.album.id
+        )
+        return BanRequest(params: params).execute()
+            .ignoreError()
+            .sink {
+                guard $0.success else {
+                    return
+                }
+                store.send(TrackAction.playNext)
+            }
+            .store(in: &store.effectCancellables)
+
     case TrackAction.toggleLike:
         guard let track = store.state.track.current else {
             return
