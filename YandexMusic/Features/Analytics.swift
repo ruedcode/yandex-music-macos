@@ -7,11 +7,27 @@
 //
 
 import Firebase
+import FirebaseAnalytics
 import Foundation
 
 enum AnalyticsEvent: String {
     case login
     case logout
+    case share
+    case viewItem
+    case viewScreen
+    case selectItem
+
+    fileprivate var eventName: String {
+        let dict: [AnalyticsEvent: String] = [
+            .login: AnalyticsEventLogin,
+            .share: AnalyticsEventShare,
+            .viewScreen: AnalyticsEventScreenView,
+            .viewItem: AnalyticsEventViewItem,
+            .selectItem: AnalyticsEventSelectItem
+        ]
+        return dict[self] ?? self.rawValue
+    }
 }
 
 final class Analytics {
@@ -32,7 +48,7 @@ final class Analytics {
 
     /// Log event to Analytics
     func log(event: AnalyticsEvent, params: [String: Any]? = nil) {
-        Firebase.Analytics.logEvent(event.rawValue, parameters: params)
+        Firebase.Analytics.logEvent(event.eventName, parameters: params)
     }
 
     /// Log message to Crashlytics for collecting with error or crash
