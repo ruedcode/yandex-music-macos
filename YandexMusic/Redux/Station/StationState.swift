@@ -30,11 +30,10 @@ struct Station: Hashable {
 extension StationGroup {
     init(_ dto: GroupDTO) {
         id = dto.id
-        name = dto.name ?? dto.id
+        name = dto.id == "user" ? "my-stations".localized : dto.name ?? "unknown-stations".localized
         stations = dto.children.map(Station.init)
     }
 }
-
 
 extension Station {
     init(_ dto: StationDTO) {
