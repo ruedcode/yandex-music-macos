@@ -19,6 +19,7 @@
 		85C5273727650909004E4BA5 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 85C5273627650909004E4BA5 /* FirebaseAnalytics */; };
 		85C5273927650909004E4BA5 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 85C5273827650909004E4BA5 /* FirebaseCrashlytics */; };
 		85C5273B27651016004E4BA5 /* Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85C5273A27651016004E4BA5 /* Analytics.swift */; };
+		85C5273D27653138004E4BA5 /* Stored.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85C5273C27653138004E4BA5 /* Stored.swift */; };
 		85D2588127615137004CD896 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 85D2588327615137004CD896 /* Localizable.strings */; };
 		85D258872761D84C004CD896 /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D258862761D84C004CD896 /* Localization.swift */; };
 		A1253FAE27629A1300CDC7BF /* StationMiddleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1253FAD27629A1300CDC7BF /* StationMiddleware.swift */; };
@@ -85,6 +86,7 @@
 		8558F37B2764CF7800D6A34E /* BanRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BanRequest.swift; sourceTree = "<group>"; };
 		85C52733276508B9004E4BA5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		85C5273A27651016004E4BA5 /* Analytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Analytics.swift; sourceTree = "<group>"; };
+		85C5273C27653138004E4BA5 /* Stored.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stored.swift; sourceTree = "<group>"; };
 		85D2588227615137004CD896 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		85D2588427615145004CD896 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		85D258862761D84C004CD896 /* Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
@@ -359,6 +361,7 @@
 				A18D63BB275E9DF3007D83A9 /* BackportAsyncImage.swift */,
 				A1A329C72760073C0094BF4F /* DoubleHelper.swift */,
 				85D258862761D84C004CD896 /* Localization.swift */,
+				85C5273C27653138004E4BA5 /* Stored.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -509,6 +512,7 @@
 				A12B808A2752A064003213E9 /* StationAction.swift in Sources */,
 				A1A329C82760073C0094BF4F /* DoubleHelper.swift in Sources */,
 				A17F671D275244A90094B5A3 /* AppState.swift in Sources */,
+				85C5273D27653138004E4BA5 /* Stored.swift in Sources */,
 				459A279123AA910B003D50EC /* AppDelegate.swift in Sources */,
 				A12B806C27527745003213E9 /* AuthWindow.swift in Sources */,
 				A128AB97275CD35C00219FBF /* TrackRequest.swift in Sources */,

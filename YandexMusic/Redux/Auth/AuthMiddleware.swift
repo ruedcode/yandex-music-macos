@@ -24,6 +24,7 @@ var authMiddleware: Middleware<AppState, AppAction> = { store, action in
             .forEach(HTTPCookieStorage.shared.deleteCookie)
         URLCache.shared.removeAllCachedResponses()
         URLSession.shared.invalidateAndCancel()
+        Stored<Void>.clear()
         AuthProvider.instance.logout()
 
     default:

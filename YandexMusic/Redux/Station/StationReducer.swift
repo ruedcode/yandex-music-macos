@@ -9,6 +9,15 @@
 import Foundation
 import Combine
 
+private struct StationStore {
+    @Stored(for: .lastSelectedStationTag, defaultValue: nil)
+    static var lastSelectedStationTag: String?
+
+    @Stored(for: .lastSelectedStationGroupId, defaultValue: nil)
+    static var lastSelectedStationGroupId: String?
+}
+
+
 func stationReducer(
     state: inout SectionState,
     action: AppAction
@@ -17,14 +26,20 @@ func stationReducer(
 
     case StationAction.update(let items):
         state.groups = items.compactMap(StationGroup.init).sorted
-        state.stationGroup = state.groups.first
+        state.stationGroup = state.groups.first { $0.id == StationStore.lastSelectedStationGroupId }
+            ?? state.groups.first
         let stations = state.stationGroup?.stations
         state.stations = stations ?? []
-        if state.station == nil, let station = stations?.first {
+        if
+            state.station == nil,
+            let station = stations?.first(where: { $0.tag == StationStore.lastSelectedStationTag })
+                ?? stations?.first
+        {
             return StationAction.select(station, andPlay: false).next
         }
 
     case let StationAction.selectGroup(stationGroup, andPlay):
+        StationStore.lastSelectedStationGroupId = stationGroup.id
         state.stationGroup = stationGroup
         state.stations = stationGroup.stations
         if state.station == nil, let station = state.stations.first {
@@ -35,6 +50,7 @@ func stationReducer(
         guard state.station != station else {
             return nil
         }
+        StationStore.lastSelectedStationTag = station.tag
         state.station = station
         return TrackAction.fetch(
             type: station.type,
