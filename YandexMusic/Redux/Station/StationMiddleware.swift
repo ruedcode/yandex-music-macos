@@ -16,6 +16,11 @@ var stationMiddleware: Middleware<AppState, AppAction> = { store, action in
                 store.send(StationAction.update($0.groups))
             }
             .store(in: &store.effectCancellables)
+    case let StationAction.select(station, andPlay):
+        guard store.state.station.station == station, andPlay else {
+            return
+        }
+        store.send(store.state.track.isPlaying ? TrackAction.pause : TrackAction.play)
     default:
         break
     }
