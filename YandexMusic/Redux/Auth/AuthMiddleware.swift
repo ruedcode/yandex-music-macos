@@ -11,6 +11,7 @@ import Foundation
 var authMiddleware: Middleware<AppState, AppAction> = { store, action in
     switch action {
     case AuthAction.fetchToken(let code):
+        Analytics.shared.log(event: .login)
         AuthProvider.instance
             .auth(with: code)
             .ignoreError()
