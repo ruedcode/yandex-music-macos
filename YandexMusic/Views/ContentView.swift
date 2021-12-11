@@ -22,7 +22,9 @@ struct ContentView: View {
                         Button(action: {
                             store.send(StationAction.selectGroup(item, andPlay: true))
                         }) {
-                            Text(item.name)
+                            item.id == "user"
+                            ? Text("my-stations")
+                            : Text(item.name)
                         }
                     }
                 }

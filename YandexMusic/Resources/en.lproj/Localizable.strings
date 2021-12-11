@@ -15,3 +15,5 @@
 "logout-title" = "Logout";
 "logout-message" = "Do you really want to logout?";
 "logout-accept" = "Logout";
+
+"my-stations" = "My stations";
