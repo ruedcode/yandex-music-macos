@@ -15,8 +15,15 @@ struct SectionState {
 
 struct StationGroup: Hashable {
     let id: String
-    let name: String
+    var name: String {
+        isUser ? "my-stations".localized : _name
+    }
     let stations: [Station]
+    var isUser: Bool {
+        id == "user"
+    }
+
+    private let _name: String
 }
 
 struct Station: Hashable {
@@ -30,7 +37,7 @@ struct Station: Hashable {
 extension StationGroup {
     init(_ dto: GroupDTO) {
         id = dto.id
-        name = dto.id == "user" ? "my-stations".localized : dto.name ?? "unknown-stations".localized
+        _name = dto.name ?? "unknown-stations".localized
         stations = dto.children.map(Station.init)
     }
 }
@@ -42,5 +49,19 @@ extension Station {
         name = dto.name
         color = dto.icon.backgroundColor
         image = link(from: dto.icon.imageUrl)
+    }
+}
+
+extension Array where Element == StationGroup {
+    var sorted: [StationGroup] {
+        self.sorted(by: { item1, item2 in
+            if item1.isUser {
+                return true
+            }
+            if item2.isUser {
+                return false
+            }
+            return item1.id <= item2.id
+        })
     }
 }

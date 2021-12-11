@@ -16,7 +16,7 @@ func stationReducer(
     switch action {
 
     case StationAction.update(let items):
-        state.groups = items.compactMap(StationGroup.init)
+        state.groups = items.compactMap(StationGroup.init).sorted
         state.stationGroup = state.groups.first
         let stations = state.stationGroup?.stations
         state.stations = stations ?? []
