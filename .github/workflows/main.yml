@@ -2,15 +2,14 @@ name: CI
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    branches:
+      - main
 
   workflow_dispatch:
 
 jobs:
   build:
-    runs-on: macos-latest
+    runs-on: macos-11
     env:
       ARCHIVE_PATH: build/YandexMusic.xcarchive
       APP_PATH: build/YandexMusic-Develop
