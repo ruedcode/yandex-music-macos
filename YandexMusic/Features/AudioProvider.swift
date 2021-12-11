@@ -25,12 +25,9 @@ final class AudioProvider {
     var onResume: () -> Void = {}
     var onCurrentUpdate: (Double) -> Void = {_ in}
 
+    @Stored(for: .musicVolume, defaultValue: 1.0)
     var volume: Float {
-        get { UserDefaults.standard.object(forKey: volumeDefaultsKey) as? Float ?? 1 }
-        set {
-            UserDefaults.standard.set(newValue, forKey: volumeDefaultsKey)
-            player?.volume = newValue
-        }
+        didSet { player?.volume = volume }
     }
 
     deinit {
