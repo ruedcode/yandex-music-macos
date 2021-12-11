@@ -80,7 +80,7 @@ struct ContentView: View {
 
             PlayerView().padding(.bottom, 8).padding([.leading, .trailing], 8)
             Spacer()
-        }.frame(minWidth: 380)
+        }.frame(minWidth: 400)
     }
 }
 

@@ -14,6 +14,7 @@
 		459A279B23AA910B003D50EC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 459A279923AA910B003D50EC /* Main.storyboard */; };
 		85361F792762A4F50078F456 /* StationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B806527526F0B003213E9 /* StationState.swift */; };
 		8558F36D27649F4200D6A34E /* AccountRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8558F36C27649F4200D6A34E /* AccountRequest.swift */; };
+		8558F37C2764CF7800D6A34E /* BanRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8558F37B2764CF7800D6A34E /* BanRequest.swift */; };
 		85D2588127615137004CD896 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 85D2588327615137004CD896 /* Localizable.strings */; };
 		85D258872761D84C004CD896 /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D258862761D84C004CD896 /* Localization.swift */; };
 		A1253FAE27629A1300CDC7BF /* StationMiddleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1253FAD27629A1300CDC7BF /* StationMiddleware.swift */; };
@@ -78,6 +79,7 @@
 		8558F36A2763F3E500D6A34E /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		8558F36B2763F3F400D6A34E /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		8558F36C27649F4200D6A34E /* AccountRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountRequest.swift; sourceTree = "<group>"; };
+		8558F37B2764CF7800D6A34E /* BanRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BanRequest.swift; sourceTree = "<group>"; };
 		85D2588227615137004CD896 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		85D2588427615145004CD896 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		85D258862761D84C004CD896 /* Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
@@ -218,6 +220,7 @@
 		A128ABA4275D3EF700219FBF /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				8558F37B2764CF7800D6A34E /* BanRequest.swift */,
 				A128AB90275CD30400219FBF /* LibraryRequest.swift */,
 				A128AB94275CD34200219FBF /* RecommendationRequest.swift */,
 				A128AB96275CD35C00219FBF /* TrackRequest.swift */,
@@ -479,6 +482,7 @@
 				A12B807727528080003213E9 /* AuthReducer.swift in Sources */,
 				A128ABA1275CD96300219FBF /* UserSettingsRequest.swift in Sources */,
 				A1B3BD082752427B006AE32C /* AuthProvider.swift in Sources */,
+				8558F37C2764CF7800D6A34E /* BanRequest.swift in Sources */,
 				A18D63BC275E9DF3007D83A9 /* BackportAsyncImage.swift in Sources */,
 				A12B809D27538DFD003213E9 /* TrackReducer.swift in Sources */,
 				A18D63B8275E9DC0007D83A9 /* AsyncImage.swift in Sources */,
@@ -510,7 +514,6 @@
 				A12B809F2753CC96003213E9 /* AudioProvider.swift in Sources */,
 				A12B807127527A85003213E9 /* WebView.swift in Sources */,
 				85D258872761D84C004CD896 /* Localization.swift in Sources */,
-				A12B806627526F0B003213E9 /* StationState.swift in Sources */,
 				A1253FB42762A16900CDC7BF /* StationListView.swift in Sources */,
 				A128AB99275CD37A00219FBF /* Mp3Request.swift in Sources */,
 				A17F671F275244C40094B5A3 /* AppStore.swift in Sources */,

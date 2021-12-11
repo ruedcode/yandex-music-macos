@@ -95,6 +95,10 @@ struct PlayerView: View {
                     }
                 }
 
+                PlayerButtonView(imageName: "multiply.circle") {
+                    store.send(TrackAction.ban)
+                }
+
                 PlayerButtonView(imageName: soundIconName) {
                     showingVolumePopover = true
                 }
