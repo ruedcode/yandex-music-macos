@@ -14,8 +14,7 @@ struct RecommendationRequest: RequestType {
     var data: RequestData {
         return RequestData(
             path: Constants.Collection.recommendation,
-            method: .get,
-            auth: true
+            method: .get
         )
     }
 }

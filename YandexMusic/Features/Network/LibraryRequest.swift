@@ -14,8 +14,7 @@ struct LibraryRequest: RequestType {
     var data: RequestData {
         return RequestData(
             path: Constants.Collection.library,
-            method: .get,
-            auth: true
+            method: .get
         )
     }
 }

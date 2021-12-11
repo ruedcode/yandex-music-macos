@@ -29,7 +29,6 @@
 		A128AB99275CD37A00219FBF /* Mp3Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = A128AB98275CD37A00219FBF /* Mp3Request.swift */; };
 		A128AB9B275CD39600219FBF /* TrackFileRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A128AB9A275CD39600219FBF /* TrackFileRequest.swift */; };
 		A128AB9D275CD3C200219FBF /* TrackFeedbackRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A128AB9C275CD3C200219FBF /* TrackFeedbackRequest.swift */; };
-		A128AB9F275CD7FC00219FBF /* TokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A128AB9E275CD7FC00219FBF /* TokenRequest.swift */; };
 		A128ABA1275CD96300219FBF /* UserSettingsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A128ABA0275CD96300219FBF /* UserSettingsRequest.swift */; };
 		A128ABA3275D348A00219FBF /* LikeRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A128ABA2275D348A00219FBF /* LikeRequest.swift */; };
 		A128ABA6275D499A00219FBF /* StationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A128ABA5275D499A00219FBF /* StationView.swift */; };
@@ -97,7 +96,6 @@
 		A128AB98275CD37A00219FBF /* Mp3Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mp3Request.swift; sourceTree = "<group>"; };
 		A128AB9A275CD39600219FBF /* TrackFileRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackFileRequest.swift; sourceTree = "<group>"; };
 		A128AB9C275CD3C200219FBF /* TrackFeedbackRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackFeedbackRequest.swift; sourceTree = "<group>"; };
-		A128AB9E275CD7FC00219FBF /* TokenRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenRequest.swift; sourceTree = "<group>"; };
 		A128ABA0275CD96300219FBF /* UserSettingsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsRequest.swift; sourceTree = "<group>"; };
 		A128ABA2275D348A00219FBF /* LikeRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeRequest.swift; sourceTree = "<group>"; };
 		A128ABA5275D499A00219FBF /* StationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationView.swift; sourceTree = "<group>"; };
@@ -236,7 +234,6 @@
 				A128AB98275CD37A00219FBF /* Mp3Request.swift */,
 				A128AB9A275CD39600219FBF /* TrackFileRequest.swift */,
 				A128AB9C275CD3C200219FBF /* TrackFeedbackRequest.swift */,
-				A128AB9E275CD7FC00219FBF /* TokenRequest.swift */,
 				A128ABA0275CD96300219FBF /* UserSettingsRequest.swift */,
 				A128ABA2275D348A00219FBF /* LikeRequest.swift */,
 				8558F36C27649F4200D6A34E /* AccountRequest.swift */,
@@ -526,7 +523,6 @@
 				85361F792762A4F50078F456 /* StationState.swift in Sources */,
 				A1253FAE27629A1300CDC7BF /* StationMiddleware.swift in Sources */,
 				8558F36D27649F4200D6A34E /* AccountRequest.swift in Sources */,
-				A128AB9F275CD7FC00219FBF /* TokenRequest.swift in Sources */,
 				A12B809027537CF5003213E9 /* TrackDTO.swift in Sources */,
 				A12B80992753857D003213E9 /* TrackAction.swift in Sources */,
 				A12B809F2753CC96003213E9 /* AudioProvider.swift in Sources */,

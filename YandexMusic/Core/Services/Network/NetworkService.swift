@@ -24,7 +24,6 @@ enum HTTPMethod: String {
 }
 
 struct RequestData {
-    let auth: Bool
     let path: String
     let method: HTTPMethod
     let params: Params?
@@ -33,14 +32,12 @@ struct RequestData {
     init(
         path: String,
         method: HTTPMethod = .get,
-        auth: Bool = false,
         params: Params? = nil,
         headers: [String: String]? = nil
     ) {
         self.path = path
         self.method = method
         self.params = params
-        self.auth = auth
         self.headers = headers
     }
 
@@ -113,25 +110,18 @@ struct URLSessionNetworkDispatcher: NetworkDispatcher {
         }
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = request.method.rawValue
+        var headers = Constants.Common.baseHeaders
 
         request.params.flatMap { params in
             urlRequest.httpBody = params.data
-            params.headers.forEach {
-                urlRequest.setValue($0.value, forHTTPHeaderField: $0.key)
-            }
+            headers.merge(params.headers) { $1 }
         }
 
-        request.headers
-            .flatMap { urlRequest.allHTTPHeaderFields = $0 }
-
-        if request.auth {
-            if let token = AuthProvider.instance.token?.access_token {
-                urlRequest.setValue(token, forHTTPHeaderField: "Authorization")
-            } else {
-                return Fail(error: NetworkError.noAuthToken)
-                    .eraseToAnyPublisher()
-            }
+        request.headers.flatMap {
+            headers.merge($0) { $1 }
         }
+
+        urlRequest.allHTTPHeaderFields = headers
 
         log("Request started:\n\(urlRequest.asCURL)", level: .debug)
 
