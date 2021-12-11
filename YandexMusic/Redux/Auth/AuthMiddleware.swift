@@ -14,9 +14,7 @@ var authMiddleware: Middleware<AppState, AppAction> = { store, action in
         AuthProvider.instance
             .auth(with: code)
             .ignoreError()
-            .sink { _ in
-                store.send(AuthAction.updateToken)
-            }
+            .sink { _ in store.send(AuthAction.update) }
             .store(in: &store.effectCancellables)
 
     case AuthAction.logout:

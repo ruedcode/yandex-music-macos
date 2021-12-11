@@ -16,6 +16,7 @@ final class AuthProvider {
 
     private(set) var token: TokenResponse?
     private(set) var profile: UserSettingsResponse?
+    private(set) var account: Account?
 
     var isNeedResetAuth: Bool {
         get { UserDefaults.standard.bool(forKey: isNeedResetAuthKey) }
@@ -25,6 +26,7 @@ final class AuthProvider {
     func auth(with code: String) -> AnyPublisher<Void, Error> {
         requestToken(code: code)
             .flatMap { self.requestSettings() }
+            .flatMap { self.requestAccount(yandexuid: self.profile?.yandexuid) }
             .eraseToAnyPublisher()
     }
 
@@ -32,6 +34,7 @@ final class AuthProvider {
         isNeedResetAuth = true
         token = nil
         profile = nil
+        account = nil
     }
 
     private func requestToken(code: String) -> AnyPublisher<Void, Error> {
@@ -40,10 +43,12 @@ final class AuthProvider {
             .map { [weak self] token -> Void in
                 self?.token = token
                 self?.profile = nil
+                self?.account = nil
             }
             .mapError { [weak self] error -> Error in
                 self?.token = nil
                 self?.profile = nil
+                self?.account = nil
                 return error
             }
             .eraseToAnyPublisher()
@@ -58,7 +63,22 @@ final class AuthProvider {
             .mapError { [weak self] error -> Error in
                 self?.token = nil
                 self?.profile = nil
+                self?.account = nil
                 return error
+            }
+            .eraseToAnyPublisher()
+    }
+
+    private func requestAccount(yandexuid: String?) -> AnyPublisher<Void, Error> {
+        guard let yandexuid = yandexuid else {
+            return Just(())
+                .setFailureType(to: Error.self)
+                .eraseToAnyPublisher()
+        }
+        return AccountRequest(yandexuid: yandexuid)
+            .execute()
+            .map { [weak self] model -> Void in
+                self?.account = model.accounts.first
             }
             .eraseToAnyPublisher()
     }

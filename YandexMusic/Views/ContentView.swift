@@ -17,6 +17,7 @@ struct ContentView: View {
         return VStack(alignment: .leading) {
 
             HStack {
+
                 Menu(store.state.station.stationGroup?.name ?? "") {
                     ForEach(store.state.station.groups, id: \.self) { item in
                         Button(action: {
@@ -33,12 +34,18 @@ struct ContentView: View {
 
                 Spacer()
 
-                Text(AuthProvider.instance.profile?.login ?? "")
+                AsyncImage(url: store.state.auth.avatarURL) { image in
+                    image.resizable()
+                        .aspectRatio(1, contentMode: .fit)
+                        .clipShape(Circle())
+                        .clipped()
+                } placeholder: {
+                    ProgressView()
+                }
 
-                PlayerButtonView(
-                    imageName: "rectangle.portrait.and.arrow.right",
-                    imageSize: .small
-                ) {
+                Text(store.state.auth.userName)
+
+                PlayerButtonView(imageName: "rectangle.portrait.and.arrow.right", imageSize: .small) {
                     showingLogoutAlert = true
                 }
                 .alert(isPresented: $showingLogoutAlert) {
