@@ -45,7 +45,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         if let button = self.statusBarItem.button {
             button.image = NSImage(systemSymbolName: "music.note", accessibilityDescription: nil)
-            button.action = #selector(togglePopover(_:))
+            button.action = #selector(contextAction)
         }
 
         // Create context menu
@@ -71,13 +71,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         auth()
     }
+
+    @objc func contextAction() {
+        perform(#selector(togglePopover), with: nil, afterDelay: NSEvent.doubleClickInterval / 2)
+        if NSApp.currentEvent?.clickCount == 2 {
+            RunLoop.cancelPreviousPerformRequests(withTarget: self)
+            store.send(store.state.track.isPlaying ? TrackAction.pause : TrackAction.play)
+        }
+    }
     
     @objc func togglePopover(_ sender: AnyObject?) {
         guard let button = self.statusBarItem.button else { return }
         if self.popover.isShown {
             self.popover.performClose(sender)
         } else {
-            if case .authorized = store.state.auth {
+            if case .authorized = store.state.auth.mode {
                 self.popover.show(relativeTo: button.bounds, of: button, preferredEdge: NSRectEdge.minY)
                 self.popover.contentViewController?.view.window?.makeKey()
             }
@@ -91,7 +99,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         authWindow?.close()
         authWindow = AuthWindow(store: store)
         cancellable = self.store.$state.sink { [weak self] state in
-            guard case .authorized = state.auth else { return }
+            guard case .authorized = state.auth.mode else { return }
             self?.cancellable?.cancel()
             guard let button = self?.statusBarItem.button else { return }
             self?.popover.show(relativeTo: button.bounds, of: button, preferredEdge: NSRectEdge.minY)

@@ -14,17 +14,28 @@ func stationReducer(
     action: AppAction
 ) -> AnyPublisher<AppAction, Never>? {
     switch action {
+
     case StationAction.update(let items):
-        let stations = items.compactMap(Station.init)
-        state.stations = stations
-        if state.selected == nil, let station = stations.first {
-            return StationAction.select(station, andPlay: false, isPlaying: false).next
+        state.groups = items.compactMap(StationGroup.init)
+        state.stationGroup = state.groups.first
+        let stations = state.stationGroup?.stations
+        state.stations = stations ?? []
+        if state.station == nil, let station = stations?.first {
+            return StationAction.select(station, andPlay: false).next
         }
-    case let StationAction.select(station, andPlay, isPlaying):
-        guard state.selected != station || !isPlaying else {
+
+    case let StationAction.selectGroup(stationGroup, andPlay):
+        state.stationGroup = stationGroup
+        state.stations = stationGroup.stations
+        if state.station == nil, let station = state.stations.first {
+            return StationAction.select(station, andPlay: andPlay).next
+        }
+
+    case let StationAction.select(station, andPlay):
+        guard state.station != station else {
             return nil
         }
-        state.selected = station
+        state.station = station
         return TrackAction.fetch(
             type: station.type,
             tag: station.tag,

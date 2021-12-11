@@ -9,11 +9,11 @@
 var stationMiddleware: Middleware<AppState, AppAction> = { store, action in
     switch action {
     case StationAction.fetch:
-        RecommendationRequest()
+        LibraryRequest()
             .execute()
             .ignoreError()
-            .sink {
-                store.send(StationAction.update($0.stations.map(\.station)))
+            .sink { 
+                store.send(StationAction.update($0.groups))
             }
             .store(in: &store.effectCancellables)
     default:

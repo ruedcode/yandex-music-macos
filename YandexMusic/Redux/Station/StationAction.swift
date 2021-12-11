@@ -8,6 +8,7 @@
 
 enum StationAction: AppAction {
     case fetch
-    case update([StationDTO])
-    case select(Station, andPlay: Bool, isPlaying: Bool)
+    case update([GroupDTO])
+    case select(Station, andPlay: Bool)
+    case selectGroup(StationGroup, andPlay: Bool)
 }

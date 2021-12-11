@@ -7,8 +7,16 @@
 //
 
 struct SectionState {
+    var groups: [StationGroup] = []
     var stations: [Station] = []
-    var selected: Station?
+    var station: Station?
+    var stationGroup: StationGroup?
+}
+
+struct StationGroup: Hashable {
+    let id: String
+    let name: String
+    let stations: [Station]
 }
 
 struct Station: Hashable {
@@ -18,6 +26,15 @@ struct Station: Hashable {
     let color: String
     let image: String
 }
+
+extension StationGroup {
+    init(_ dto: GroupDTO) {
+        id = dto.id
+        name = dto.name ?? dto.id
+        stations = dto.children.map(Station.init)
+    }
+}
+
 
 extension Station {
     init(_ dto: StationDTO) {

@@ -17,9 +17,35 @@ struct ContentView: View {
         return VStack(alignment: .leading) {
 
             HStack {
+
+                Menu(store.state.station.stationGroup?.name ?? "") {
+                    ForEach(store.state.station.groups, id: \.self) { item in
+                        Button(action: {
+                            store.send(StationAction.selectGroup(item, andPlay: true))
+                        }) {
+                            item.id == "user"
+                            ? Text("my-stations")
+                            : Text(item.name)
+                        }
+                    }
+                }
+                .menuStyle(.borderlessButton)
+                .fixedSize()
+
                 Spacer()
 
-                PlayerButtonView(imageName: "rectangle.portrait.and.arrow.right") {
+                AsyncImage(url: store.state.auth.avatarURL) { image in
+                    image.resizable()
+                        .aspectRatio(1, contentMode: .fit)
+                        .clipShape(Circle())
+                        .clipped()
+                } placeholder: {
+                    ProgressView()
+                }
+
+                Text(store.state.auth.userName)
+
+                PlayerButtonView(imageName: "rectangle.portrait.and.arrow.right", imageSize: .small) {
                     showingLogoutAlert = true
                 }
                 .alert(isPresented: $showingLogoutAlert) {
@@ -39,22 +65,7 @@ struct ContentView: View {
             Divider()
                 .padding([.leading, .trailing], 8)
 
-            LazyVGrid(columns: columns(for: store.state.section.stations), spacing: 20) {
-                ForEach(store.state.section.stations, id: \.self) { item in
-                    Button(action: {
-                        store.send(StationAction.select(item, andPlay: true, isPlaying: store.state.track.isPlaying))
-                    }) {
-                        StationView(
-                            isPlaying: item == store.state.section.selected && store.state.track.isPlaying,
-                            image: URL(string: item.image),
-                            color: hexStringToColor(hex: item.color),
-                            text: item.name
-                        )
-                    }.buttonStyle(PlainButtonStyle())
-                }
-            }
-            .padding([.leading, .trailing], 8)
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            StationListView()
 
 
             ProgressView(
@@ -70,10 +81,6 @@ struct ContentView: View {
             PlayerView().padding(.bottom, 8).padding([.leading, .trailing], 8)
             Spacer()
         }.frame(minWidth: 380)
-    }
-
-    private func columns(for stations: [Station]) -> [GridItem] {
-        return stations.map { _ in GridItem(.flexible()) }
     }
 }
 
