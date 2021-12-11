@@ -8,20 +8,11 @@
 
 import Foundation
 
-struct GroupsDTO: Decodable {
-    let user: GroupDTO
-    let genre: GroupDTO
-    let mood: GroupDTO
-    let activity: GroupDTO
-    let epoch: GroupDTO
-    let author: GroupDTO
-
-    struct GroupDTO: Decodable {
-        let id: String
-        let name: String?
-        let children: [StationDTO]
-        let showInMenu: Bool?
-    }
+struct GroupDTO: Decodable {
+    let id: String
+    let name: String?
+    let children: [StationDTO]
+    let showInMenu: Bool?
 }
 
 struct StationDTO: Decodable {

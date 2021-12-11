@@ -8,6 +8,6 @@
 
 struct AppState {
     var auth: AuthState = AuthState()
-    var section: SectionState = SectionState()
+    var station: SectionState = SectionState()
     var track: TrackState = TrackState()
 }

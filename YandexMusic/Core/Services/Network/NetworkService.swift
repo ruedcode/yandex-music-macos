@@ -107,11 +107,10 @@ struct URLSessionNetworkDispatcher: NetworkDispatcher {
     private init() {}
 
     func dispatch(request: RequestData) -> AnyPublisher<Data, Error> {
-        guard let url = URL(string: request.path) else {
+        guard let url = makeLocalizedUrl(string: request.path) else {
             return Fail(error: NetworkError.invalidURL)
                 .eraseToAnyPublisher()
         }
-
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = request.method.rawValue
 
@@ -152,6 +151,25 @@ struct URLSessionNetworkDispatcher: NetworkDispatcher {
         logMessage += "\nResponse data: \(String(data: data, encoding: .utf8) ?? "none")"
         log(logMessage, level: .debug)
         return data
+    }
+
+    private func makeLocalizedUrl(string: String) -> URL? {
+        guard var urlComponents = URLComponents(string: string) else {
+            return nil
+        }
+        var queryItems = urlComponents.queryItems ?? []
+
+        if !queryItems.contains(where: {
+            $0.name == "lang"
+        }){
+            queryItems.append(
+                URLQueryItem(
+                    name: "lang", value: NSLocale.current.languageCode ?? "ru"
+                )
+            )
+        }
+        urlComponents.queryItems = queryItems
+        return urlComponents.url
     }
 }
 

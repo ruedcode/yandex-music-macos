@@ -6,7 +6,6 @@
 //  Copyright © 2021 Eugene Kalyada. All rights reserved.
 //
 
-import Foundation
 import SwiftUI
 
 enum Constants {
@@ -20,8 +19,8 @@ enum Constants {
         static let avatar = "https://avatars.mds.yandex.net/get-yapic/%@/islands-retina-middle"
     }
     enum Collection {
-        static let library = "https://music.yandex.ru/handlers/radio-library.jsx?lang=ru"
-        static let recommendation = "https://music.yandex.ru/handlers/radio-recommended.jsx?lang=ru"
+        static let library = "https://music.yandex.ru/handlers/radio-library.jsx"
+        static let recommendation = "https://music.yandex.ru/handlers/radio-recommended.jsx"
     }
 
     enum Track {

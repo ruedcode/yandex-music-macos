@@ -17,6 +17,7 @@
 		85D2588127615137004CD896 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 85D2588327615137004CD896 /* Localizable.strings */; };
 		85D258872761D84C004CD896 /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D258862761D84C004CD896 /* Localization.swift */; };
 		A1253FAE27629A1300CDC7BF /* StationMiddleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1253FAD27629A1300CDC7BF /* StationMiddleware.swift */; };
+		A1253FB42762A16900CDC7BF /* StationListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1253FB32762A16900CDC7BF /* StationListView.swift */; };
 		A128AB91275CD30400219FBF /* LibraryRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A128AB90275CD30400219FBF /* LibraryRequest.swift */; };
 		A128AB95275CD34200219FBF /* RecommendationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A128AB94275CD34200219FBF /* RecommendationRequest.swift */; };
 		A128AB97275CD35C00219FBF /* TrackRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A128AB96275CD35C00219FBF /* TrackRequest.swift */; };
@@ -81,6 +82,7 @@
 		85D2588427615145004CD896 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		85D258862761D84C004CD896 /* Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
 		A1253FAD27629A1300CDC7BF /* StationMiddleware.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationMiddleware.swift; sourceTree = "<group>"; };
+		A1253FB32762A16900CDC7BF /* StationListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationListView.swift; sourceTree = "<group>"; };
 		A128AB90275CD30400219FBF /* LibraryRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryRequest.swift; sourceTree = "<group>"; };
 		A128AB94275CD34200219FBF /* RecommendationRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationRequest.swift; sourceTree = "<group>"; };
 		A128AB96275CD35C00219FBF /* TrackRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackRequest.swift; sourceTree = "<group>"; };
@@ -329,6 +331,7 @@
 				A17F672927524A590094B5A3 /* PlayerView.swift */,
 				A128ABA5275D499A00219FBF /* StationView.swift */,
 				A18D63B7275E9DC0007D83A9 /* AsyncImage.swift */,
+				A1253FB32762A16900CDC7BF /* StationListView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -507,6 +510,8 @@
 				A12B809F2753CC96003213E9 /* AudioProvider.swift in Sources */,
 				A12B807127527A85003213E9 /* WebView.swift in Sources */,
 				85D258872761D84C004CD896 /* Localization.swift in Sources */,
+				A12B806627526F0B003213E9 /* StationState.swift in Sources */,
+				A1253FB42762A16900CDC7BF /* StationListView.swift in Sources */,
 				A128AB99275CD37A00219FBF /* Mp3Request.swift in Sources */,
 				A17F671F275244C40094B5A3 /* AppStore.swift in Sources */,
 				A18D63BE275FD801007D83A9 /* NowPlayingProvider.swift in Sources */,
