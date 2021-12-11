@@ -58,6 +58,7 @@ final class AuthProvider {
         UserSettingsRequest()
             .execute()
             .map { [weak self] profile -> Void in
+                Analytics.shared.set(userId: profile.yandexuid)
                 self?.profile = profile
             }
             .mapError { [weak self] error -> Error in

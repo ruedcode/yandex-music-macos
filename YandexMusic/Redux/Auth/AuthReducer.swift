@@ -20,6 +20,8 @@ func authReducer(
         state.avatarHash = AuthProvider.instance.account?.avatar.avatarDefault
 
     case AuthAction.logout:
+        Analytics.shared.log(event: .logout)
+        Analytics.shared.set(userId: nil)
         return Just(AuthAction.update)
             .merge(with: Just(TrackAction.resetPlayer))
             .merge(with: Just(BaseAction.resetState))
