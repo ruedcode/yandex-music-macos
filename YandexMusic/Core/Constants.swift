@@ -6,7 +6,7 @@
 //  Copyright © 2021 Eugene Kalyada. All rights reserved.
 //
 
-import Foundation
+import Cocoa
 import SwiftUI
 
 enum Constants {
@@ -18,8 +18,8 @@ enum Constants {
         static let userSettings = "https://music.yandex.ru/api/v2.1/handlers/auth?external-domain=music.yandex.ru&overembed=no"
     }
     enum Collection {
-        static let library = "https://music.yandex.ru/handlers/radio-library.jsx?lang=ru"
-        static let recommendation = "https://music.yandex.ru/handlers/radio-recommended.jsx?lang=ru"
+        static let library = "https://music.yandex.ru/handlers/radio-library.jsx?".lang
+        static let recommendation = "https://music.yandex.ru/handlers/radio-recommended.jsx?".lang
     }
 
     enum Track {
@@ -44,4 +44,10 @@ fileprivate func getFromConfig(key: String) -> String {
         fatalError("Key '\(key)' not found in XCConfig")
     }
     return String(describing: val)
+}
+
+fileprivate extension String {
+    var lang: String {
+        self + "lang=" + (NSLocale.current.languageCode ?? "ru")
+    }
 }
