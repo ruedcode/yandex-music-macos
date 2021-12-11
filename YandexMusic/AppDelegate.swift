@@ -45,7 +45,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         if let button = self.statusBarItem.button {
             button.image = NSImage(systemSymbolName: "music.note", accessibilityDescription: nil)
-            button.action = #selector(togglePopover(_:))
+            button.action = #selector(contextAction)
         }
 
         // Create context menu
@@ -70,6 +70,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
 
         auth()
+    }
+
+    @objc func contextAction() {
+        perform(#selector(togglePopover), with: nil, afterDelay: NSEvent.doubleClickInterval / 2)
+        if NSApp.currentEvent?.clickCount == 2 {
+            RunLoop.cancelPreviousPerformRequests(withTarget: self)
+            store.send(store.state.track.isPlaying ? TrackAction.pause : TrackAction.play)
+        }
     }
     
     @objc func togglePopover(_ sender: AnyObject?) {
