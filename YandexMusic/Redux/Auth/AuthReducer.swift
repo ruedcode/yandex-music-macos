@@ -14,11 +14,13 @@ func authReducer(
     action: AppAction
 ) -> AnyPublisher<AppAction, Never>? {
     switch action {
-    case AuthAction.updateToken:
-        state = AuthProvider.instance.token != nil ? .authorized : .unauthorized
+    case AuthAction.update:
+        state.mode = AuthProvider.instance.token != nil ? .authorized : .unauthorized
+        state.userName = AuthProvider.instance.account?.displayName ?? AuthProvider.instance.profile?.login ?? ""
+        state.avatarHash = AuthProvider.instance.account?.avatar.avatarDefault
 
     case AuthAction.logout:
-        return Just(AuthAction.updateToken)
+        return Just(AuthAction.update)
             .merge(with: Just(TrackAction.resetPlayer))
             .merge(with: Just(BaseAction.resetState))
             .eraseToAnyPublisher()

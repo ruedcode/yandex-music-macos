@@ -17,9 +17,21 @@ struct ContentView: View {
         return VStack(alignment: .leading) {
 
             HStack {
+
+                AsyncImage(url: store.state.auth.avatarURL) { image in
+                    image.resizable()
+                        .aspectRatio(1, contentMode: .fit)
+                        .clipShape(Circle())
+                        .clipped()
+                } placeholder: {
+                    ProgressView()
+                }
+
+                Text(store.state.auth.userName)
+
                 Spacer()
 
-                PlayerButtonView(imageName: "rectangle.portrait.and.arrow.right") {
+                PlayerButtonView(imageName: "rectangle.portrait.and.arrow.right", imageSize: .small) {
                     showingLogoutAlert = true
                 }
                 .alert(isPresented: $showingLogoutAlert) {

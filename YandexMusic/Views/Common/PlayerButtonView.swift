@@ -13,11 +13,13 @@ struct PlayerButtonView: View {
     enum ImageSize {
         case `default`
         case large
+        case small
 
         fileprivate var asFont: Font {
             switch self {
             case .default: return .system(size: 20)
             case .large: return .system(size: 36)
+            case .small: return .system(size: 14)
             }
         }
 
@@ -25,6 +27,7 @@ struct PlayerButtonView: View {
             switch self {
             case .default: return 25
             case .large: return 44
+            case .small: return 20
             }
         }
     }

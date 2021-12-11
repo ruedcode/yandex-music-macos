@@ -77,7 +77,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if self.popover.isShown {
             self.popover.performClose(sender)
         } else {
-            if case .authorized = store.state.auth {
+            if case .authorized = store.state.auth.mode {
                 self.popover.show(relativeTo: button.bounds, of: button, preferredEdge: NSRectEdge.minY)
                 self.popover.contentViewController?.view.window?.makeKey()
             }
@@ -91,7 +91,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         authWindow?.close()
         authWindow = AuthWindow(store: store)
         cancellable = self.store.$state.sink { [weak self] state in
-            guard case .authorized = state.auth else { return }
+            guard case .authorized = state.auth.mode else { return }
             self?.cancellable?.cancel()
             guard let button = self?.statusBarItem.button else { return }
             self?.popover.show(relativeTo: button.bounds, of: button, preferredEdge: NSRectEdge.minY)
