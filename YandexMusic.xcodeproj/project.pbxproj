@@ -13,6 +13,7 @@
 		459A279823AA910B003D50EC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 459A279723AA910B003D50EC /* Preview Assets.xcassets */; };
 		459A279B23AA910B003D50EC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 459A279923AA910B003D50EC /* Main.storyboard */; };
 		85361F792762A4F50078F456 /* StationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B806527526F0B003213E9 /* StationState.swift */; };
+		8558F36D27649F4200D6A34E /* AccountRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8558F36C27649F4200D6A34E /* AccountRequest.swift */; };
 		85D2588127615137004CD896 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 85D2588327615137004CD896 /* Localizable.strings */; };
 		85D258872761D84C004CD896 /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D258862761D84C004CD896 /* Localization.swift */; };
 		A1253FAE27629A1300CDC7BF /* StationMiddleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1253FAD27629A1300CDC7BF /* StationMiddleware.swift */; };
@@ -75,6 +76,7 @@
 		459A279D23AA910B003D50EC /* YandexMusic.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = YandexMusic.entitlements; sourceTree = "<group>"; };
 		8558F36A2763F3E500D6A34E /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		8558F36B2763F3F400D6A34E /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
+		8558F36C27649F4200D6A34E /* AccountRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountRequest.swift; sourceTree = "<group>"; };
 		85D2588227615137004CD896 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		85D2588427615145004CD896 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		85D258862761D84C004CD896 /* Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
@@ -223,6 +225,7 @@
 				A128AB9E275CD7FC00219FBF /* TokenRequest.swift */,
 				A128ABA0275CD96300219FBF /* UserSettingsRequest.swift */,
 				A128ABA2275D348A00219FBF /* LikeRequest.swift */,
+				8558F36C27649F4200D6A34E /* AccountRequest.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -497,6 +500,7 @@
 				A12B808E2752B770003213E9 /* CustomView.swift in Sources */,
 				85361F792762A4F50078F456 /* StationState.swift in Sources */,
 				A1253FAE27629A1300CDC7BF /* StationMiddleware.swift in Sources */,
+				8558F36D27649F4200D6A34E /* AccountRequest.swift in Sources */,
 				A128AB9F275CD7FC00219FBF /* TokenRequest.swift in Sources */,
 				A12B809027537CF5003213E9 /* TrackDTO.swift in Sources */,
 				A12B80992753857D003213E9 /* TrackAction.swift in Sources */,

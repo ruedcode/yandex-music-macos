@@ -7,7 +7,7 @@
 //
 
 struct AppState {
-    var auth: AuthState = AuthState.unauthorized
+    var auth: AuthState = AuthState()
     var section: SectionState = SectionState()
     var track: TrackState = TrackState()
 }
