@@ -15,7 +15,7 @@ func authReducer(
 ) -> AnyPublisher<AppAction, Never>? {
     switch action {
     case AuthAction.update:
-        state.mode = AuthProvider.instance.token != nil ? .authorized : .unauthorized
+        state.mode = AuthProvider.instance.account != nil ? .authorized : .unauthorized
         state.userName = AuthProvider.instance.account?.displayName ?? AuthProvider.instance.profile?.login ?? ""
         state.avatarHash = AuthProvider.instance.account?.avatar.avatarDefault
 

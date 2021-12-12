@@ -38,6 +38,10 @@ enum Constants {
     enum Common {
         static let imageSize = CGSize(width: 200, height: 200)
         static let primary: Color = Color(red: 1.00, green: 0.80, blue: 0.00)
+        static let baseHeaders = [
+            "X-Retpath-Y": "https://music.yandex.ru/radio",
+            "X-Yandex-Music-Client": "YandexMusicAPI"
+        ]
     }
 }
 

@@ -18,12 +18,7 @@ struct TrackRequest: RequestType {
         let queue = queue.map { $0.0 + ":" + $0.1 }.joined(separator: ",").addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
         return RequestData(
             path: String(format: Constants.Track.list, type, tag, queue),
-            method: .get,
-            auth: true,
-            headers: [
-                "X-Retpath-Y": "https%3A%2F%2Fmusic.yandex.ru%2Fradio",
-                "X-Yandex-Music-Client": "YandexMusicAPI"
-            ]
+            method: .get
         )
     }
 }

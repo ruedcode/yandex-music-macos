@@ -34,29 +34,24 @@ final class AuthWindow: NSWindow {
         isReleasedWhenClosed = false
         styleMask.insert(NSWindow.StyleMask.fullSizeContentView)
         let viewModel = WebViewModel(link: Constants.Auth.codeUrl)
-        contentView = NSHostingView(rootView: WebView(
-            viewModel: viewModel,
-            withResetCookies: AuthProvider.instance.isNeedResetAuth
-        ))
+        contentView = NSHostingView(
+            rootView: WebView(
+                viewModel: viewModel,
+                withResetCookies: AuthProvider.instance.isNeedResetAuth
+            )
+        )
         AuthProvider.instance.isNeedResetAuth = false
-        cancellable = viewModel.$link.sink { [weak self] link in
-            guard let components = URLComponents(string: link) else { return }
-
-            if
+        cancellable = viewModel.$cookies.sink { [weak self] cookies in
+            if cookies.contains(where: { $0.name == "yandex_login"}) {
+                self?.store.send(AuthAction.auth(with: cookies))
+                self?.close()
+            }
+            else if
+                let components = URLComponents(string: viewModel.link),
                 components.host == "passport.yandex.ru",
                 components.path == "/auth"
             {
                 self?.makeKeyAndOrderFront(nil)
-            }
-
-            if
-                components.path == "/verification_code",
-                let code = components.queryItems?.first(where: {
-                    $0.name == "code" && $0.value?.isEmpty == false
-                })?.value
-            {
-                self?.store.send(AuthAction.fetchToken(code: code))
-                self?.close()
             }
         }
     }

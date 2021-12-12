@@ -8,12 +8,14 @@
 
 class WebViewModel: ObservableObject {
     @Published var link: String
+    @Published var cookies: [HTTPCookie]
     @Published var didFinishLoading: Bool = false
     @Published var pageTitle: String
 
     init (link: String) {
         self.link = link
         self.pageTitle = ""
+        self.cookies = []
     }
 }
 
@@ -63,9 +65,12 @@ struct WebView: NSViewRepresentable {
 
         //After the webpage is loaded, assign the data in WebViewModel class
         public func webView(_ web: WKWebView, didFinish: WKNavigation!) {
-            self.viewModel.pageTitle = web.title!
-            self.viewModel.link = web.url?.absoluteString ?? ""
-            self.viewModel.didFinishLoading = true
+            web.configuration.websiteDataStore.httpCookieStore.getAllCookies { [weak self] items in
+                self?.viewModel.cookies = items
+            }
+            viewModel.link = web.url?.absoluteString ?? ""
+            viewModel.didFinishLoading = true
+            viewModel.pageTitle = web.title ?? ""
         }
 
         public func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) { }

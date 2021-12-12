@@ -10,10 +10,10 @@ import Foundation
 
 var authMiddleware: Middleware<AppState, AppAction> = { store, action in
     switch action {
-    case AuthAction.fetchToken(let code):
+    case let AuthAction.auth(with: cookies):
         Analytics.shared.log(event: .login)
         AuthProvider.instance
-            .auth(with: code)
+            .auth(with: cookies)
             .ignoreError()
             .sink { _ in store.send(AuthAction.update) }
             .store(in: &store.effectCancellables)

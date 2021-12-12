@@ -16,12 +16,7 @@ struct Mp3Request: RequestType {
     var data: RequestData {
         return RequestData(
             path: String(format: Constants.Track.mp3, trackId, albumId),
-            method: .get,
-            auth: true,
-            headers: [
-                "X-Retpath-Y": "https%3A%2F%2Fmusic.yandex.ru%2Fradio",
-                "X-Yandex-Music-Client": "YandexMusicAPI"
-            ]
+            method: .get
         )
     }
 }

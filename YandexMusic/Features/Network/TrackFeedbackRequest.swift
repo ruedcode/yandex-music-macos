@@ -24,7 +24,6 @@ struct TrackFeedbackRequest: RequestType {
                 params.albumId
             ),
             method: .post,
-            auth: true,
             params: .urlenencoded(
                 Form(
                     batchId: params.batchId,
@@ -32,11 +31,7 @@ struct TrackFeedbackRequest: RequestType {
                     albumId: params.albumId,
                     totalPlayed: params.totalPlayed
                 )
-            ),
-            headers: [
-                "X-Retpath-Y": "https%3A%2F%2Fmusic.yandex.ru%2Fradio",
-                "X-Yandex-Music-Client": "YandexMusicAPI"
-            ]
+            )
         )
     }
 
@@ -141,7 +136,6 @@ struct TrackFeedbackRequest2: RequestType {
                 params.reason.rawValue
             ),
             method: .post,
-            auth: true,
             params: .json(
                 Form(
                     data: [
@@ -159,11 +153,7 @@ struct TrackFeedbackRequest2: RequestType {
                         )
                     ]
                 )
-            ),
-            headers: [
-                "X-Retpath-Y": "https%3A%2F%2Fmusic.yandex.ru%2Fradio",
-                "X-Yandex-Music-Client": "YandexMusicAPI"
-            ]
+            )
         )
     }
 

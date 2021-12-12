@@ -6,8 +6,10 @@
 //  Copyright © 2021 Eugene Kalyada. All rights reserved.
 //
 
+import Foundation
+
 enum AuthAction: AppAction {
-    case fetchToken(code: String)
+    case auth(with: [HTTPCookie])
     case update
     case authFailed
     case logout
