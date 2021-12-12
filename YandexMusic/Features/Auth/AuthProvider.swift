@@ -18,10 +18,8 @@ final class AuthProvider {
     private(set) var profile: UserSettingsResponse?
     private(set) var account: Account?
 
-    var isNeedResetAuth: Bool {
-        get { UserDefaults.standard.bool(forKey: isNeedResetAuthKey) }
-        set { UserDefaults.standard.set(newValue, forKey: isNeedResetAuthKey) }
-    }
+    @Stored(for: .resetAuth, defaultValue: false)
+    var isNeedResetAuth: Bool
 
     var deviceId: String {
         get {

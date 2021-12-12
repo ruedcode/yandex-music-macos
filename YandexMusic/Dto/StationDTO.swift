@@ -11,7 +11,7 @@ import Foundation
 struct GroupDTO: Decodable {
     let id: String
     let name: String?
-    let children: [StationDTO]
+    let children: [StationDTO]?
     let showInMenu: Bool?
 }
 

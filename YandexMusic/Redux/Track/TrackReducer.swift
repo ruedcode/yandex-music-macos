@@ -87,7 +87,7 @@ func trackReducer(
             .eraseToAnyPublisher()
 
     case TrackAction.runPlayer:
-        guard let track = state.current, let url = track.url else {
+        guard let track = state.current, track.url != nil else {
             return TrackAction.fetch(
                 type: state.lastType,
                 tag: state.lastTag,
@@ -96,42 +96,28 @@ func trackReducer(
             ).next
         }
         state.isPlaying = true
-        AudioProvider.instance.play(url: url)
+        AudioProvider.instance.play(track: track)
 
         AudioProvider.instance.onFinish = {
-            if let delegate = NSApp.delegate as? AppDelegate {
-                delegate.store.send(TrackAction.sendFeedback(.trackFinished))
-                delegate.store.send(TrackAction.playNext)
-                NowPlayingProvider.instance.set(state: .stopped)
-            }
+            guard let delegate = NSApp.delegate as? AppDelegate else { return }
+            delegate.store.send(TrackAction.sendFeedback(.trackFinished))
+            delegate.store.send(TrackAction.playNext)
         }
         AudioProvider.instance.onStart = { time in
-            NowPlayingProvider.instance.set(track: track)
-            NowPlayingProvider.instance.set(duration: time)
-            NowPlayingProvider.instance.set(state: .playing)
-            if let delegate = NSApp.delegate as? AppDelegate {
-                delegate.store.send(TrackAction.updateTotal(time))
-                delegate.store.send(TrackAction.sendFeedback(.radioStarted))
-                delegate.store.send(
-                    TrackAction.feedbackStationStartUpdate(
-                        type: delegate.store.state.track.lastType,
-                        tag: delegate.store.state.track.lastTag
-                    )
+            guard let delegate = NSApp.delegate as? AppDelegate else { return }
+            delegate.store.send(TrackAction.updateTotal(time))
+            delegate.store.send(TrackAction.sendFeedback(.radioStarted))
+            delegate.store.send(
+                TrackAction.feedbackStationStartUpdate(
+                    type: delegate.store.state.track.lastType,
+                    tag: delegate.store.state.track.lastTag
                 )
-                delegate.store.send(TrackAction.sendFeedback(.trackStarted))
-            }
+            )
+            delegate.store.send(TrackAction.sendFeedback(.trackStarted))
         }
         AudioProvider.instance.onCurrentUpdate = { time in
-            NowPlayingProvider.instance.set(currentTime: time)
-            if let delegate = NSApp.delegate as? AppDelegate {
-                delegate.store.send(TrackAction.updateCurrent(time))
-            }
-        }
-        AudioProvider.instance.onPause = {
-            NowPlayingProvider.instance.set(state: .paused)
-        }
-        AudioProvider.instance.onResume = {
-            NowPlayingProvider.instance.set(state: .playing)
+            guard let delegate = NSApp.delegate as? AppDelegate else { return }
+            delegate.store.send(TrackAction.updateCurrent(time))
         }
         if state.next == nil {
             return TrackAction.fetch(
@@ -144,7 +130,6 @@ func trackReducer(
 
     case TrackAction.resetPlayer:
         AudioProvider.instance.reset()
-        NowPlayingProvider.instance.reset()
         
     case TrackAction.playNext:
         state.current = state.next

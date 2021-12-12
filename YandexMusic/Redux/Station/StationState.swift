@@ -38,7 +38,7 @@ extension StationGroup {
     init(_ dto: GroupDTO) {
         id = dto.id
         _name = dto.name ?? "unknown-stations".localized
-        stations = dto.children.map(Station.init)
+        stations = dto.children?.map(Station.init) ?? []
     }
 }
 
@@ -62,6 +62,6 @@ extension Array where Element == StationGroup {
                 return false
             }
             return item1.id <= item2.id
-        })
+        }).filter { !$0.stations.isEmpty }
     }
 }

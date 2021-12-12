@@ -57,17 +57,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             keyEquivalent: "q")
 
         statusBarItem?.button?.menu = menu
-        
-        NSApp.activate(ignoringOtherApps: true)
 
         // Connect MPNowPlayingInfoCenter
-        NowPlayingProvider.instance.handler = { [weak self] event in
-            switch event {
-            case .next: self?.store.send(TrackAction.playNext)
-            case .play: self?.store.send(TrackAction.play)
-            case .pause: self?.store.send(TrackAction.pause)
-            }
-        }
+        AudioProvider.instance.connect(to: store)
+        
+        NSApp.activate(ignoringOtherApps: true)
 
         auth()
     }
