@@ -19,11 +19,6 @@ var authMiddleware: Middleware<AppState, AppAction> = { store, action in
             .store(in: &store.effectCancellables)
 
     case AuthAction.logout:
-        HTTPCookieStorage.shared
-            .cookies?
-            .forEach(HTTPCookieStorage.shared.deleteCookie)
-        URLCache.shared.removeAllCachedResponses()
-        URLSession.shared.invalidateAndCancel()
         Stored<Void>.clear()
         AuthProvider.instance.logout()
 
