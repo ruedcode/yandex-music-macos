@@ -46,7 +46,11 @@ final class AuthWindow: NSWindow {
                 self?.store.send(AuthAction.auth(with: cookies))
                 self?.close()
             }
-            else {
+            else if
+                let components = URLComponents(string: viewModel.link),
+                components.host == "passport.yandex.ru",
+                components.path == "/auth"
+            {
                 self?.makeKeyAndOrderFront(nil)
             }
         }

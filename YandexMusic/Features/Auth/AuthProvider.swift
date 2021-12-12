@@ -12,26 +12,18 @@ import Combine
 final class AuthProvider {
     static let instance = AuthProvider()
 
-    private let isNeedResetAuthKey = "isNeedResetAuth"
-    private let deviceIdKey = "deviceId"
-
     private(set) var profile: UserSettingsResponse?
     private(set) var account: Account?
 
     @Stored(for: .resetAuth, defaultValue: false)
     var isNeedResetAuth: Bool
 
-    var deviceId: String {
-        get {
-            if let deviceId = UserDefaults.standard.string(forKey: deviceIdKey) {
-                return deviceId
-            }
-            else {
-                let deviceId = UUID().uuidString
-                UserDefaults.standard.set(deviceId, forKey: deviceIdKey)
-                return deviceId
-            }
+    @Stored(for: .deviceId, defaultValue: "")
+    private(set) var deviceId: String
 
+    init() {
+        if deviceId.isEmpty {
+            deviceId = UUID().uuidString
         }
     }
 
