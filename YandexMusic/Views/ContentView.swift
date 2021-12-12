@@ -63,8 +63,14 @@ struct ContentView: View {
             Divider()
                 .padding([.leading, .trailing], 8)
 
-            StationListView()
-
+            if store.state.station.hasError {
+                ErrorView {
+                    store.send(StationAction.fetch)
+                }
+                .frame(minHeight: 100)
+            } else {
+                StationListView()
+            }
 
             ProgressView(
                 "",

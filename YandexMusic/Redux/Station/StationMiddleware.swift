@@ -11,10 +11,12 @@ var stationMiddleware: Middleware<AppState, AppAction> = { store, action in
     case StationAction.fetch:
         LibraryRequest()
             .execute()
-            .ignoreError()
-            .sink { 
-                store.send(StationAction.update($0.groups))
-            }
+            .sink(receiveCompletion: { result in
+                guard case .failure = result else { return }
+                store.send(StationAction.error)
+            }, receiveValue: {
+                 store.send(StationAction.update($0.groups))
+            })
             .store(in: &store.effectCancellables)
     case let StationAction.select(station, andPlay):
         guard store.state.station.station == station, andPlay else {
