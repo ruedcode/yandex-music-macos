@@ -22,9 +22,8 @@ final class AuthProvider {
     private(set) var deviceId: String
 
     init() {
-        if deviceId.isEmpty {
-            deviceId = UUID().uuidString
-        }
+        guard deviceId.isEmpty else { return }
+        deviceId = UUID().uuidString
     }
 
     func auth(with cookies: [HTTPCookie]) -> AnyPublisher<Void, Error> {
@@ -38,6 +37,11 @@ final class AuthProvider {
     }
 
     func logout() {
+        HTTPCookieStorage.shared
+            .cookies?
+            .forEach(HTTPCookieStorage.shared.deleteCookie)
+        URLCache.shared.removeAllCachedResponses()
+        URLSession.shared.invalidateAndCancel()
         isNeedResetAuth = true
         profile = nil
         account = nil
