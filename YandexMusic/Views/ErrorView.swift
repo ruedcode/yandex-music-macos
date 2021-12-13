@@ -17,19 +17,30 @@ struct ErrorView: View {
         self.repeatAction = repeatAction
     }
 
+    private var content: some View {
+        CustomView {
+            Text(errorMessage.localized)
+            if let repeatAction = repeatAction {
+                Button("repeat-bt-error", action: repeatAction)
+            }
+        }
+    }
+
     var body: some View {
-        HStack {
-            Spacer()
-            VStack {
+        GeometryReader { g in
+            HStack {
                 Spacer()
-                Text(errorMessage.localized)
-                if let repeatAction = repeatAction {
-                    Button("repeat-bt-error", action: repeatAction)
-                        .padding(.top, 5)
+                if g.size.height > 50 {
+                    VStack {
+                        Spacer()
+                        content
+                        Spacer()
+                    }
+                } else {
+                    content
                 }
                 Spacer()
             }
-            Spacer()
         }
     }
 }

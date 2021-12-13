@@ -17,6 +17,7 @@ struct TrackState {
     var feedback: TrackFeedback = TrackFeedback()
     var currentTime: Double = 0
     var totalTime: Double = 0
+    var hasError: Bool = false
 }
 
 struct TrackFeedback {
