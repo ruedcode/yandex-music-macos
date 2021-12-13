@@ -68,7 +68,9 @@ struct ContentView: View {
 
             ProgressView(
                 "",
-                value: store.state.track.currentTime,
+                value: store.state.track.totalTime > 0
+                    ? store.state.track.currentTime
+                    : 0,
                 total: store.state.track.totalTime
             )
                 .padding([.leading, .trailing], 8)
