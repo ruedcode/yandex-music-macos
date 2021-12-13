@@ -32,8 +32,8 @@ private extension AppIconMode {
     var title: String {
         switch self {
         case .both: return "app-icon-both"
-        case .dock: return "app-icon-dock"
-//        case .context: return "app-icon-context"
+//        case .dock: return "app-icon-dock"
+        case .context: return "app-icon-context"
         }
     }
 }

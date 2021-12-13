@@ -74,14 +74,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         SettingsStorage.shared.appIconMode = mode
         switch mode {
         case .both:
+            NSApp.dockTile.display()
             NSApp.setActivationPolicy(.regular)
 //            statusBarItem.isVisible = true
-        case .dock:
-            NSApp.setActivationPolicy(.regular)
+//        case .dock:
+//            NSApp.dockTile.display()
+//            NSApp.setActivationPolicy(.regular)
 //            statusBarItem.isVisible = false
-//        case .context:
+        case .context:
 //            statusBarItem.isVisible = true
-//            NSApp.setActivationPolicy(.prohibited)
+            NSApp.setActivationPolicy(.prohibited)
         }
     }
 

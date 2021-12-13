@@ -10,9 +10,9 @@ import Foundation
 
 enum AppIconMode: String, CaseIterable {
     case both
-    case dock
     // TODO: Uncomment after clarifying appearance of main screen without a context menu
-//    case context
+//    case dock
+    case context
 }
 
 final class SettingsStorage {
