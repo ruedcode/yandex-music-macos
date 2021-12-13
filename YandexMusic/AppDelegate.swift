@@ -48,22 +48,41 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             button.action = #selector(contextAction)
         }
 
-        // Create context menu
-        let menu = NSMenu(title: "context-menu".localized)
-
-        menu.addItem(
-            withTitle: "quit".localized,
-            action: #selector(NSApplication.terminate(_:)),
-            keyEquivalent: "q")
-
-        statusBarItem?.button?.menu = menu
-
         // Connect MPNowPlayingInfoCenter
         AudioProvider.instance.connect(to: store)
+
+        changeIcons(mode: SettingsStorage.shared.appIconMode)
         
         NSApp.activate(ignoringOtherApps: true)
 
+        NSApp.dockTile.contentView = NSHostingView(rootView: DockView(onUpdate: {
+            DispatchQueue.main.async {
+                NSApp.dockTile.display()
+            }
+        }).environmentObject(store))
+        NSApp.dockTile.display()
+
         auth()
+    }
+
+    func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
+        togglePopover(self)
+        return true
+    }
+
+    func changeIcons(mode: AppIconMode) {
+        SettingsStorage.shared.appIconMode = mode
+        switch mode {
+        case .both:
+            NSApp.setActivationPolicy(.regular)
+//            statusBarItem.isVisible = true
+        case .dock:
+            NSApp.setActivationPolicy(.regular)
+//            statusBarItem.isVisible = false
+//        case .context:
+//            statusBarItem.isVisible = true
+//            NSApp.setActivationPolicy(.prohibited)
+        }
     }
 
     @objc func contextAction() {

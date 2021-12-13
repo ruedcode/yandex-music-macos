@@ -18,3 +18,10 @@
 
 "my-stations" = "My stations";
 "unknown-stations" = "Unknown";
+
+"settings-title" = "Settings";
+
+"app-icon-picker" = "App icon mode";
+"app-icon-both" = "Dock & Context";
+"app-icon-dock" = "Dock";
+"app-icon-context" = "Context";

@@ -12,6 +12,11 @@
 		459A279523AA910B003D50EC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 459A279423AA910B003D50EC /* Assets.xcassets */; };
 		459A279823AA910B003D50EC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 459A279723AA910B003D50EC /* Preview Assets.xcassets */; };
 		459A279B23AA910B003D50EC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 459A279923AA910B003D50EC /* Main.storyboard */; };
+		8518A97D27672AEF000A3318 /* DockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8518A97C27672AEF000A3318 /* DockView.swift */; };
+		8518A97F27675079000A3318 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8518A97E27675079000A3318 /* SettingsView.swift */; };
+		8518A98127675241000A3318 /* View+Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8518A98027675241000A3318 /* View+Window.swift */; };
+		8518A9832767749F000A3318 /* SettingsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8518A9822767749F000A3318 /* SettingsStorage.swift */; };
+		8518A985276777B8000A3318 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8518A984276777B8000A3318 /* AccountView.swift */; };
 		85361F792762A4F50078F456 /* StationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B806527526F0B003213E9 /* StationState.swift */; };
 		8558F36D27649F4200D6A34E /* AccountRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8558F36C27649F4200D6A34E /* AccountRequest.swift */; };
 		8558F37C2764CF7800D6A34E /* BanRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8558F37B2764CF7800D6A34E /* BanRequest.swift */; };
@@ -79,6 +84,11 @@
 		459A279A23AA910B003D50EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		459A279C23AA910B003D50EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		459A279D23AA910B003D50EC /* YandexMusic.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = YandexMusic.entitlements; sourceTree = "<group>"; };
+		8518A97C27672AEF000A3318 /* DockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DockView.swift; sourceTree = "<group>"; };
+		8518A97E27675079000A3318 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		8518A98027675241000A3318 /* View+Window.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Window.swift"; sourceTree = "<group>"; };
+		8518A9822767749F000A3318 /* SettingsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStorage.swift; sourceTree = "<group>"; };
+		8518A984276777B8000A3318 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		8558F36A2763F3E500D6A34E /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		8558F36B2763F3F400D6A34E /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		8558F36C27649F4200D6A34E /* AccountRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountRequest.swift; sourceTree = "<group>"; };
@@ -341,6 +351,9 @@
 				A128ABA5275D499A00219FBF /* StationView.swift */,
 				A18D63B7275E9DC0007D83A9 /* AsyncImage.swift */,
 				A1253FB32762A16900CDC7BF /* StationListView.swift */,
+				8518A97C27672AEF000A3318 /* DockView.swift */,
+				8518A97E27675079000A3318 /* SettingsView.swift */,
+				8518A984276777B8000A3318 /* AccountView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -359,6 +372,8 @@
 				A1A329C72760073C0094BF4F /* DoubleHelper.swift */,
 				85D258862761D84C004CD896 /* Localization.swift */,
 				85C5273C27653138004E4BA5 /* Stored.swift */,
+				8518A98027675241000A3318 /* View+Window.swift */,
+				8518A9822767749F000A3318 /* SettingsStorage.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -500,6 +515,7 @@
 				8558F37C2764CF7800D6A34E /* BanRequest.swift in Sources */,
 				A18D63BC275E9DF3007D83A9 /* BackportAsyncImage.swift in Sources */,
 				A12B809D27538DFD003213E9 /* TrackReducer.swift in Sources */,
+				8518A97D27672AEF000A3318 /* DockView.swift in Sources */,
 				A18D63B8275E9DC0007D83A9 /* AsyncImage.swift in Sources */,
 				A12B806227524D27003213E9 /* PlayerButtonView.swift in Sources */,
 				A1A329CA27612E3C0094BF4F /* AuthMiddleware.swift in Sources */,
@@ -517,6 +533,8 @@
 				A17F67272752460A0094B5A3 /* AuthState.swift in Sources */,
 				A128ABA8275D5EAD00219FBF /* MediaApplication.swift in Sources */,
 				A12B807D275283F9003213E9 /* AppReducer.swift in Sources */,
+				8518A9832767749F000A3318 /* SettingsStorage.swift in Sources */,
+				8518A98127675241000A3318 /* View+Window.swift in Sources */,
 				A128AB95275CD34200219FBF /* RecommendationRequest.swift in Sources */,
 				A12B80A12757FE42003213E9 /* Logger.swift in Sources */,
 				A128ABA6275D499A00219FBF /* StationView.swift in Sources */,
@@ -524,9 +542,11 @@
 				85361F792762A4F50078F456 /* StationState.swift in Sources */,
 				A1253FAE27629A1300CDC7BF /* StationMiddleware.swift in Sources */,
 				8558F36D27649F4200D6A34E /* AccountRequest.swift in Sources */,
+				8518A97F27675079000A3318 /* SettingsView.swift in Sources */,
 				A12B809027537CF5003213E9 /* TrackDTO.swift in Sources */,
 				A12B80992753857D003213E9 /* TrackAction.swift in Sources */,
 				A12B809F2753CC96003213E9 /* AudioProvider.swift in Sources */,
+				8518A985276777B8000A3318 /* AccountView.swift in Sources */,
 				A12B807127527A85003213E9 /* WebView.swift in Sources */,
 				85C5273B27651016004E4BA5 /* Analytics.swift in Sources */,
 				85D258872761D84C004CD896 /* Localization.swift in Sources */,

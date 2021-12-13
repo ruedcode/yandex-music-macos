@@ -12,10 +12,10 @@ struct ContentView: View {
 
     @EnvironmentObject var store: Store<AppState, AppAction>
     @State private var showingLogoutAlert = false
+    @State private var showingMorePopover = false
 
     var body: some View {
         return VStack(alignment: .leading) {
-
             HStack {
 
                 Menu(store.state.station.stationGroup?.name ?? "") {
@@ -32,29 +32,7 @@ struct ContentView: View {
 
                 Spacer()
 
-                AsyncImage(url: store.state.auth.avatarURL) { image in
-                    image.resizable()
-                        .aspectRatio(1, contentMode: .fit)
-                        .clipShape(Circle())
-                        .clipped()
-                } placeholder: {
-                    ProgressView()
-                }
-
-                Text(store.state.auth.userName)
-
-                PlayerButtonView(imageName: "rectangle.portrait.and.arrow.right", imageSize: .small) {
-                    showingLogoutAlert = true
-                }
-                .alert(isPresented: $showingLogoutAlert) {
-                    Alert(title: Text("logout-title"),
-                          message: Text("logout-message"),
-                          primaryButton: .destructive(Text("logout-accept"), action: { store.send(AuthAction.logout) }),
-                          secondaryButton: .cancel()
-                    )
-                  }
-                .buttonStyle(PlainButtonStyle())
-                .help("logout-title")
+                AccountView()
             }
             .padding([.leading, .trailing], 12)
             .padding(.top, 10)
@@ -64,7 +42,6 @@ struct ContentView: View {
                 .padding([.leading, .trailing], 8)
 
             StationListView()
-
 
             ProgressView(
                 "",

@@ -18,3 +18,10 @@
 
 "my-stations" = "Мои станции";
 "unknown-stations" = "Без названия";
+
+"settings-title" = "Настройки";
+
+"app-icon-picker" = "Тип иконки приложения";
+"app-icon-both" = "Док & Контекст";
+"app-icon-dock" = "Док";
+"app-icon-context" = "Контекст";
