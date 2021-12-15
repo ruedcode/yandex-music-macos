@@ -11,4 +11,5 @@ enum StationAction: AppAction {
     case update([GroupDTO])
     case select(Station, andPlay: Bool)
     case selectGroup(StationGroup, andPlay: Bool)
+    case error
 }

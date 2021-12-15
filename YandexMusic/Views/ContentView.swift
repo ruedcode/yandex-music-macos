@@ -63,8 +63,14 @@ struct ContentView: View {
             Divider()
                 .padding([.leading, .trailing], 8)
 
-            StationListView()
-
+            if store.state.station.hasError {
+                ErrorView {
+                    store.send(StationAction.fetch)
+                }
+                .frame(minHeight: 100)
+            } else {
+                StationListView()
+            }
 
             ProgressView(
                 "",
@@ -78,8 +84,17 @@ struct ContentView: View {
                 .labelsHidden()
                 .progressViewStyle(LinearProgressViewStyle(tint: Constants.Common.primary))
 
-            PlayerView().padding(.bottom, 8).padding([.leading, .trailing], 8)
-            Spacer()
+            if store.state.track.hasError {
+                ErrorView {
+                    store.send(TrackAction.fetchFile)
+                }
+                .frame(height: 40)
+            } else {
+                PlayerView()
+                    .padding(.bottom, 8)
+                    .padding([.leading, .trailing], 8)
+            }
+
         }.frame(minWidth: 400)
     }
 }

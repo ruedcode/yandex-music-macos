@@ -11,6 +11,7 @@ struct SectionState {
     var stations: [Station] = []
     var station: Station?
     var stationGroup: StationGroup?
+    var hasError: Bool = false
 }
 
 struct StationGroup: Hashable {

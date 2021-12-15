@@ -23,6 +23,11 @@ func stationReducer(
     action: AppAction
 ) -> AnyPublisher<AppAction, Never>? {
     switch action {
+    case StationAction.error:
+        state.hasError = true
+
+    case StationAction.fetch:
+        state.hasError = false
 
     case StationAction.update(let items):
         state.groups = items.compactMap(StationGroup.init).sorted
