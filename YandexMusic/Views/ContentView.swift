@@ -84,10 +84,12 @@ struct ContentView: View {
                 .labelsHidden()
                 .progressViewStyle(LinearProgressViewStyle(tint: Constants.Common.primary))
 
-            if store.state.track.hasError {
-                ErrorView {
-                    store.send(TrackAction.fetchFile)
-                }
+            if let error = store.state.track.error {
+                ErrorView(error.text,
+                          buttonText: error.button,
+                          repeatAction: {
+                    store.send(error.action)
+                }) 
                 .frame(height: 40)
             } else {
                 PlayerView()

@@ -11,3 +11,19 @@ struct AppState {
     var station: SectionState = SectionState()
     var track: TrackState = TrackState()
 }
+
+struct ErrorState {
+    let text: String
+    let button: String
+    let action: AppAction
+
+    init(
+        text: String = "common-error",
+        button: String = "repeat-bt-error",
+        action: AppAction
+    ) {
+        self.text = text
+        self.button = button
+        self.action = action
+    }
+}

@@ -10,6 +10,46 @@ import Combine
 
 var trackMiddleware: Middleware<AppState, AppAction> = { store, action in
     switch action {
+
+    case let TrackAction.fetch(type, tag, queue, andPlay):
+        if store.state.track.lastType != type || store.state.track.lastTag != tag {
+            store.send(TrackAction.clear)
+        }
+        let queue = queue.compactMap { item -> (String, String)? in
+            return (item.album.id, item.id)
+        }
+        return TrackRequest(type: type, tag: tag, queue: queue).execute()
+            .ignoreError()
+            .sink { response in
+                response.tracks.enumerated().forEach { item in
+                    guard let albumId = item.element.track.albums.first?.id else {
+                        return
+                    }
+                    TrackService(trackId: item.element.track.id, albumId: String(albumId))
+                        .fetchUrl()
+                        .ignoreError()
+                        .sink {
+                            store.send(TrackAction.add(Track(model: item.element, url: $0)))
+                            if andPlay, item.offset == 0 {
+                                store.send(TrackAction.play)
+                            }
+                            // если не удалось набрать композиций, то запрашиваем еще
+                            if item.offset == response.tracks.count - 1, store.state.track.items.count <= 1 {
+                                store.send(
+                                    TrackAction.fetch(
+                                        type: type,
+                                        tag: tag,
+                                        queue: store.state.track.items,
+                                        andPlay: false
+                                    )
+                                )
+                            }
+                        }
+                        .store(in: &store.effectCancellables)
+                }
+            }
+            .store(in: &store.effectCancellables)
+
     case let TrackAction.sendFeedback(event):
         sendFeedback(
             state: store.state.track,
@@ -135,13 +175,14 @@ private func sendFeedback(
     guard let reason = reason, let act = act else {
         return
     }
+    let nextTrack = state.items.first
 
     TrackFeedbackRequest2(
         params: TrackFeedbackRequest2.Params(
             trackId: track.id,
             albumId: track.album.id,
-            nextTrackId: state.next?.id ?? "",
-            nextAlbumId: state.next?.album.id ?? "",
+            nextTrackId: nextTrack?.id ?? "",
+            nextAlbumId: nextTrack?.album.id ?? "",
             type: state.lastType,
             tag: state.lastTag,
             reason: reason,

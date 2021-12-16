@@ -10,10 +10,14 @@ import SwiftUI
 
 struct ErrorView: View {
     private let errorMessage: String
+    private let buttonText: String
     private let repeatAction: (() -> Void)?
 
-    init(_ errorMessage: String = "common-error", repeatAction: (() -> Void)? = nil) {
+    init(_ errorMessage: String = "common-error",
+         buttonText: String = "repeat-bt-error",
+         repeatAction: (() -> Void)? = nil) {
         self.errorMessage = errorMessage
+        self.buttonText = buttonText
         self.repeatAction = repeatAction
     }
 
@@ -21,7 +25,7 @@ struct ErrorView: View {
         CustomView {
             Text(errorMessage.localized)
             if let repeatAction = repeatAction {
-                Button("repeat-bt-error", action: repeatAction)
+                Button(buttonText.localized, action: repeatAction)
             }
         }
     }

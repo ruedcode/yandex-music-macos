@@ -58,9 +58,9 @@ final class AudioProvider {
     }
 
     func play(track: Track) {
-        if let url = track.url, lastURL != url {
-            lastURL = url
-            let playerItem = AVPlayerItem(url: url)
+        if lastURL != track.url {
+            lastURL = track.url
+            let playerItem = AVPlayerItem(url: track.url)
             NotificationCenter.default.addObserver(
                 self,
                 selector: #selector(self.playerDidFinishPlaying(sender:)),
