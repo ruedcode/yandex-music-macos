@@ -19,6 +19,9 @@
 "my-stations" = "My stations";
 "unknown-stations" = "Unknown";
 
+"common-error" = "Something went wrong... 🤯";
+"repeat-bt-error" = "Repeat";
+
 "settings-title" = "Settings";
 
 "app-icon-picker" = "App icon mode";
