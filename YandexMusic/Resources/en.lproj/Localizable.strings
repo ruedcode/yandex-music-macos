@@ -21,3 +21,10 @@
 
 "common-error" = "Something went wrong... 🤯";
 "repeat-bt-error" = "Repeat";
+
+"settings-title" = "Settings";
+
+"app-icon-picker" = "App icon mode";
+"app-icon-both" = "Dock & Context";
+"app-icon-dock" = "Dock";
+"app-icon-context" = "Context";
