@@ -16,6 +16,12 @@ func trackReducer(
     action: AppAction
 ) -> AnyPublisher<AppAction, Never>? {
     switch action {
+    case TrackAction.error:
+        state.hasError = true
+        if state.isPlaying {
+            return TrackAction.pause.next
+        }
+
     case let TrackAction.fetch(type, tag, queue, andPlay):
         if andPlay {
             state.current = nil
@@ -71,19 +77,28 @@ func trackReducer(
         return TrackAction.runPlayer.next
 
     case TrackAction.fetchFile:
+        state.hasError = false
         guard
             let trackId = state.current?.id,
             let albumId = state.current?.album.id
         else {
-            return TrackAction.runPlayer.next // TODO - error screen
+            return TrackAction.playNext.next
         }
 
         return TrackService(trackId: trackId, albumId: albumId)
             .fetchUrl()
-            .ignoreError()
-            .map {
-                TrackAction.updateUrl($0)
+            .map { Result.success($0) }
+            .catch { Just(Result.failure($0)) }
+            .combineLatest(TrackAction.error.next)
+            .tryMap { (track, _) -> TrackAction in
+                switch track {
+                case .success(let url):
+                    return TrackAction.updateUrl(url)
+                case .failure:
+                    return TrackAction.error
+                }
             }
+            .ignoreError()
             .eraseToAnyPublisher()
 
     case TrackAction.runPlayer:
