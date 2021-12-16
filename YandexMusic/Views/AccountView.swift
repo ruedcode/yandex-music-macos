@@ -8,28 +8,10 @@
 
 import SwiftUI
 
-/*
-
-
- PlayerButtonView(imageName: "rectangle.portrait.and.arrow.right", imageSize: .small) {
-     showingLogoutAlert = true
- }
- .alert(isPresented: $showingLogoutAlert) {
-     Alert(title: Text("logout-title"),
-           message: Text("logout-message"),
-           primaryButton: .destructive(Text("logout-accept"), action: { store.send(AuthAction.logout) }),
-           secondaryButton: .cancel()
-     )
-   }
- .buttonStyle(PlainButtonStyle())
- .help("logout-title")
- */
-
 struct AccountView: View {
 
     @EnvironmentObject var store: Store<AppState, AppAction>
     @State private var showingLogoutAlert = false
-    @State private var showingMorePopover = false
 
     var body: some View {
         HStack {
@@ -42,46 +24,44 @@ struct AccountView: View {
                 ProgressView()
             }
 
-            Button(action: {
-                showingMorePopover = true
-            }, label: {
-                Text(store.state.auth.userName)
-                    .bold()
-            })
-                .buttonStyle(.borderless)
-                .popover(isPresented: $showingMorePopover) {
-                    VStack {
-                        Button {
-                            SettingsView()
-                                .frame(width: 500, height: 500)
-                                .openInWindow(title: "settings-title", sender: self)
-                        } label: {
-                            Text("settings-title")
-                                .frame(minWidth: 100, maxWidth: .infinity, minHeight: 44)
-                        }
+            Menu(store.state.auth.userName) {
+//                Button {
+//                    SettingsView()
+//                        .frame(width: 500, height: 500)
+//                        .openInWindow(title: "settings-title", sender: self)
+//                } label: {
+//                    Text("settings-title")
+//                        .frame(minWidth: 100, maxWidth: .infinity, minHeight: 44)
+//                }
 
-                        Button {
-                            showingLogoutAlert = true
-                        } label: {
-                            Text("logout-title")
-                                .frame(minWidth: 100, maxWidth: .infinity, minHeight: 44)
-                        }
-                        .alert(isPresented: $showingLogoutAlert) {
-                            Alert(title: Text("logout-title"),
-                                  message: Text("logout-message"),
-                                  primaryButton: .destructive(Text("logout-accept"), action: { store.send(AuthAction.logout) }),
-                                  secondaryButton: .cancel()
-                            )
-                        }
-
-                        Button {
-                            NSApp.terminate(self)
-                        } label: {
-                            Text("quit")
-                                .frame(minWidth: 100, maxWidth: .infinity, minHeight: 44)
-                        }
-                    }.padding()
+                Button {
+                    showingLogoutAlert = true
+                } label: {
+                    Text("logout-title")
+                        .frame(minWidth: 100, maxWidth: .infinity, minHeight: 44)
                 }
+
+                Button {
+                    NSApp.terminate(self)
+                } label: {
+                    Text("quit")
+                        .frame(minWidth: 100, maxWidth: .infinity, minHeight: 44)
+                }
+            }
+            .menuStyle(.borderlessButton)
+            .fixedSize()
+            .alert(isPresented: $showingLogoutAlert) {
+                Alert(
+                    title: Text("logout-title"),
+                    message: Text("logout-message"),
+                    primaryButton: .destructive(
+                        Text("logout-accept"),
+                        action: {
+                            store.send(AuthAction.logout)
+                        }),
+                    secondaryButton: .cancel()
+                )
+            }
         }
     }
 
