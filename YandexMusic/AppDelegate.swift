@@ -110,16 +110,19 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
 
-    private func auth() {
+    func auth() {
         authWindow?.close()
         authWindow = AuthWindow(store: store)
         cancellable = self.store.$state.sink { [weak self] state in
             guard case .authorized = state.auth.mode else { return }
             self?.cancellable?.cancel()
+            self?.cancellable = nil
             guard let button = self?.statusBarItem.button else { return }
             self?.popover.show(relativeTo: button.bounds, of: button, preferredEdge: NSRectEdge.minY)
             self?.popover.contentViewController?.view.window?.makeKey()
-            self?.store.send(StationAction.fetch)
+            DispatchQueue.main.async {
+                self?.store.send(StationAction.fetch)
+            }
         }
     }
 }
