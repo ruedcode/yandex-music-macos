@@ -26,6 +26,7 @@ final class AudioProvider {
     var onFinish: () -> Void = {}
     var onStart: (Double) -> Void = {_ in }
     var onCurrentUpdate: (Double) -> Void = {_ in}
+    var onError: () -> Void = {}
 
     @Stored(for: .musicVolume, defaultValue: 1.0)
     var volume: Float {
@@ -73,12 +74,21 @@ final class AudioProvider {
             observer = playerItem.observe(
                 \.status,
                  options: [.new],
-                 changeHandler: { [weak self] player, values in
-                     guard player.status == .readyToPlay else { return }
-                     self?.set(track: track)
-                     self?.set(duration: player.duration.seconds)
-                     self?.set(state: .playing)
-                     self?.onStart(player.duration.seconds)
+                 changeHandler: { [weak self] player, _ in
+                     switch player.status {
+                     case .readyToPlay:
+                         self?.set(track: track)
+                         self?.set(duration: player.duration.seconds)
+                         self?.set(state: .playing)
+                         self?.onStart(player.duration.seconds)
+
+                     case .failed:
+                         self?.set(state: .stopped)
+                         self?.onError()
+
+                     default:
+                         break
+                     }
             })
 
             player?.addPeriodicTimeObserver(forInterval: CMTime(value: 1, timescale: 2), queue: nil, using: { [weak self] time in
@@ -101,6 +111,7 @@ final class AudioProvider {
     func reset() {
         player?.pause()
         set(state: .paused)
+        observer?.invalidate()
         NotificationCenter.default.removeObserver(self)
         MPNowPlayingInfoCenter.default().playbackState = .unknown
         nowPlayingInfo.removeAll()

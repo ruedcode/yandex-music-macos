@@ -118,6 +118,11 @@ func trackReducer(
             delegate.store.send(TrackAction.sendFeedback(.trackFinished))
             delegate.store.send(TrackAction.playNext)
         }
+        AudioProvider.instance.onError = {
+            guard let delegate = NSApp.delegate as? AppDelegate else { return }
+            delegate.store.send(TrackAction.sendFeedback(.skip))
+            delegate.store.send(TrackAction.playNext)
+        }
         AudioProvider.instance.onStart = { time in
             guard let delegate = NSApp.delegate as? AppDelegate else { return }
             delegate.store.send(TrackAction.updateTotal(time))
