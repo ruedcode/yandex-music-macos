@@ -25,14 +25,15 @@ struct AccountView: View {
             }
 
             Menu(store.state.auth.userName) {
-//                Button {
-//                    SettingsView()
-//                        .frame(width: 500, height: 500)
-//                        .openInWindow(title: "settings-title", sender: self)
-//                } label: {
-//                    Text("settings-title")
-//                        .frame(minWidth: 100, maxWidth: .infinity, minHeight: 44)
-//                }
+                Button {
+                    SettingsView()
+                        .environmentObject(store)
+                        .frame(width: 500, height: 400)
+                        .openInWindow(title: "settings-title", sender: self)
+                } label: {
+                    Text("settings-title")
+                        .frame(minWidth: 100, maxWidth: .infinity, minHeight: 44)
+                }
 
                 Button {
                     showingLogoutAlert = true

@@ -15,6 +15,7 @@ enum Constants {
         static let tokenUrl = "https://oauth.yandex.ru/token"
         static let clientSecret = getFromConfig(key: "API_CLIENT_SECRET")
         static let userSettings = "https://music.yandex.ru/api/v2.1/handlers/auth?external-domain=music.yandex.ru&overembed=no"
+        static let playerSettings = "https://music.yandex.ru/api/v2.1/handlers/radio/user/onyourwave/settings"
         static let account = "https://api.passport.yandex.ru/suggested_accounts"
         static let avatar = "https://avatars.mds.yandex.net/get-yapic/%@/islands-retina-middle"
     }

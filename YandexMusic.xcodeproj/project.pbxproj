@@ -18,6 +18,11 @@
 		8518A98127675241000A3318 /* View+Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8518A98027675241000A3318 /* View+Window.swift */; };
 		8518A9832767749F000A3318 /* SettingsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8518A9822767749F000A3318 /* SettingsStorage.swift */; };
 		8518A985276777B8000A3318 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8518A984276777B8000A3318 /* AccountView.swift */; };
+		852EBF29276DF494002FADC5 /* PlayerSettingsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 852EBF28276DF494002FADC5 /* PlayerSettingsRequest.swift */; };
+		852EBF2C276DFE56002FADC5 /* PlayerSettingsState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 852EBF2B276DFE56002FADC5 /* PlayerSettingsState.swift */; };
+		852EBF2E276DFF33002FADC5 /* PlayerSettingsAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 852EBF2D276DFF33002FADC5 /* PlayerSettingsAction.swift */; };
+		852EBF30276DFF41002FADC5 /* PlayerSettingsReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 852EBF2F276DFF41002FADC5 /* PlayerSettingsReducer.swift */; };
+		852EBF32276DFF4D002FADC5 /* PlayerSettingsMiddleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = 852EBF31276DFF4D002FADC5 /* PlayerSettingsMiddleware.swift */; };
 		85361F792762A4F50078F456 /* StationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B806527526F0B003213E9 /* StationState.swift */; };
 		8558F36D27649F4200D6A34E /* AccountRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8558F36C27649F4200D6A34E /* AccountRequest.swift */; };
 		8558F37C2764CF7800D6A34E /* BanRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8558F37B2764CF7800D6A34E /* BanRequest.swift */; };
@@ -91,6 +96,11 @@
 		8518A98027675241000A3318 /* View+Window.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Window.swift"; sourceTree = "<group>"; };
 		8518A9822767749F000A3318 /* SettingsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStorage.swift; sourceTree = "<group>"; };
 		8518A984276777B8000A3318 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
+		852EBF28276DF494002FADC5 /* PlayerSettingsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerSettingsRequest.swift; sourceTree = "<group>"; };
+		852EBF2B276DFE56002FADC5 /* PlayerSettingsState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerSettingsState.swift; sourceTree = "<group>"; };
+		852EBF2D276DFF33002FADC5 /* PlayerSettingsAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerSettingsAction.swift; sourceTree = "<group>"; };
+		852EBF2F276DFF41002FADC5 /* PlayerSettingsReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerSettingsReducer.swift; sourceTree = "<group>"; };
+		852EBF31276DFF4D002FADC5 /* PlayerSettingsMiddleware.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerSettingsMiddleware.swift; sourceTree = "<group>"; };
 		8558F36A2763F3E500D6A34E /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		8558F36B2763F3F400D6A34E /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		8558F36C27649F4200D6A34E /* AccountRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountRequest.swift; sourceTree = "<group>"; };
@@ -203,6 +213,17 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		852EBF2A276DFE35002FADC5 /* PlayerSettings */ = {
+			isa = PBXGroup;
+			children = (
+				852EBF2B276DFE56002FADC5 /* PlayerSettingsState.swift */,
+				852EBF2D276DFF33002FADC5 /* PlayerSettingsAction.swift */,
+				852EBF2F276DFF41002FADC5 /* PlayerSettingsReducer.swift */,
+				852EBF31276DFF4D002FADC5 /* PlayerSettingsMiddleware.swift */,
+			);
+			path = PlayerSettings;
+			sourceTree = "<group>";
+		};
 		8558F3672763F2CB00D6A34E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -249,6 +270,7 @@
 				A128ABA0275CD96300219FBF /* UserSettingsRequest.swift */,
 				A128ABA2275D348A00219FBF /* LikeRequest.swift */,
 				8558F36C27649F4200D6A34E /* AccountRequest.swift */,
+				852EBF28276DF494002FADC5 /* PlayerSettingsRequest.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -312,6 +334,7 @@
 		A17F671B275244560094B5A3 /* Redux */ = {
 			isa = PBXGroup;
 			children = (
+				852EBF2A276DFE35002FADC5 /* PlayerSettings */,
 				A12B806727526F34003213E9 /* Track */,
 				A12B806427526EFE003213E9 /* Station */,
 				A17F6725275245840094B5A3 /* Auth */,
@@ -500,11 +523,13 @@
 			files = (
 				A12B80972753826A003213E9 /* UrlHelper.swift in Sources */,
 				A12B80A527580FE1003213E9 /* TrackService.swift in Sources */,
+				852EBF2E276DFF33002FADC5 /* PlayerSettingsAction.swift in Sources */,
 				A18D63BA275E9DD6007D83A9 /* AsyncImagePhase.swift in Sources */,
 				A12B808C2752AF7E003213E9 /* Colors.swift in Sources */,
 				A17F672A27524A590094B5A3 /* PlayerView.swift in Sources */,
 				A12C77442763DE5B00A22FDF /* TrackMiddleware.swift in Sources */,
 				A12B807527528058003213E9 /* AuthAction.swift in Sources */,
+				852EBF2C276DFE56002FADC5 /* PlayerSettingsState.swift in Sources */,
 				A12B809B27538BF3003213E9 /* Always.swift in Sources */,
 				A12B807327527B90003213E9 /* Constants.swift in Sources */,
 				A128ABA3275D348A00219FBF /* LikeRequest.swift in Sources */,
@@ -519,6 +544,7 @@
 				A18D63BC275E9DF3007D83A9 /* BackportAsyncImage.swift in Sources */,
 				A12B809D27538DFD003213E9 /* TrackReducer.swift in Sources */,
 				8518A97D27672AEF000A3318 /* DockView.swift in Sources */,
+				852EBF29276DF494002FADC5 /* PlayerSettingsRequest.swift in Sources */,
 				A18D63B8275E9DC0007D83A9 /* AsyncImage.swift in Sources */,
 				A12B806227524D27003213E9 /* PlayerButtonView.swift in Sources */,
 				A1A329CA27612E3C0094BF4F /* AuthMiddleware.swift in Sources */,
@@ -531,6 +557,7 @@
 				85C5273D27653138004E4BA5 /* Stored.swift in Sources */,
 				459A279123AA910B003D50EC /* AppDelegate.swift in Sources */,
 				A12B806C27527745003213E9 /* AuthWindow.swift in Sources */,
+				852EBF32276DFF4D002FADC5 /* PlayerSettingsMiddleware.swift in Sources */,
 				A128AB97275CD35C00219FBF /* TrackRequest.swift in Sources */,
 				8518A97B276684A6000A3318 /* ErrorView.swift in Sources */,
 				A12B80882752A008003213E9 /* StationReducer.swift in Sources */,
@@ -557,6 +584,7 @@
 				A1253FB42762A16900CDC7BF /* StationListView.swift in Sources */,
 				A128AB99275CD37A00219FBF /* Mp3Request.swift in Sources */,
 				A17F671F275244C40094B5A3 /* AppStore.swift in Sources */,
+				852EBF30276DFF41002FADC5 /* PlayerSettingsReducer.swift in Sources */,
 				A12B806927526F40003213E9 /* TrackState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

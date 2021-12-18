@@ -28,3 +28,25 @@
 "app-icon-both" = "Док & Контекст";
 "app-icon-dock" = "Док";
 "app-icon-context" = "Контекст";
+
+"player-settings-title" = "My Vibe";
+"player-settings-mood-energy" = "ПОД НАСТРОЕНИЕ";
+"player-settings-diversity" = "ПО ХАРАКТЕРУ";
+"player-settings-language" = "ПО ЯЗЫКУ";
+
+"player-settings-active" = "Бодрое";
+"player-settings-fun" = "Весёлое";
+"player-settings-calm" = "Спокойное";
+"player-settings-sad" = "Грустное";
+"player-settings-all" = "Любое";
+
+"player-settings-favorite" = "Любимое";
+"player-settings-discover" = "Незнакомое";
+"player-settings-popular" = "Популярное";
+"player-settings-default" = "Любое";
+
+"player-settings-russian" = "Русский";
+"player-settings-not-russian" = "Иностранный";
+"player-settings-any" = "Любой";
+
+"other-settings" = "Другое";
