@@ -137,7 +137,7 @@ struct URLSessionNetworkDispatcher: NetworkDispatcher {
     private func mapResponse(data: Data, response: URLResponse) -> Data {
         var logMessage = "Request finished with:"
         if let httpResponse = response as? HTTPURLResponse {
-            if 401 == httpResponse.statusCode {
+            if [401, 403].contains(httpResponse.statusCode) {
                 DispatchQueue.main.async {
                     (NSApp.delegate as? AppDelegate)?.auth()
                 }
