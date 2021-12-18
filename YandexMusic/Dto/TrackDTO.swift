@@ -28,7 +28,7 @@ struct AlbumDTO: Decodable {
     let coverUri: String
     let genre: String?
     let id: Int
-    let likesCount: Int
+    let likesCount: Int?
     let title: String
 }
 
