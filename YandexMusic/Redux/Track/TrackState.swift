@@ -9,15 +9,22 @@
 import Foundation
 
 struct TrackState {
-    var current: Track?
-    var next: Track?
+    var items: [Track] = []
     var isPlaying: Bool = false
     var lastTag: String = ""
     var lastType: String = ""
     var feedback: TrackFeedback = TrackFeedback()
     var currentTime: Double = 0
     var totalTime: Double = 0
-    var hasError: Bool = false
+    var error: ErrorState?
+
+    var current: Track? {
+        items.first
+    }
+
+    var next: Track? {
+        items.suffix(1).first
+    }
 }
 
 struct TrackFeedback {
@@ -31,14 +38,14 @@ struct Track {
     let album: Album
     let artist: Artist
     var liked: Bool
-    var url: URL?
+    var url: URL
     let batchId: String
 
     var fullName: String {
         return [artist.name, name].joined(separator: " - ")
     }
 
-    init(model: TrackDTO) {
+    init(model: TrackDTO, url: URL) {
         self.id = model.track.id
         self.name = model.track.title
         self.liked = model.liked
@@ -59,7 +66,8 @@ struct Track {
         else {
             self.artist = Artist(name: "", id: "")
         }
-        url = nil
+
+        self.url = url
     }
 }
 
