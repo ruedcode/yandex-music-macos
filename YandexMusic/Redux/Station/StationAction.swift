@@ -12,4 +12,5 @@ enum StationAction: AppAction {
     case select(Station, andPlay: Bool)
     case selectGroup(StationGroup, andPlay: Bool)
     case error
+    case reload
 }

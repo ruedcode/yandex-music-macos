@@ -16,5 +16,6 @@ enum PlayerSettingsAction: AppAction {
     case updateMoodEnergy(PlayerSettingsMood)
     case save(PlayerSettingsDiversity, PlayerSettingsLanguage, PlayerSettingsMood)
     case error(AppAction)
+    case reset
 }
 

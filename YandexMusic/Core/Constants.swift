@@ -15,7 +15,6 @@ enum Constants {
         static let tokenUrl = "https://oauth.yandex.ru/token"
         static let clientSecret = getFromConfig(key: "API_CLIENT_SECRET")
         static let userSettings = "https://music.yandex.ru/api/v2.1/handlers/auth?external-domain=music.yandex.ru&overembed=no"
-        static let playerSettings = "https://music.yandex.ru/api/v2.1/handlers/radio/user/onyourwave/settings"
         static let account = "https://api.passport.yandex.ru/suggested_accounts"
         static let avatar = "https://avatars.mds.yandex.net/get-yapic/%@/islands-retina-middle"
     }
@@ -33,7 +32,7 @@ enum Constants {
         static let ban = "https://music.yandex.ru/api/v2.1/handlers/track/%@:%@/web-radio_page-track-track-main/dislike/add"
         static let share = "https://music.yandex.ru/album/%@/track/%@"
         static let feedback2 = "https://music.yandex.ru/api/v2.1/handlers/track/%@:%@/web-radio-user-main/feedback/%@"
-
+        static let settings = "https://music.yandex.ru/api/v2.1/handlers/radio/%@/%@/settings"
     }
 
     enum Common {

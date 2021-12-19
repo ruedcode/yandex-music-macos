@@ -42,9 +42,24 @@ enum PlayerSettingsMood: String, Codable, CaseIterable, Identifiable {
 struct PlayerSettingsRequest: RequestType {
     typealias ResponseType = PlayerSettingsResponse
 
+    struct Params {
+        let type: String
+        let tag: String
+    }
+
+    private let params: Params
+
+    init(params: Params) {
+        self.params = params
+    }
+
     var data: RequestData {
         return RequestData(
-            path: Constants.Auth.playerSettings + "?external-domain=music.yandex.ru&overembed=no",
+            path: String(
+                format: Constants.Track.settings,
+                params.type,
+                params.tag
+            ) + "?external-domain=music.yandex.ru&overembed=no",
             method: .get
         )
     }
@@ -65,22 +80,34 @@ struct PlayerSettingsResponse: Codable {
 struct UpdatePlayerSettingsRequest: RequestType {
     typealias ResponseType = UpdatePlayerSettingsResponse
 
-    private let language: PlayerSettingsLanguage
-    private let moodEnergy: PlayerSettingsMood
-    private let diversity: PlayerSettingsDiversity
+    struct Params {
+        let type: String
+        let tag: String
+        let language: PlayerSettingsLanguage
+        let moodEnergy: PlayerSettingsMood
+        let diversity: PlayerSettingsDiversity
+    }
 
-    init(language: PlayerSettingsLanguage, moodEnergy: PlayerSettingsMood, diversity: PlayerSettingsDiversity) {
-        self.language = language
-        self.moodEnergy = moodEnergy
-        self.diversity = diversity
+    private let params: Params
+
+    init(params: Params) {
+        self.params = params
     }
 
     var data: RequestData {
         return RequestData(
-            path: Constants.Auth.playerSettings,
+            path: String(
+                format: Constants.Track.settings,
+                params.type,
+                params.tag
+            ),
             method: .post,
             params: .urlenencoded(
-                Form(language: language, moodEnergy: moodEnergy, diversity: diversity)
+                Form(
+                    language: params.language,
+                    moodEnergy: params.moodEnergy,
+                    diversity: params.diversity
+                )
             )
         )
     }

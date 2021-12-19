@@ -14,6 +14,7 @@ struct PlayerView: View {
     @State var isShareMode: Bool = false
     @State private var showingVolumePopover = false
     @State private var soundLevel: Float = AudioProvider.instance.volume
+    @State private var showingPlayerSettingsPopover = false
 
     private var soundIconName: String {
         switch soundLevel {
@@ -83,6 +84,13 @@ struct PlayerView: View {
             Spacer()
 
             HStack {
+                PlayerButtonView(imageName: "slider.horizontal.3") {
+                    showingPlayerSettingsPopover = true
+                }
+                .popover(isPresented: $showingPlayerSettingsPopover) {
+                    PlayerSettingsView()
+                }
+
                 PlayerButtonView(imageName: likeIcon) {
                     store.send(TrackAction.toggleLike)
                 }

@@ -44,9 +44,9 @@ func playerSettingsReducer(
         state.diversity = diversity
         state.language = language
         state.moodEnergy = moodEnergy
-        return Just(BaseAction.resetState)
-            .merge(with: Just(StationAction.fetch))
-            .eraseToAnyPublisher()
+
+    case PlayerSettingsAction.reset:
+        state = PlayerSettingsState()
 
     default:
         break
