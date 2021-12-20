@@ -20,6 +20,10 @@ struct DockView: View {
         AsyncImage(url: store.state.track.current?.album.image, content: makeButtonLabel)
     }
 
+    private var appIcon: some View {
+        Image(nsImage: NSImage(named: "AppIcon")!)
+    }
+
     private func makeButtonLabel(_ phase: AsyncImagePhase) -> AnyView {
         defer {
             if lastPhase != phase {
@@ -31,7 +35,10 @@ struct DockView: View {
         }
         switch phase {
         case .empty:
-            return AnyView(ProgressView())
+            return AnyView(ZStack {
+                appIcon
+                ProgressView()
+            })
         case .success(let image):
             return AnyView(
                 image
@@ -42,7 +49,7 @@ struct DockView: View {
                     .clipped()
             )
         case .failure:
-            return AnyView(Image(nsImage: NSImage(named: "AppIcon")!))
+            return AnyView(appIcon)
         }
     }
 }
