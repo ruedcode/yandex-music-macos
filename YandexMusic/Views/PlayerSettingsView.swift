@@ -19,6 +19,11 @@ struct PlayerSettingsView: View {
     var body: some View {
         ZStack {
             VStack(alignment: .leading) {
+                Text(store.state.station.station?.name ?? "")
+                    .font(.title)
+                    .frame(maxWidth: .infinity, alignment: .center)
+
+                Divider()
 
                 Text("player-settings-mood-energy")
                 Picker(selection: $selectedMoodEnergy, label: EmptyView()) {
