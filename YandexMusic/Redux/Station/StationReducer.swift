@@ -31,9 +31,9 @@ func stationReducer(
 
     case StationAction.reload:
         state = SectionState()
-        return Just(TrackAction.pause)
-            .merge(with: Just(TrackAction.clear))
-            .merge(with: Just(StationAction.fetch))
+        return TrackAction.pause.next
+            .merge(with: TrackAction.clear.next)
+            .merge(with: StationAction.fetch.next)
             .eraseToAnyPublisher()
 
     case StationAction.update(let items):
@@ -65,12 +65,11 @@ func stationReducer(
         StationStore.lastSelectedStationTag = station.tag
         state.station = station
         if andPlay {
-            return Just(TrackAction.fetch(type: station.type, tag: station.tag, queue: [], andPlay: andPlay))
-                .merge(with: Just(PlayerSettingsAction.reset))
+            return TrackAction.fetch(type: station.type, tag: station.tag, queue: [], andPlay: andPlay).next
+                .merge(with: PlayerSettingsAction.reset.next)
                 .eraseToAnyPublisher()
         } else {
-            return Just(TrackAction.fetch(type: station.type, tag: station.tag, queue: [], andPlay: andPlay))
-                .eraseToAnyPublisher()
+            return TrackAction.fetch(type: station.type, tag: station.tag, queue: [], andPlay: andPlay).next
         }
     default:
         break

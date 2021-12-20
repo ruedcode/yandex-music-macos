@@ -32,7 +32,7 @@ enum Constants {
         static let ban = "https://music.yandex.ru/api/v2.1/handlers/track/%@:%@/web-radio_page-track-track-main/dislike/add"
         static let share = "https://music.yandex.ru/album/%@/track/%@"
         static let feedback2 = "https://music.yandex.ru/api/v2.1/handlers/track/%@:%@/web-radio-user-main/feedback/%@"
-        static let settings = "https://music.yandex.ru/api/v2.1/handlers/radio/%@/%@/settings"
+        static let settings = "https://music.yandex.ru/api/v2.1/handlers/radio/%@/%@/settings?external-domain=music.yandex.ru&overembed=no"
     }
 
     enum Common {

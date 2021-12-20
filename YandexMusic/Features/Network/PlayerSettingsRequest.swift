@@ -37,6 +37,13 @@ enum PlayerSettingsMood: String, Codable, CaseIterable, Identifiable {
     var id: String { self.rawValue }
 }
 
+// MARK: - PlayerSettings commons
+
+fileprivate struct _Constants {
+    static let externalDomain = "music.yandex.ru"
+    static let overembed = "no"
+}
+
 // MARK: - PlayerSettings GET
 
 struct PlayerSettingsRequest: RequestType {
@@ -59,9 +66,19 @@ struct PlayerSettingsRequest: RequestType {
                 format: Constants.Track.settings,
                 params.type,
                 params.tag
-            ) + "?external-domain=music.yandex.ru&overembed=no",
+            ),
             method: .get
         )
+    }
+
+    fileprivate struct Form: Encodable {
+        let externalDomain: String = _Constants.externalDomain
+        let overembed: String = _Constants.overembed
+
+        enum CodingKeys: String, CodingKey {
+            case overembed
+            case externalDomain = "external-domain"
+        }
     }
 }
 
@@ -117,8 +134,8 @@ struct UpdatePlayerSettingsRequest: RequestType {
         let moodEnergy: PlayerSettingsMood
         let diversity: PlayerSettingsDiversity
         let sign: String = AuthProvider.instance.profile?.csrf ?? ""
-        let externalDomain: String = "music.yandex.ru"
-        let overembed: String = "no"
+        let externalDomain: String = _Constants.externalDomain
+        let overembed: String = _Constants.overembed
 
         enum CodingKeys: String, CodingKey {
             case diversity, overembed, moodEnergy, language, sign
