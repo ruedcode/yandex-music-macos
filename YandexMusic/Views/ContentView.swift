@@ -75,7 +75,7 @@ struct ContentView: View {
                     .padding([.leading, .trailing], 8)
             }
 
-        }.frame(minWidth: 400)
+        }.frame(minWidth: 450)
     }
 }
 

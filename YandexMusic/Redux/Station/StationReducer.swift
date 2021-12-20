@@ -29,6 +29,13 @@ func stationReducer(
     case StationAction.fetch:
         state.hasError = false
 
+    case StationAction.reload:
+        state = SectionState()
+        return TrackAction.pause.next
+            .merge(with: TrackAction.clear.next)
+            .merge(with: StationAction.fetch.next)
+            .eraseToAnyPublisher()
+
     case StationAction.update(let items):
         state.groups = items.compactMap(StationGroup.init).sorted
         state.stationGroup = state.groups.first { $0.id == StationStore.lastSelectedStationGroupId }
@@ -57,12 +64,13 @@ func stationReducer(
         }
         StationStore.lastSelectedStationTag = station.tag
         state.station = station
-        return TrackAction.fetch(
-            type: station.type,
-            tag: station.tag,
-            queue: [],
-            andPlay: andPlay
-        ).next
+        if andPlay {
+            return TrackAction.fetch(type: station.type, tag: station.tag, queue: [], andPlay: andPlay).next
+                .merge(with: PlayerSettingsAction.reset.next)
+                .eraseToAnyPublisher()
+        } else {
+            return TrackAction.fetch(type: station.type, tag: station.tag, queue: [], andPlay: andPlay).next
+        }
     default:
         break
     }

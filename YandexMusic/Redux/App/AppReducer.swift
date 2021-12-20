@@ -30,6 +30,11 @@ func appReducer(
             state: &state.track,
             action: action
         )
+    case is PlayerSettingsAction:
+        return playerSettingsReducer(
+            state: &state.playerSettings,
+            action: action
+        )
     case is BaseAction:
         switch action as? BaseAction {
         case .resetState:

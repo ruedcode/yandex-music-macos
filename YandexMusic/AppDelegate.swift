@@ -22,7 +22,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             middlewares: [
                 authMiddleware,
                 stationMiddleware,
-                trackMiddleware
+                trackMiddleware,
+                playerSettingsMiddleware
             ]
         )
     }()

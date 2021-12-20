@@ -28,3 +28,25 @@
 "app-icon-both" = "Dock & Context";
 "app-icon-dock" = "Dock";
 "app-icon-context" = "Context";
+
+"player-settings-title" = "My Vibe";
+"player-settings-mood-energy" = "IN THE MOOD";
+"player-settings-diversity" = "BY CHARACTER";
+"player-settings-language" = "BY LANGUAGE";
+
+"player-settings-active" = "Energetic";
+"player-settings-fun" = "Cheerful";
+"player-settings-calm" = "Calm";
+"player-settings-sad" = "Sad";
+"player-settings-all" = "Any";
+
+"player-settings-favorite" = "Favorite";
+"player-settings-discover" = "Unknown";
+"player-settings-popular" = "Popular";
+"player-settings-default" = "Anything";
+
+"player-settings-russian" = "Russian";
+"player-settings-not-russian" = "Not Russian";
+"player-settings-any" = "Any";
+
+"other-settings" = "Other settings";
