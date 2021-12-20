@@ -25,7 +25,7 @@ struct TrackInfoDTO: Decodable {
 }
 
 struct AlbumDTO: Decodable {
-    let coverUri: String
+    let coverUri: String?
     let genre: String?
     let id: Int
     let likesCount: Int?

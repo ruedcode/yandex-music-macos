@@ -54,7 +54,7 @@ struct Track {
             self.album = Album(
                 name: first.title,
                 id: String(first.id),
-                image: URL(string: link(from: first.coverUri))
+                image: URL(string: link(from: first.coverUri ?? ""))
             )
         }
         else {
