@@ -34,7 +34,13 @@ func trackReducer(
 
     case TrackAction.play:
         guard let track = state.current else {
-            return nil
+            return TrackAction.fetch(
+                type: state.lastType,
+                tag: state.lastTag,
+                queue: [],
+                andPlay: true
+            )
+            .next
         }
         state.isPlaying = true
         AudioProvider.instance.play(track: track)
