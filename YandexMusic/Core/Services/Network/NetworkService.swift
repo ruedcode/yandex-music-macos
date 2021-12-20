@@ -8,6 +8,7 @@
 
 import Combine
 import Foundation
+import AppKit
 
 enum NetworkError: Error {
     case invalidURL
@@ -136,6 +137,11 @@ struct URLSessionNetworkDispatcher: NetworkDispatcher {
     private func mapResponse(data: Data, response: URLResponse) -> Data {
         var logMessage = "Request finished with:"
         if let httpResponse = response as? HTTPURLResponse {
+            if [401, 403].contains(httpResponse.statusCode) {
+                DispatchQueue.main.async {
+                    (NSApp.delegate as? AppDelegate)?.auth()
+                }
+            }
             logMessage += "\nResponse code: \(httpResponse.statusCode)"
         }
         logMessage += "\nResponse data: \(String(data: data, encoding: .utf8) ?? "none")"
