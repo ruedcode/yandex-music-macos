@@ -23,7 +23,8 @@ struct StationListView: View {
                             isPlaying: item == store.state.station.station && store.state.track.isPlaying,
                             image: URL(string: item.image),
                             color: hexStringToColor(hex: item.color),
-                            text: item.name
+                            text: item.name,
+                            withOverlay: store.state.station.stationGroup?.isUser ?? false
                         )
                     }.buttonStyle(PlainButtonStyle())
                 }
