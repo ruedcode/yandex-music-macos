@@ -57,8 +57,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             button.action = #selector(contextAction)
             button.addSubview(statusBarPlayerView)
             statusBarPlayerView.frame = CGRect(
-                x: button.bounds.width - statusBarPlayerView.frame.width,
-                y: button.bounds.height - statusBarPlayerView.frame.height * 2 ,
+                x: button.bounds.width - statusBarPlayerView.frame.width - 4,
+                y: button.bounds.height - statusBarPlayerView.frame.height - 7,
                 width: statusBarPlayerView.frame.width,
                 height: statusBarPlayerView.frame.height
             )
