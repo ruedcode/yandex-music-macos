@@ -44,6 +44,7 @@ func trackReducer(
         }
         state.isPlaying = true
         AudioProvider.instance.play(track: track)
+        Analytics.shared.log(event: .play, params: track.analytics)
 
         AudioProvider.instance.onFinish = {
             guard let delegate = NSApp.delegate as? AppDelegate else { return }
@@ -75,12 +76,13 @@ func trackReducer(
     case TrackAction.pause:
         state.isPlaying = false
         AudioProvider.instance.pause()
-
+        Analytics.shared.log(event: .play, params: state.current?.analytics)
 
     case TrackAction.resetPlayer:
         AudioProvider.instance.reset()
         
     case TrackAction.playNext:
+        var params = state.current?.analytics
         state.items = Array(state.items.dropFirst())
         guard state.items.first != nil else {
             return TrackAction.fetch(
@@ -90,6 +92,11 @@ func trackReducer(
                 andPlay: true
             ).next
         }
+        params?["next"] = state.current?.analytics ?? [:]
+        Analytics.shared.log(
+            event: .next,
+            params: params
+        )
         return TrackAction.play.next
 
     case let TrackAction.feedbackStationStartUpdate(type, tag):
@@ -108,7 +115,10 @@ func trackReducer(
             return nil
 
         }
+        var params = state.items[index].analytics
+        params["new_like_value"] = val
         state.items[index].liked = val
+        Analytics.shared.log(event: val ? .like : .unlike, params: params)
 
     case TrackAction.share:
         guard let track = state.current else {
@@ -118,6 +128,12 @@ func trackReducer(
         let string = String(format: Constants.Track.share, track.album.id, track.id)
         NSPasteboard.general.clearContents()
         NSPasteboard.general.setString(string, forType: .URL)
+        var params = track.analytics
+        params["link"] = string
+        Analytics.shared.log(
+            event: .share,
+            params: params
+        )
 
     default: break
 

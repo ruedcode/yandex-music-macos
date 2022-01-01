@@ -64,6 +64,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         NSApp.dockTile.display()
 
         auth()
+        Analytics.shared.log(event: .open)
     }
 
     func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {

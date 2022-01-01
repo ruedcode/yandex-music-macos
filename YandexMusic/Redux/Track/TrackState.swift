@@ -45,6 +45,18 @@ struct Track {
         return [artist.name, name].joined(separator: " - ")
     }
 
+    var analytics: [String: Any] {
+        [
+            "track": name,
+            "track_id": id,
+            "album": album.name,
+            "album_id": album.id,
+            "artist": artist.name,
+            "artist_id": artist.id,
+            "liked": liked
+        ]
+    }
+
     init(model: TrackDTO, url: URL) {
         self.id = model.track.id
         self.name = model.track.title
@@ -69,6 +81,7 @@ struct Track {
 
         self.url = url
     }
+
 }
 
 struct Album {

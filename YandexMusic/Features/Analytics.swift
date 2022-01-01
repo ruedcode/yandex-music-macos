@@ -17,6 +17,12 @@ enum AnalyticsEvent: String {
     case viewItem
     case viewScreen
     case selectItem
+    case play
+    case pause
+    case next
+    case open
+    case like
+    case unlike
 
     fileprivate var eventName: String {
         let dict: [AnalyticsEvent: String] = [
@@ -24,7 +30,13 @@ enum AnalyticsEvent: String {
             .share: AnalyticsEventShare,
             .viewScreen: AnalyticsEventScreenView,
             .viewItem: AnalyticsEventViewItem,
-            .selectItem: AnalyticsEventSelectItem
+            .selectItem: AnalyticsEventSelectItem,
+            .play: "play",
+            .pause: "pause",
+            .next: "next",
+            .open: AnalyticsEventAppOpen,
+            .like: "like",
+            .unlike: "unlike"
         ]
         return dict[self] ?? self.rawValue
     }
