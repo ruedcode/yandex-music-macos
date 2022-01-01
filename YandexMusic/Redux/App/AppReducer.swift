@@ -39,8 +39,6 @@ func appReducer(
         switch action as? BaseAction {
         case .resetState:
             state = AppState()
-        case let .dumb(error):
-            log(error)
         case .none:
             break
         }

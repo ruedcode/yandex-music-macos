@@ -12,8 +12,8 @@ var stationMiddleware: Middleware<AppState, AppAction> = { store, action in
         LibraryRequest()
             .execute()
             .sink(receiveCompletion: { result in
-                guard case .failure = result else { return }
-                store.send(StationAction.error)
+                guard case let .failure(error) = result else { return }
+                store.send(StationAction.error(StationAction.fetch, error))
             }, receiveValue: {
                  store.send(StationAction.update($0.groups))
             })

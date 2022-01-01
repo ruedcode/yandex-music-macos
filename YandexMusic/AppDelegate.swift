@@ -156,9 +156,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             case .finish:
                 self.store.send(TrackAction.sendFeedback(.trackFinished))
                 self.store.send(TrackAction.playNext)
-            case .failure:
+            case let .failure(error):
                 self.store.send(TrackAction.sendFeedback(.skip))
                 self.store.send(TrackAction.playNext)
+                if let error = error {
+                    Analytics.shared.log(error: error)
+                    log(error)
+                }
+
             case let .playing(time):
                 self.store.send(TrackAction.updateCurrent(time))
                 self.statusBarPlayerView.isHidden = false

@@ -9,6 +9,11 @@
 import Combine
 
 var trackMiddleware: Middleware<AppState, AppAction> = { store, action in
+
+    let sendError: (Error) -> Void = {
+        Analytics.shared.log(error: $0)
+        store.send(TrackAction.error(action, $0))
+    }
     switch action {
 
     case let TrackAction.fetch(type, tag, queue, andPlay):
@@ -19,7 +24,7 @@ var trackMiddleware: Middleware<AppState, AppAction> = { store, action in
             return (item.album.id, item.id)
         }
         return TrackRequest(type: type, tag: tag, queue: queue).execute()
-            .ignoreError()
+            .ignoreError(sendError)
             .sink { response in
                 response.tracks.enumerated().forEach { item in
                     guard let albumId = item.element.track.albums.first?.id else {
@@ -27,7 +32,7 @@ var trackMiddleware: Middleware<AppState, AppAction> = { store, action in
                     }
                     TrackService(trackId: item.element.track.id, albumId: String(albumId))
                         .fetchUrl()
-                        .ignoreError()
+                        .ignoreError(sendError)
                         .sink {
                             store.send(TrackAction.add(Track(model: item.element, url: $0)))
                             if andPlay, item.offset == 0 {
@@ -66,7 +71,7 @@ var trackMiddleware: Middleware<AppState, AppAction> = { store, action in
             albumId: track.album.id
         )
         return BanRequest(params: params).execute()
-            .ignoreError()
+            .ignoreError(sendError)
             .sink {
                 guard $0.success else {
                     return
@@ -85,7 +90,7 @@ var trackMiddleware: Middleware<AppState, AppAction> = { store, action in
             like: !track.liked
         )
         return LikeRequest(params: params).execute()
-            .ignoreError()
+            .ignoreError(sendError)
             .sink {
                 guard $0.success else {
                     return
@@ -150,7 +155,7 @@ private func sendFeedback(
         )
     )
         .execute()
-        .ignoreError()
+        .ignoreError(analytics: true)
         .sink { _ in }
         .store(in: &cancellable)
 
@@ -192,9 +197,7 @@ private func sendFeedback(
         )
     )
         .execute()
-        .ignoreError()
+        .ignoreError(analytics: true)
         .sink { _ in }
         .store(in: &cancellable)
-
-
 }

@@ -19,15 +19,20 @@ extension AppAction {
 }
 
 enum BaseAction: AppAction {
-    case dumb(Error)
     case resetState
 }
 
 extension Publisher {
-    func ignoreError(_ action: ((Self.Failure) -> Void)? = nil) -> Publishers.Catch<Self, AnyPublisher<Self.Output, Never>> {
+    func ignoreError(
+        _ action: ((Self.Failure) -> Void)? = nil,
+        analytics: Bool = false
+    ) -> Publishers.Catch<Self, AnyPublisher<Self.Output, Never>> {
         return self.catch { error -> AnyPublisher<Self.Output, Never> in
             log(error)
             action?(error)
+            if analytics {
+                Analytics.shared.log(error: error)
+            }
             return Empty(completeImmediately: true).eraseToAnyPublisher()
         }
     }

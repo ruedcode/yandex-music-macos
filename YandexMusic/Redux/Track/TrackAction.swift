@@ -22,7 +22,7 @@ enum TrackAction: AppAction {
     case feedbackStationStartUpdate(type: String, tag: String)
     case share
     case ban
-    case error
+    case error(AppAction, Error)
 
     case updateCurrent(Double)
     case updateTotal(Double)
