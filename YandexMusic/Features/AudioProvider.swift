@@ -17,6 +17,7 @@ class PlayerStatus: ObservableObject {
         case finish
         case playing(Double)
         case failure(Error?)
+        case pause
         case undefined
     }
     @Published
@@ -102,6 +103,9 @@ final class AudioProvider {
             })
 
             player?.addPeriodicTimeObserver(forInterval: CMTime(value: 1, timescale: 2), queue: nil, using: { [weak self] time in
+                guard self?.player?.timeControlStatus == .playing else {
+                    return
+                }
                 self?.set(currentTime: time.seconds)
                 self?.state.status = .playing(time.seconds)
             })
@@ -114,6 +118,7 @@ final class AudioProvider {
     }
 
     func pause() {
+        state.status = .pause
         player?.pause()
         set(state: .paused)
     }
