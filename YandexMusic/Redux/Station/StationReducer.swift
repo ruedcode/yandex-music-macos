@@ -23,11 +23,12 @@ func stationReducer(
     action: AppAction
 ) -> AnyPublisher<AppAction, Never>? {
     switch action {
-    case StationAction.error:
-        state.hasError = true
+    case let StationAction.error(action, error):
+        state.error = ErrorState(action: action)
+        Analytics.shared.log(error: error)
 
     case StationAction.fetch:
-        state.hasError = false
+        state.error = nil
 
     case StationAction.reload:
         state = SectionState()

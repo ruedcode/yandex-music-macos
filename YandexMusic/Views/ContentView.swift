@@ -41,11 +41,13 @@ struct ContentView: View {
             Divider()
                 .padding([.leading, .trailing], 8)
 
-            if store.state.station.hasError {
-                ErrorView {
-                    store.send(StationAction.fetch)
-                }
-                .frame(minHeight: 100)
+            if let error = store.state.station.error {
+                ErrorView(error.text,
+                          buttonText: error.button,
+                          repeatAction: {
+                    store.send(error.action)
+                })
+                .frame(height: 40)
             } else {
                 StationListView()
             }

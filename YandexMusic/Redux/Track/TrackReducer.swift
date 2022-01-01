@@ -51,10 +51,15 @@ func trackReducer(
             delegate.store.send(TrackAction.sendFeedback(.trackFinished))
             delegate.store.send(TrackAction.playNext)
         }
-        AudioProvider.instance.onError = {
+        AudioProvider.instance.onError = { error in
             guard let delegate = NSApp.delegate as? AppDelegate else { return }
             delegate.store.send(TrackAction.sendFeedback(.skip))
             delegate.store.send(TrackAction.playNext)
+            guard let error = error else {
+                return
+            }
+            Analytics.shared.log(error: error)
+            log(error)
         }
         AudioProvider.instance.onStart = { time in
             guard let delegate = NSApp.delegate as? AppDelegate else { return }

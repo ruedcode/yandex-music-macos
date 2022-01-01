@@ -26,7 +26,7 @@ final class AudioProvider {
     var onFinish: () -> Void = {}
     var onStart: (Double) -> Void = {_ in }
     var onCurrentUpdate: (Double) -> Void = {_ in}
-    var onError: () -> Void = {}
+    var onError: (Error?) -> Void = {_ in}
 
     @Stored(for: .musicVolume, defaultValue: 1.0)
     var volume: Float {
@@ -84,7 +84,7 @@ final class AudioProvider {
 
                      case .failed:
                          self?.set(state: .stopped)
-                         self?.onError()
+                         self?.onError(player.error)
 
                      default:
                          break
