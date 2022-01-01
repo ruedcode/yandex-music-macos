@@ -13,6 +13,7 @@ import SwiftUI
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     private var cancellable: AnyCancellable?
+    private var playerStatusHandler: AnyCancellable?
     private var authWindow: AuthWindow?
 
     lazy var store: Store<AppState, AppAction> = {
@@ -41,6 +42,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         popover.contentViewController = NSHostingController(rootView: contentView)
         self.popover = popover
 
+        AudioProvider.instance.connect(to: store)
+
         // Create the status item
         self.statusBarItem = NSStatusBar.system.statusItem(withLength: CGFloat(NSStatusItem.variableLength))
         
@@ -49,8 +52,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             button.action = #selector(contextAction)
         }
 
-        // Connect MPNowPlayingInfoCenter
-        AudioProvider.instance.connect(to: store)
+        playerStatusHandler = AudioProvider.instance.state.$status.sink { status in
+            print("status \(status)")
+        }
 
         changeIcons(mode: SettingsStorage.shared.appIconMode)
         
@@ -126,5 +130,34 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 self?.store.send(StationAction.fetch)
             }
         }
+    }
+
+    private func subscribePlayer() {
+        AudioProvider.instance.state.$status.sink { [weak self] status in
+            guard let self = self else {
+                return
+            }
+            switch status {
+            case let .start(time):
+                self.store.send(TrackAction.updateTotal(time))
+                self.store.send(TrackAction.sendFeedback(.radioStarted))
+                self.store.send(
+                    TrackAction.feedbackStationStartUpdate(
+                        type: self.store.state.track.lastType,
+                        tag: self.store.state.track.lastTag
+                    )
+                )
+                self.store.send(TrackAction.sendFeedback(.trackStarted))
+            case .finish:
+                self.store.send(TrackAction.sendFeedback(.trackFinished))
+                self.store.send(TrackAction.playNext)
+            case .failure:
+                self.store.send(TrackAction.sendFeedback(.skip))
+                self.store.send(TrackAction.playNext)
+            case let .playing(time):
+                self.store.send(TrackAction.updateCurrent(time))
+            default: break
+            }
+        }.store(in: &self.store.effectCancellables)
     }
 }

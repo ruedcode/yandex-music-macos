@@ -11,7 +11,20 @@ import Foundation
 import MediaPlayer
 import AVFoundation
 
+class PlayerStatus: ObservableObject {
+    enum Status {
+        case start(Double)
+        case finish
+        case playing(Double)
+        case failure(Error?)
+        case undefined
+    }
+    @Published
+    var status: Status = .undefined
+}
+
 final class AudioProvider {
+
     static let instance = AudioProvider()
 
     private let volumeDefaultsKey = "music_volume"
@@ -23,10 +36,7 @@ final class AudioProvider {
         didSet { MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo }
     }
 
-    var onFinish: () -> Void = {}
-    var onStart: (Double) -> Void = {_ in }
-    var onCurrentUpdate: (Double) -> Void = {_ in}
-    var onError: () -> Void = {}
+    let state: PlayerStatus = PlayerStatus()
 
     @Stored(for: .musicVolume, defaultValue: 1.0)
     var volume: Float {
@@ -80,11 +90,11 @@ final class AudioProvider {
                          self?.set(track: track)
                          self?.set(duration: player.duration.seconds)
                          self?.set(state: .playing)
-                         self?.onStart(player.duration.seconds)
+                         self?.state.status = .start(player.duration.seconds)
 
                      case .failed:
                          self?.set(state: .stopped)
-                         self?.onError()
+                         self?.state.status = .failure(player.error)
 
                      default:
                          break
@@ -93,7 +103,7 @@ final class AudioProvider {
 
             player?.addPeriodicTimeObserver(forInterval: CMTime(value: 1, timescale: 2), queue: nil, using: { [weak self] time in
                 self?.set(currentTime: time.seconds)
-                self?.onCurrentUpdate(time.seconds)
+                self?.state.status = .playing(time.seconds)
             })
         }
         else {
@@ -120,7 +130,7 @@ final class AudioProvider {
 
     @objc private func playerDidFinishPlaying(sender: Notification) {
         set(state: .stopped)
-        onFinish()
+        state.status = .finish
     }
 
     // MARK: - MediaPlayer block
