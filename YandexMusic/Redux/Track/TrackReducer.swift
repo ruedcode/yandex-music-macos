@@ -46,38 +46,6 @@ func trackReducer(
         AudioProvider.instance.play(track: track)
         Analytics.shared.log(event: .play, params: track.analytics)
 
-        AudioProvider.instance.onFinish = {
-            guard let delegate = NSApp.delegate as? AppDelegate else { return }
-            delegate.store.send(TrackAction.sendFeedback(.trackFinished))
-            delegate.store.send(TrackAction.playNext)
-        }
-        AudioProvider.instance.onError = { error in
-            guard let delegate = NSApp.delegate as? AppDelegate else { return }
-            delegate.store.send(TrackAction.sendFeedback(.skip))
-            delegate.store.send(TrackAction.playNext)
-            guard let error = error else {
-                return
-            }
-            Analytics.shared.log(error: error)
-            log(error)
-        }
-        AudioProvider.instance.onStart = { time in
-            guard let delegate = NSApp.delegate as? AppDelegate else { return }
-            delegate.store.send(TrackAction.updateTotal(time))
-            delegate.store.send(TrackAction.sendFeedback(.radioStarted))
-            delegate.store.send(
-                TrackAction.feedbackStationStartUpdate(
-                    type: delegate.store.state.track.lastType,
-                    tag: delegate.store.state.track.lastTag
-                )
-            )
-            delegate.store.send(TrackAction.sendFeedback(.trackStarted))
-        }
-        AudioProvider.instance.onCurrentUpdate = { time in
-            guard let delegate = NSApp.delegate as? AppDelegate else { return }
-            delegate.store.send(TrackAction.updateCurrent(time))
-        }
-
     case TrackAction.pause:
         state.isPlaying = false
         AudioProvider.instance.pause()

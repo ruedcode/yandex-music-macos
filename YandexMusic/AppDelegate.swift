@@ -14,6 +14,12 @@ import SwiftUI
 class AppDelegate: NSObject, NSApplicationDelegate {
     private var cancellable: AnyCancellable?
     private var authWindow: AuthWindow?
+    private lazy var statusBarPlayerView: NSImageView = {
+        let view = NSImageView(frame: CGRect(x: 0, y: 0, width: 8, height: 8))
+        view.image = NSImage(systemSymbolName: "play.fill", accessibilityDescription: nil)
+        view.isHidden = true
+        return view
+    }()
 
     lazy var store: Store<AppState, AppAction> = {
         return Store<AppState, AppAction>(
@@ -41,16 +47,22 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         popover.contentViewController = NSHostingController(rootView: contentView)
         self.popover = popover
 
+        AudioProvider.instance.connect(to: store)
+
         // Create the status item
         self.statusBarItem = NSStatusBar.system.statusItem(withLength: CGFloat(NSStatusItem.variableLength))
-        
+
         if let button = self.statusBarItem.button {
             button.image = NSImage(systemSymbolName: "music.note", accessibilityDescription: nil)
             button.action = #selector(contextAction)
+            button.addSubview(statusBarPlayerView)
+            statusBarPlayerView.frame = CGRect(
+                x: button.bounds.width - statusBarPlayerView.frame.width,
+                y: button.bounds.height - statusBarPlayerView.frame.height * 2 ,
+                width: statusBarPlayerView.frame.width,
+                height: statusBarPlayerView.frame.height
+            )
         }
-
-        // Connect MPNowPlayingInfoCenter
-        AudioProvider.instance.connect(to: store)
 
         changeIcons(mode: SettingsStorage.shared.appIconMode)
         
@@ -62,6 +74,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }
         }).environmentObject(store))
         NSApp.dockTile.display()
+        subscribePlayer()
 
         auth()
         Analytics.shared.log(event: .open)
@@ -78,13 +91,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         case .both:
             NSApp.dockTile.display()
             NSApp.setActivationPolicy(.regular)
-//            statusBarItem.isVisible = true
-//        case .dock:
-//            NSApp.dockTile.display()
-//            NSApp.setActivationPolicy(.regular)
-//            statusBarItem.isVisible = false
         case .context:
-//            statusBarItem.isVisible = true
             NSApp.setActivationPolicy(.prohibited)
         }
     }
@@ -126,5 +133,42 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 self?.store.send(StationAction.fetch)
             }
         }
+    }
+
+    private func subscribePlayer() {
+        AudioProvider.instance.state.$status.sink { [weak self] status in
+            guard let self = self else {
+                return
+            }
+            self.statusBarPlayerView.isHidden = true
+            switch status {
+            case let .start(time):
+                self.store.send(TrackAction.updateTotal(time))
+                self.store.send(TrackAction.sendFeedback(.radioStarted))
+                self.store.send(
+                    TrackAction.feedbackStationStartUpdate(
+                        type: self.store.state.track.lastType,
+                        tag: self.store.state.track.lastTag
+                    )
+                )
+                self.store.send(TrackAction.sendFeedback(.trackStarted))
+                self.statusBarPlayerView.isHidden = false
+            case .finish:
+                self.store.send(TrackAction.sendFeedback(.trackFinished))
+                self.store.send(TrackAction.playNext)
+            case let .failure(error):
+                self.store.send(TrackAction.sendFeedback(.skip))
+                self.store.send(TrackAction.playNext)
+                if let error = error {
+                    Analytics.shared.log(error: error)
+                    log(error)
+                }
+
+            case let .playing(time):
+                self.store.send(TrackAction.updateCurrent(time))
+                self.statusBarPlayerView.isHidden = false
+            default: break
+            }
+        }.store(in: &self.store.effectCancellables)
     }
 }
