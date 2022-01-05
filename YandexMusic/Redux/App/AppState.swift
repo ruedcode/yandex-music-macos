@@ -13,6 +13,29 @@ struct AppState {
     var playerSettings: PlayerSettingsState = PlayerSettingsState()
 }
 
+enum LoadingState: Equatable {
+
+    case loading
+    case error(ErrorState)
+    case success
+    case initial
+
+    static func == (lhs: LoadingState, rhs: LoadingState) -> Bool {
+        switch (lhs, rhs) {
+        case (.loading, .loading):
+            return true
+        case (.error, .error):
+            return true
+        case (.success, .success):
+            return true
+        case (.initial, .initial):
+            return true
+        default:
+            return false
+        }
+    }
+}
+
 struct ErrorState {
     let text: String
     let button: String

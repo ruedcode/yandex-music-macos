@@ -17,7 +17,7 @@ func trackReducer(
 ) -> AnyPublisher<AppAction, Never>? {
     switch action {
     case TrackAction.error:
-        state.error = ErrorState(action: TrackAction.playNext)
+        state.loadingState = .error(ErrorState(action: TrackAction.playNext))
         if state.isPlaying {
             return TrackAction.pause.next
         }
@@ -31,6 +31,12 @@ func trackReducer(
 
     case TrackAction.clear:
         state.items = []
+
+    case TrackAction.startLoading:
+        state.loadingState = .loading
+
+    case TrackAction.stopLoading:
+        state.loadingState = .success
 
     case TrackAction.play:
         guard let track = state.current else {
