@@ -17,6 +17,10 @@ var trackMiddleware: Middleware<AppState, AppAction> = { store, action in
     switch action {
 
     case let TrackAction.fetch(type, tag, queue, andPlay):
+        guard store.state.track.loadingState != .loading else {
+            return
+        }
+        store.send(TrackAction.startLoading)
         if store.state.track.lastType != type || store.state.track.lastTag != tag {
             store.send(TrackAction.clear)
         }
@@ -49,6 +53,7 @@ var trackMiddleware: Middleware<AppState, AppAction> = { store, action in
                                     )
                                 )
                             }
+                            store.send(TrackAction.stopLoading)
                         }
                         .store(in: &store.effectCancellables)
                 }

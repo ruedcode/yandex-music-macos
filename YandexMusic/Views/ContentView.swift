@@ -64,7 +64,7 @@ struct ContentView: View {
                 .labelsHidden()
                 .progressViewStyle(LinearProgressViewStyle(tint: Constants.Common.primary))
 
-            if let error = store.state.track.error {
+            if case let .error(error) = store.state.track.loadingState {
                 ErrorView(error.text,
                           buttonText: error.button,
                           repeatAction: {
