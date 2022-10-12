@@ -9,10 +9,11 @@
 import SwiftUI
 
 struct StationView: View {
-    let isPlaying: Bool
     let image: URL?
     let color: Color
     let text: String
+
+    private let animation = Animation.linear(duration: 0.7).repeatForever(autoreverses: true)
 
     @State private var isAnimated: Bool = false
     @EnvironmentObject var store: Store<AppState, AppAction>
@@ -24,28 +25,41 @@ struct StationView: View {
                     image.resizable()
                         .aspectRatio(1, contentMode: .fit)
                         .clipped()
-                        .frame(maxWidth: 50, maxHeight: 50)
                 } placeholder: {
                     ProgressView()
                 }
                 .padding(8)
             }
+            .frame(width: 66, height: 66)
             .background(color)
             .clipShape(Circle())
             .scaleEffect(isAnimated ? 0.8 : 1)
-            .animation(isPlaying
-                       ? .linear(duration: 0.7).repeatForever(autoreverses: true)
+            .animation(isAnimated
+                       ? animation
                        : .default,
                        value: isAnimated
             )
-            .onReceive(store.$state) { state in
-                if !isAnimated && isPlaying {
+            .onReceive(store.$state
+                .map {(
+                    $0.track.isPlaying,
+                    $0.station.station?.name ?? "",
+                    $0.station.stationGroup?.id ?? ""
+                )}
+                .removeDuplicates(by: {
+                    return $0 == $1
+                })
+            ) {
+                guard $0.1 == text else { return }
+                isAnimated = $0.0
+            }
+            .onAppear {
+                guard isAnimated else { return }
+                isAnimated = false
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                     isAnimated = true
                 }
-                else if isAnimated && !isPlaying {
-                    isAnimated = false
-                }
             }
+
             Text(text)
                 .font(.subheadline)
                 .multilineTextAlignment(.center)
@@ -57,7 +71,6 @@ struct StationView: View {
 struct StationView_Previews: PreviewProvider {
     static var previews: some View {
         StationView(
-            isPlaying: true,
             image: URL(string: "https://avatars.yandex.net/get-music-content/5234847/3155f261.a.17041333-1/400x400"),
             color: .red,
             text: "test Station"

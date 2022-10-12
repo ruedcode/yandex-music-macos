@@ -6,6 +6,8 @@
 //  Copyright © 2021 Eugene Kalyada. All rights reserved.
 //
 
+import Foundation
+
 struct SectionState {
     var groups: [StationGroup] = []
     var stations: [Station] = []
@@ -27,12 +29,17 @@ struct StationGroup: Hashable {
     private let _name: String
 }
 
-struct Station: Hashable {
+struct Station: Hashable, Identifiable {
+
     let type: String
     let tag: String
     let name: String
     let color: String
     let image: String
+
+    var id: String {
+        tag
+    }
 }
 
 extension StationGroup {

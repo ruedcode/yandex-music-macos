@@ -15,12 +15,11 @@ struct StationListView: View {
     var body: some View {
         ScrollView {
             LazyVGrid(columns: columns(for: store.state.station.stations), spacing: 20) {
-                ForEach(store.state.station.stations, id: \.self) { item in
+                ForEach(store.state.station.stations) { item in
                     Button(action: {
                         store.send(StationAction.select(item, andPlay: true))
                     }) {
                         StationView(
-                            isPlaying: item == store.state.station.station && store.state.track.isPlaying,
                             image: URL(string: item.image),
                             color: hexStringToColor(hex: item.color),
                             text: item.name
