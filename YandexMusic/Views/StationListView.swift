@@ -31,7 +31,7 @@ struct StationListView: View {
             .padding(.top, 16)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
-        .frame(minHeight: store.state.station.stations.count > 4 ? 250 : 100)
+        .frame(height: store.state.station.stations.count > 4 ? 240 : 120)
     }
 
     private func columns(for stations: [Station]) -> [GridItem] {
