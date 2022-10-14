@@ -36,6 +36,8 @@ struct PlayerButtonView: View {
     private let imageSize: ImageSize
     private let buttonAction: () -> Void
 
+    @State var isHovered: Bool = false
+
     init(imageName: String, imageSize: ImageSize = .default, action: @escaping () -> Void = {}) {
         self.imageName = imageName
         self.imageSize = imageSize
@@ -50,6 +52,10 @@ struct PlayerButtonView: View {
         .frame(minWidth: imageSize.minSize, minHeight: imageSize.minSize)
         .foregroundColor(Color("Primary"))
         .buttonStyle(PlainButtonStyle())
+        .opacity(isHovered ? 1 : 0.5)
+        .onHover {
+            self.isHovered = $0
+        }
     }
 }
 
