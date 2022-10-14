@@ -7,6 +7,7 @@
 //
 
 import Combine
+import CoreGraphics
 
 var trackMiddleware: Middleware<AppState, AppAction> = { store, action in
 
@@ -117,17 +118,29 @@ var trackMiddleware: Middleware<AppState, AppAction> = { store, action in
             .store(in: &store.effectCancellables)
 
     case TrackAction.playNext:
-        if let item = AudioProvider.instance.player?.currentItem {
-            let current = item.currentTime().seconds.asInt
-            let duration = item.duration.seconds.asInt
-            if current != duration {
-                sendFeedback(
-                    state: store.state.track,
-                    action: .skip,
-                    in: &store.effectCancellables
-                )
-            }
+        guard let item = AudioProvider.instance.player?.currentItem else {
+            return
         }
+        let current = item.currentTime().seconds.asInt
+        let duration = item.duration.seconds.asInt
+        if current != duration {
+            sendFeedback(
+                state: store.state.track,
+                action: .skip,
+                in: &store.effectCancellables
+            )
+        }
+    case let TrackAction.seek(value):
+        guard let player = AudioProvider.instance.player,
+              let duration = player.currentItem?.duration.seconds.asInt
+        else {
+            return
+        }
+        let seconds = CGFloat(duration) * value
+        guard seconds >= 0, seconds <= CGFloat(duration) else {
+            return
+        }
+        AudioProvider.instance.seek(to: seconds)
 
     default:
         break

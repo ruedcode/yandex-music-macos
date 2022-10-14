@@ -25,6 +25,7 @@ enum TrackAction: AppAction {
     case share
     case ban
     case error(AppAction, Error)
+    case seek(to: CGFloat)
 
     case updateCurrent(Double)
     case updateTotal(Double)

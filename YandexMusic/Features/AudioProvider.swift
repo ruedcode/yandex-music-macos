@@ -137,6 +137,11 @@ final class AudioProvider {
         player = nil
     }
 
+    func seek(to seconds: Double) {
+        let time = CMTime(seconds: seconds, preferredTimescale: 1)
+        player?.seek(to: time, toleranceBefore: .zero, toleranceAfter: .zero, completionHandler: { _ in })
+    }
+
     @objc private func playerDidFinishPlaying(sender: Notification) {
         set(state: .stopped)
         state.status = .finish
