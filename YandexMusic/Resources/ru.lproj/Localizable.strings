@@ -24,6 +24,8 @@
 "repeat-bt-error" = "Повторить";
 
 "settings-title" = "Настройки";
+"settings-stream" = "Радио";
+"settings-application" = "Приложение";
 
 "app-icon-picker" = "Тип иконки приложения";
 "app-icon-both" = "Док & Контекст";

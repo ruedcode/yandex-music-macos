@@ -24,6 +24,8 @@
 "repeat-bt-error" = "Repeat";
 
 "settings-title" = "Settings";
+"settings-stream" = "Stream";
+"settings-application" = "App";
 
 "app-icon-picker" = "App icon mode";
 "app-icon-both" = "Dock & Context";

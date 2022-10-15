@@ -1,5 +1,5 @@
 //
-//  PlayerSettingsView.swift
+//  StreamSettingsView.swift
 //  YandexMusic
 //
 //  Created by Mike Price on 19.12.2021.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct PlayerSettingsView: View {
+struct StreamSettingsView: View {
 
     @State private var selectedMoodEnergy: PlayerSettingsMood = .all
     @State private var selectedDiversity: PlayerSettingsDiversity = .default
@@ -18,7 +18,6 @@ struct PlayerSettingsView: View {
 
     var body: some View {
         ZStack {
-
             if let error = store.state.playerSettings.error {
                 ErrorView(
                     error.text,
@@ -28,52 +27,37 @@ struct PlayerSettingsView: View {
                     }
                 )
             } else {
-                VStack(alignment: .leading) {
 
+                SettingsListContainer {
                     Text(store.state.station.station?.name ?? "loading".localized)
                         .font(.title)
                         .frame(maxWidth: .infinity, alignment: .center)
 
                     Divider()
 
-                    Text("player-settings-mood-energy")
-                    Picker(selection: $selectedMoodEnergy, label: EmptyView()) {
-                        ForEach(PlayerSettingsMood.allCases) { item in
-                            Text(item.title)
-                                .tag(item)
-                        }
-                    }
-                    .pickerStyle(.segmented)
-                    .onChange(of: selectedMoodEnergy) { newValue in
-                        store.send(PlayerSettingsAction.updateMoodEnergy(newValue))
-                    }
-                    .padding(.bottom, 10)
+                    SettingsPicker(
+                        title: "player-settings-mood-energy",
+                        items: PlayerSettingsMood.allCases,
+                        selection: selectedMoodEnergy
+                    ) {
+                        store.send(PlayerSettingsAction.updateMoodEnergy($0))
+                    }.padding(.bottom, 10)
 
-                    Text("player-settings-diversity")
-                    Picker(selection: $selectedDiversity, label: EmptyView()) {
-                        ForEach(PlayerSettingsDiversity.allCases) { item in
-                            Text(item.title)
-                                .tag(item)
-                        }
-                    }
-                    .pickerStyle(.segmented)
-                    .onChange(of: selectedDiversity) { newValue in
-                        store.send(PlayerSettingsAction.updateDiversity(newValue))
-                    }
-                    .padding(.bottom, 10)
+                    SettingsPicker(
+                        title: "player-settings-diversity",
+                        items: PlayerSettingsDiversity.allCases,
+                        selection: selectedDiversity
+                    ) {
+                        store.send(PlayerSettingsAction.updateDiversity($0))
+                    }.padding(.bottom, 10)
 
-                    Text("player-settings-language")
-                    Picker(selection: $selectedLanguage, label: EmptyView()) {
-                        ForEach(PlayerSettingsLanguage.allCases) { item in
-                            Text(item.title)
-                                .tag(item)
-                        }
-                    }
-                    .pickerStyle(.segmented)
-                    .onChange(of: selectedLanguage) { newValue in
-                        store.send(PlayerSettingsAction.updateLanguage(newValue))
-                    }
-                    .padding(.bottom, 10)
+                    SettingsPicker(
+                        title: "player-settings-language",
+                        items: PlayerSettingsLanguage.allCases,
+                        selection: selectedLanguage
+                    ) {
+                        store.send(PlayerSettingsAction.updateLanguage($0))
+                    }.padding(.bottom, 10)
                 }
                 .onReceive(store.$state) { state in
                     if state.playerSettings.language != selectedLanguage {
@@ -103,7 +87,7 @@ struct PlayerSettingsView: View {
 
 // MARK: - Localizations
 
-private extension PlayerSettingsMood {
+extension PlayerSettingsMood: PickerItem {
     var title: String {
         switch self {
         case .active: return "player-settings-active".localized
@@ -115,7 +99,7 @@ private extension PlayerSettingsMood {
     }
 }
 
-private extension PlayerSettingsDiversity {
+extension PlayerSettingsDiversity: PickerItem {
     var title: String {
         switch self {
         case .favorite: return "player-settings-favorite".localized
@@ -126,7 +110,7 @@ private extension PlayerSettingsDiversity {
     }
 }
 
-private extension PlayerSettingsLanguage {
+extension PlayerSettingsLanguage: PickerItem {
     var title: String {
         switch self {
         case .russian: return "player-settings-russian".localized
