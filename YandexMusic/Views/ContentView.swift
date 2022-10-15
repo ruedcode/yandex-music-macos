@@ -114,12 +114,3 @@ struct ContentView: View {
         return formatter.string(from: TimeInterval(value)) ?? ""
     }
 }
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView().environmentObject(Store<AppState, AppAction>(
-            initialState: .init(),
-            appReducer: appReducer
-        ))
-    }
-}

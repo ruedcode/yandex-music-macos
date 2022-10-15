@@ -14,6 +14,7 @@ struct SettingsView: View {
         TabView {
             makeItem(with: "settings-application", view: AppSettingsView())
             makeItem(with: "settings-stream", view: StreamSettingsView())
+            makeItem(with: "settings-about", view: AboutSettingsView())
         }
         .frame(alignment: .top)
         .padding()

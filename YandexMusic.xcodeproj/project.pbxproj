@@ -80,6 +80,7 @@
 		A18D63BC275E9DF3007D83A9 /* BackportAsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18D63BB275E9DF3007D83A9 /* BackportAsyncImage.swift */; };
 		A1A329C82760073C0094BF4F /* DoubleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A329C72760073C0094BF4F /* DoubleHelper.swift */; };
 		A1A329CA27612E3C0094BF4F /* AuthMiddleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A329C927612E3C0094BF4F /* AuthMiddleware.swift */; };
+		A1ABEDB228FAFD840044FC75 /* AboutSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1ABEDB128FAFD840044FC75 /* AboutSettingsView.swift */; };
 		A1B3BD0427523947006AE32C /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B3BD0327523947006AE32C /* NetworkService.swift */; };
 		A1B3BD082752427B006AE32C /* AuthProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B3BD072752427B006AE32C /* AuthProvider.swift */; };
 /* End PBXBuildFile section */
@@ -163,6 +164,7 @@
 		A18D63BB275E9DF3007D83A9 /* BackportAsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackportAsyncImage.swift; sourceTree = "<group>"; };
 		A1A329C72760073C0094BF4F /* DoubleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleHelper.swift; sourceTree = "<group>"; };
 		A1A329C927612E3C0094BF4F /* AuthMiddleware.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthMiddleware.swift; sourceTree = "<group>"; };
+		A1ABEDB128FAFD840044FC75 /* AboutSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutSettingsView.swift; sourceTree = "<group>"; };
 		A1B3BD0327523947006AE32C /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		A1B3BD072752427B006AE32C /* AuthProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthProvider.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -397,6 +399,7 @@
 				8518A97E27675079000A3318 /* SettingsView.swift */,
 				A188E86028FAEA0100D591D0 /* AppSettingsView.swift */,
 				A188E86428FAEBAA00D591D0 /* SettingsHelperView.swift */,
+				A1ABEDB128FAFD840044FC75 /* AboutSettingsView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -595,6 +598,7 @@
 				8518A97F27675079000A3318 /* SettingsView.swift in Sources */,
 				A12B809027537CF5003213E9 /* TrackDTO.swift in Sources */,
 				A12B80992753857D003213E9 /* TrackAction.swift in Sources */,
+				A1ABEDB228FAFD840044FC75 /* AboutSettingsView.swift in Sources */,
 				A12B809F2753CC96003213E9 /* AudioProvider.swift in Sources */,
 				8518A985276777B8000A3318 /* AccountView.swift in Sources */,
 				A12B807127527A85003213E9 /* WebView.swift in Sources */,
@@ -763,21 +767,21 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = "$(CURRENT_PROJECT_VERSION)";
+				CURRENT_PROJECT_VERSION = 2210151748;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "YandexMusic/Resources/Preview\\ Content/Preview\\ Assets.xcassets YandexMusic/Resources/Assets.xcassets";
 				DEVELOPMENT_TEAM = 3LLP5BAPPE;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = YandexMusic/Resources/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = YandexMusic;
+				INFOPLIST_KEY_CFBundleDisplayName = Yandex.Music;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = "$(MARKETING_VERSION)";
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "ru.edcode.yandex-music";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -794,21 +798,21 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = "$(CURRENT_PROJECT_VERSION)";
+				CURRENT_PROJECT_VERSION = 2210151748;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "YandexMusic/Resources/Preview\\ Content/Preview\\ Assets.xcassets YandexMusic/Resources/Assets.xcassets";
 				DEVELOPMENT_TEAM = 3LLP5BAPPE;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = YandexMusic/Resources/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = YandexMusic;
+				INFOPLIST_KEY_CFBundleDisplayName = Yandex.Music;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = "$(MARKETING_VERSION)";
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "ru.edcode.yandex-music";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

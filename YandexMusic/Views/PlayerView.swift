@@ -90,12 +90,12 @@ struct PlayerView: View {
             Spacer()
 
             HStack {
-                //                PlayerButtonView(imageName: "music.note.list") {
-                //                    showingPlayerSettingsPopover = true
-                //                }
-                //                .popover(isPresented: $showingPlayerSettingsPopover) {
-                //                    PlayerSettingsView()
-                //                }
+                PlayerButtonView(imageName: "music.note.list") {
+                    showingPlayerSettingsPopover = true
+                }
+                .popover(isPresented: $showingPlayerSettingsPopover) {
+                    StreamSettingsView()
+                }
 
                 PlayerButtonView(imageName: likeIcon) {
                     store.send(TrackAction.toggleLike)

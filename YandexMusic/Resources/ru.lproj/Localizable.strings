@@ -25,7 +25,8 @@
 
 "settings-title" = "Настройки";
 "settings-stream" = "Радио";
-"settings-application" = "Приложение";
+"settings-application" = "Общее";
+"settings-about" = "О приложении";
 
 "app-icon-picker" = "Тип иконки приложения";
 "app-icon-both" = "Док & Контекст";
