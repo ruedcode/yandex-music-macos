@@ -15,23 +15,27 @@ struct SettingsView: View {
 
     var body: some View {
         VStack(spacing: 15) {
-            Text("other-settings")
-                .font(.title)
-                .padding(.bottom, 10)
+            PlayerSettingsView()
 
-            VStack(alignment: .leading) {
-                Text("app-icon-picker")
-                Picker(selection: $selectedAppIconMode, label: EmptyView()) {
-                    ForEach(AppIconMode.allCases, id: \.self) {
-                        Text($0.title.localized)
+            VStack {
+                Text("other-settings")
+                    .font(.title)
+                    .padding(.bottom, 10)
+                Divider()
+                VStack(alignment: .leading) {
+                    Text("app-icon-picker")
+                    Picker(selection: $selectedAppIconMode, label: EmptyView()) {
+                        ForEach(AppIconMode.allCases, id: \.self) {
+                            Text($0.title.localized)
+                        }
+                    }
+                    .pickerStyle(.segmented)
+                    .onChange(of: selectedAppIconMode) { newValue in
+                        guard let delegate = NSApp.delegate as? AppDelegate else { return }
+                        delegate.changeIcons(mode: newValue)
                     }
                 }
-                .pickerStyle(.segmented)
-                .onChange(of: selectedAppIconMode) { newValue in
-                    guard let delegate = NSApp.delegate as? AppDelegate else { return }
-                    delegate.changeIcons(mode: newValue)
-                }
-            }
+            }.padding()
         }
         .padding()
     }

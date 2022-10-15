@@ -28,7 +28,7 @@ struct AccountView: View {
                 Button {
                     SettingsView()
                         .environmentObject(store)
-                        .frame(width: 500, height: 150)
+                        .frame(width: 500)
                         .openInWindow(title: "settings-title", sender: self)
                 } label: {
                     Text("settings-title")

@@ -30,7 +30,7 @@ struct PlayerSettingsView: View {
             } else {
                 VStack(alignment: .leading) {
 
-                    Text(store.state.station.station?.name ?? "")
+                    Text(store.state.station.station?.name ?? "loading".localized)
                         .font(.title)
                         .frame(maxWidth: .infinity, alignment: .center)
 

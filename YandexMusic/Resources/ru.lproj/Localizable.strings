@@ -9,6 +9,7 @@
 "context-menu" = "Меню";
 
 "quit" = "Выход";
+"loading" = "Загрузка...";
 
 "login-title" = "Вход";
 
@@ -50,3 +51,12 @@
 "player-settings-any" = "Любой";
 
 "other-settings" = "Другое";
+
+"help-favourite-add" = "Добавить в избранное";
+"help-favourite-remove" = "Удалить из избранного";
+"help-share" = "Скопировать ссылку на трек в буфер обмена";
+"help-block" = "Заблокировать текущий трек";
+"help-volume" = "Изменить громкость";
+"help-next-song" = "Включить следующий трек";
+"help-play" = "Проиграть трек";
+"help-pause" = "Поставить трек на паузу";
