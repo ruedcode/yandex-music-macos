@@ -39,9 +39,3 @@ fileprivate extension Bundle {
 
     func getInfo(_ str: String) -> String { infoDictionary?[str] as? String ?? "⚠️" }
 }
-
-struct AboutSettingsView_Previews: PreviewProvider {
-    static var previews: some View {
-        AboutSettingsView()
-    }
-}

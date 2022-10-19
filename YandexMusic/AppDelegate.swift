@@ -92,7 +92,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             NSApp.dockTile.display()
             NSApp.setActivationPolicy(.regular)
         case .context:
-            NSApp.setActivationPolicy(.prohibited)
+            NSApp.setActivationPolicy(.accessory)
         }
     }
 
