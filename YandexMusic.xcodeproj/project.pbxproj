@@ -75,6 +75,7 @@
 		A17F672A27524A590094B5A3 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17F672927524A590094B5A3 /* PlayerView.swift */; };
 		A188E86128FAEA0100D591D0 /* AppSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A188E86028FAEA0100D591D0 /* AppSettingsView.swift */; };
 		A188E86528FAEBAA00D591D0 /* SettingsHelperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A188E86428FAEBAA00D591D0 /* SettingsHelperView.swift */; };
+		A189AD452909AF8B00F885F3 /* TrackProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A189AD442909AF8B00F885F3 /* TrackProgressView.swift */; };
 		A18D63B8275E9DC0007D83A9 /* AsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18D63B7275E9DC0007D83A9 /* AsyncImage.swift */; };
 		A18D63BA275E9DD6007D83A9 /* AsyncImagePhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18D63B9275E9DD6007D83A9 /* AsyncImagePhase.swift */; };
 		A18D63BC275E9DF3007D83A9 /* BackportAsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18D63BB275E9DF3007D83A9 /* BackportAsyncImage.swift */; };
@@ -159,6 +160,7 @@
 		A17F672927524A590094B5A3 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		A188E86028FAEA0100D591D0 /* AppSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsView.swift; sourceTree = "<group>"; };
 		A188E86428FAEBAA00D591D0 /* SettingsHelperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsHelperView.swift; sourceTree = "<group>"; };
+		A189AD442909AF8B00F885F3 /* TrackProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackProgressView.swift; sourceTree = "<group>"; };
 		A18D63B7275E9DC0007D83A9 /* AsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncImage.swift; sourceTree = "<group>"; };
 		A18D63B9275E9DD6007D83A9 /* AsyncImagePhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncImagePhase.swift; sourceTree = "<group>"; };
 		A18D63BB275E9DF3007D83A9 /* BackportAsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackportAsyncImage.swift; sourceTree = "<group>"; };
@@ -388,6 +390,7 @@
 				8518A97A276684A6000A3318 /* ErrorView.swift */,
 				8518A97C27672AEF000A3318 /* DockView.swift */,
 				8518A984276777B8000A3318 /* AccountView.swift */,
+				A189AD442909AF8B00F885F3 /* TrackProgressView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -544,6 +547,7 @@
 				A12B80972753826A003213E9 /* UrlHelper.swift in Sources */,
 				A12B80A527580FE1003213E9 /* TrackService.swift in Sources */,
 				852EBF2E276DFF33002FADC5 /* PlayerSettingsAction.swift in Sources */,
+				A189AD452909AF8B00F885F3 /* TrackProgressView.swift in Sources */,
 				A18D63BA275E9DD6007D83A9 /* AsyncImagePhase.swift in Sources */,
 				85EF0C24276F0AE80033D310 /* StreamSettingsView.swift in Sources */,
 				A12B808C2752AF7E003213E9 /* Colors.swift in Sources */,
