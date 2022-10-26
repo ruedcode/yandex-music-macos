@@ -49,11 +49,17 @@ struct StationView: View {
                     return $0 == $1
                 })
             ) {
-                guard $0.1 == text else { return }
+                guard $0.1 == text else {
+                    isAnimated = false
+                    return
+                }
                 isAnimated = $0.0
             }
             .onAppear {
-                guard isAnimated else { return }
+                guard isAnimated else {
+                    isAnimated = false
+                    return
+                }
                 isAnimated = false
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                     isAnimated = true
@@ -65,15 +71,5 @@ struct StationView: View {
                 .multilineTextAlignment(.center)
                 .frame(height: 28, alignment: .top)
         }
-    }
-}
-
-struct StationView_Previews: PreviewProvider {
-    static var previews: some View {
-        StationView(
-            image: URL(string: "https://avatars.yandex.net/get-music-content/5234847/3155f261.a.17041333-1/400x400"),
-            color: .red,
-            text: "test Station"
-        )
     }
 }
