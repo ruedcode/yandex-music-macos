@@ -24,6 +24,9 @@ struct AppSettingsView: View {
                 guard let delegate = NSApp.delegate as? AppDelegate else { return }
                 delegate.changeIcons(mode: $0)
             }
+            Spacer(minLength: 20)
+            Divider()
+            Spacer(minLength: 20)
             Toggle("player-settings-show-notifications".localized, isOn: $showCurrentTrackAlert)
         }
     }

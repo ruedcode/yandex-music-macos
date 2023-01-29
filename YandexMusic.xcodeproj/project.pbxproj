@@ -476,6 +476,7 @@
 				459A278923AA910B003D50EC /* Sources */,
 				459A278A23AA910B003D50EC /* Frameworks */,
 				459A278B23AA910B003D50EC /* Resources */,
+				A16340592986D9CD0059D730 /* UpdateBuildNumber */,
 			);
 			buildRules = (
 			);
@@ -541,6 +542,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		A16340592986D9CD0059D730 /* UpdateBuildNumber */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = UpdateBuildNumber;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/bash\nbuildNumber=$(date -u \"+%Y.%m.%d.%H.%M\")\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"$INFOPLIST_FILE\"\n#/usr/libexec/PlistBuddy -c \"Set :CFBundleShortVersionString $buildNumber\" \"$INFOPLIST_FILE\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		459A278923AA910B003D50EC /* Sources */ = {
@@ -776,7 +798,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 2210282225;
+				CURRENT_PROJECT_VERSION = 2301291943;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "YandexMusic/Resources/Preview\\ Content/Preview\\ Assets.xcassets YandexMusic/Resources/Assets.xcassets";
 				DEVELOPMENT_TEAM = "";
@@ -790,7 +812,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "ru.edcode.yandex-music";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -807,7 +829,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 2210282225;
+				CURRENT_PROJECT_VERSION = 2301291943;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "YandexMusic/Resources/Preview\\ Content/Preview\\ Assets.xcassets YandexMusic/Resources/Assets.xcassets";
 				DEVELOPMENT_TEAM = "";
@@ -821,7 +843,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "ru.edcode.yandex-music";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
