@@ -53,6 +53,8 @@
 "player-settings-not-russian" = "Иностранный";
 "player-settings-any" = "Любой";
 
+"player-settings-show-notifications" = "Показывать уведомление с информацией о текущем треке";
+
 "other-settings" = "Другое";
 
 "help-favourite-add" = "Добавить в избранное";

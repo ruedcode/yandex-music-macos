@@ -12,6 +12,7 @@ import SwiftUI
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
+
     private var cancellable: AnyCancellable?
     private var authWindow: AuthWindow?
     private lazy var statusBarPlayerView: NSImageView = {
@@ -38,6 +39,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var statusBarItem: NSStatusItem!
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        NotificationProvider.instance.requestStatus()
         // Create the SwiftUI view that provides the window contents.
         let contentView = ContentView().environmentObject(store)
 
@@ -78,6 +80,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         auth()
         Analytics.shared.log(event: .open)
+
+        subscribeOnCurrentTrack()
     }
 
     func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
@@ -170,5 +174,24 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             default: break
             }
         }.store(in: &self.store.effectCancellables)
+    }
+
+    private func subscribeOnCurrentTrack() {
+
+        store.$state.map(\.track).removeDuplicates(by: {
+            return $0.current?.id == $1.current?.id
+        }).sink { value in
+            guard
+                SettingsStorage.shared.showCurrentTrackAlert,
+                self.popover.isShown == false,
+                value.isPlaying,
+                let track = value.current
+            else { return }
+            NotificationProvider.instance.notify(
+                title: track.artist.name,
+                text: track.name,
+                url: track.album.image
+            )
+        }.store(in: &store.effectCancellables)
     }
 }

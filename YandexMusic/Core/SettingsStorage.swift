@@ -21,10 +21,18 @@ final class SettingsStorage {
     @Stored(for: .appIconMode, defaultValue: AppIconMode.both.rawValue)
     private var _appIconMode: String
 
+    @Stored(for: .showCurrentTrackAlert, defaultValue: true)
+    private var _showCurrentTrackAlert: Bool
+
     private init() {}
 
     var appIconMode: AppIconMode {
         set { _appIconMode = newValue.rawValue }
         get { AppIconMode(rawValue: _appIconMode) ?? .both }
+    }
+
+    var showCurrentTrackAlert: Bool {
+        set { _showCurrentTrackAlert = newValue }
+        get { _showCurrentTrackAlert }
     }
 }

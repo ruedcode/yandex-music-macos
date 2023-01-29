@@ -12,6 +12,7 @@ struct AppSettingsView: View {
 
     @EnvironmentObject var store: Store<AppState, AppAction>
     @State private var selectedAppIconMode = SettingsStorage.shared.appIconMode
+    @State private var showCurrentTrackAlert = SettingsStorage.shared.showCurrentTrackAlert
 
     var body: some View {
         SettingsListContainer {
@@ -23,6 +24,7 @@ struct AppSettingsView: View {
                 guard let delegate = NSApp.delegate as? AppDelegate else { return }
                 delegate.changeIcons(mode: $0)
             }
+            Toggle("player-settings-show-notifications".localized, isOn: $showCurrentTrackAlert)
         }
     }
 }

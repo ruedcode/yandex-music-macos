@@ -79,6 +79,7 @@
 		A18D63B8275E9DC0007D83A9 /* AsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18D63B7275E9DC0007D83A9 /* AsyncImage.swift */; };
 		A18D63BA275E9DD6007D83A9 /* AsyncImagePhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18D63B9275E9DD6007D83A9 /* AsyncImagePhase.swift */; };
 		A18D63BC275E9DF3007D83A9 /* BackportAsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18D63BB275E9DF3007D83A9 /* BackportAsyncImage.swift */; };
+		A1938A5F292EB6F00010F542 /* NotificationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1938A5E292EB6F00010F542 /* NotificationProvider.swift */; };
 		A1A329C82760073C0094BF4F /* DoubleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A329C72760073C0094BF4F /* DoubleHelper.swift */; };
 		A1A329CA27612E3C0094BF4F /* AuthMiddleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A329C927612E3C0094BF4F /* AuthMiddleware.swift */; };
 		A1ABEDB228FAFD840044FC75 /* AboutSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1ABEDB128FAFD840044FC75 /* AboutSettingsView.swift */; };
@@ -164,6 +165,7 @@
 		A18D63B7275E9DC0007D83A9 /* AsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncImage.swift; sourceTree = "<group>"; };
 		A18D63B9275E9DD6007D83A9 /* AsyncImagePhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncImagePhase.swift; sourceTree = "<group>"; };
 		A18D63BB275E9DF3007D83A9 /* BackportAsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackportAsyncImage.swift; sourceTree = "<group>"; };
+		A1938A5E292EB6F00010F542 /* NotificationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationProvider.swift; sourceTree = "<group>"; };
 		A1A329C72760073C0094BF4F /* DoubleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleHelper.swift; sourceTree = "<group>"; };
 		A1A329C927612E3C0094BF4F /* AuthMiddleware.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthMiddleware.swift; sourceTree = "<group>"; };
 		A1ABEDB128FAFD840044FC75 /* AboutSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutSettingsView.swift; sourceTree = "<group>"; };
@@ -443,6 +445,7 @@
 				A12B809E2753CC96003213E9 /* AudioProvider.swift */,
 				A12B80A427580FE1003213E9 /* TrackService.swift */,
 				85C5273A27651016004E4BA5 /* Analytics.swift */,
+				A1938A5E292EB6F00010F542 /* NotificationProvider.swift */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -609,6 +612,7 @@
 				85C5273B27651016004E4BA5 /* Analytics.swift in Sources */,
 				85D258872761D84C004CD896 /* Localization.swift in Sources */,
 				A188E86128FAEA0100D591D0 /* AppSettingsView.swift in Sources */,
+				A1938A5F292EB6F00010F542 /* NotificationProvider.swift in Sources */,
 				A1253FB42762A16900CDC7BF /* StationListView.swift in Sources */,
 				A128AB99275CD37A00219FBF /* Mp3Request.swift in Sources */,
 				A17F671F275244C40094B5A3 /* AppStore.swift in Sources */,
@@ -769,12 +773,13 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = YandexMusic/Resources/Entitlements/YandexMusicDebug.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 2210151748;
+				CURRENT_PROJECT_VERSION = 2210282225;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "YandexMusic/Resources/Preview\\ Content/Preview\\ Assets.xcassets YandexMusic/Resources/Assets.xcassets";
-				DEVELOPMENT_TEAM = 3LLP5BAPPE;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = YandexMusic/Resources/Info.plist;
@@ -802,10 +807,10 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 2210151748;
+				CURRENT_PROJECT_VERSION = 2210282225;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "YandexMusic/Resources/Preview\\ Content/Preview\\ Assets.xcassets YandexMusic/Resources/Assets.xcassets";
-				DEVELOPMENT_TEAM = 3LLP5BAPPE;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = YandexMusic/Resources/Info.plist;

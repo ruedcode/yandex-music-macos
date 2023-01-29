@@ -15,6 +15,7 @@ enum StoredKeys: String {
     case lastSelectedStationGroupId = "last_selected_station_group_id"
     case deviceId = "deviceId"
     case appIconMode = "app_icon_mode"
+    case showCurrentTrackAlert = "show_current_track_alert"
 
     fileprivate static let cleanable: [StoredKeys] = [.musicVolume, .lastSelectedStationTag, .lastSelectedStationGroupId]
 }

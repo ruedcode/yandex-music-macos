@@ -53,6 +53,8 @@
 "player-settings-not-russian" = "Not Russian";
 "player-settings-any" = "Any";
 
+"player-settings-show-notifications" = "Show alert with current track information";
+
 "other-settings" = "Other settings";
 
 "help-favourite-add" = "Add to favourite";
