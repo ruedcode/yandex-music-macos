@@ -50,7 +50,7 @@ var trackMiddleware: Middleware<AppState, AppAction> = { store, action in
                                         type: type,
                                         tag: tag,
                                         queue: store.state.track.items,
-                                        andPlay: false
+                                        andPlay: store.state.track.isPlaying
                                     )
                                 )
                             }
@@ -128,6 +128,16 @@ var trackMiddleware: Middleware<AppState, AppAction> = { store, action in
                 state: store.state.track,
                 action: .skip,
                 in: &store.effectCancellables
+            )
+        }
+        if store.state.track.items.count <= 3 {
+            store.send(
+                TrackAction.fetch(
+                    type: store.state.track.lastType,
+                    tag: store.state.track.lastTag,
+                    queue: store.state.track.items,
+                    andPlay: store.state.track.isPlaying
+                )
             )
         }
     case let TrackAction.seek(value):
