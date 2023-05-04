@@ -6,8 +6,8 @@
 //  Copyright © 2021 Eugene Kalyada. All rights reserved.
 //
 
-import Firebase
-import FirebaseAnalytics
+//import Firebase
+//import FirebaseAnalytics
 import Foundation
 
 enum AnalyticsEvent: String {
@@ -24,22 +24,22 @@ enum AnalyticsEvent: String {
     case like
     case unlike
 
-    fileprivate var eventName: String {
-        let dict: [AnalyticsEvent: String] = [
-            .login: AnalyticsEventLogin,
-            .share: AnalyticsEventShare,
-            .viewScreen: AnalyticsEventScreenView,
-            .viewItem: AnalyticsEventViewItem,
-            .selectItem: AnalyticsEventSelectItem,
-            .play: "play",
-            .pause: "pause",
-            .next: "next",
-            .open: AnalyticsEventAppOpen,
-            .like: "like",
-            .unlike: "unlike"
-        ]
-        return dict[self] ?? self.rawValue
-    }
+//    fileprivate var eventName: String {
+//        let dict: [AnalyticsEvent: String] = [
+//            .login: AnalyticsEventLogin,
+//            .share: AnalyticsEventShare,
+//            .viewScreen: AnalyticsEventScreenView,
+//            .viewItem: AnalyticsEventViewItem,
+//            .selectItem: AnalyticsEventSelectItem,
+//            .play: "play",
+//            .pause: "pause",
+//            .next: "next",
+//            .open: AnalyticsEventAppOpen,
+//            .like: "like",
+//            .unlike: "unlike"
+//        ]
+//        return dict[self] ?? self.rawValue
+//    }
 }
 
 final class Analytics {
@@ -49,27 +49,27 @@ final class Analytics {
         UserDefaults.standard.register(
             defaults: ["NSApplicationCrashOnExceptions" : true]
         )
-        FirebaseApp.configure()
+//        FirebaseApp.configure()
     }
 
     /// Set UserID for Analytics/Crashlytics
     func set(userId: String?) {
-        Firebase.Analytics.setUserID(userId)
-        userId.flatMap { Firebase.Crashlytics.crashlytics().setUserID($0) }
+//        Firebase.Analytics.setUserID(userId)
+//        userId.flatMap { Firebase.Crashlytics.crashlytics().setUserID($0) }
     }
 
     /// Log event to Analytics
     func log(event: AnalyticsEvent, params: [String: Any]? = nil) {
-        Firebase.Analytics.logEvent(event.eventName, parameters: params)
+//        Firebase.Analytics.logEvent(event.eventName, parameters: params)
     }
 
     /// Log message to Crashlytics for collecting with error or crash
     func log(message: String) {
-        Firebase.Crashlytics.crashlytics().log(message)
+//        Firebase.Crashlytics.crashlytics().log(message)
     }
 
     /// Log error to Crashlytics
     func log(error: Error) {
-        Firebase.Crashlytics.crashlytics().record(error: error)
+//        Firebase.Crashlytics.crashlytics().record(error: error)
     }
 }
