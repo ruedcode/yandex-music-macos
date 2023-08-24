@@ -12,6 +12,11 @@ import Combine
 final class AuthWindow: NSWindow {
     private let store: Store<AppState, AppAction>
 
+    private let openWindowHostPath = [
+        "passport.yandex.ru/auth",
+        "oauth.yandex.ru/authorize"
+    ]
+
     private var cancellable: AnyCancellable?
 
     init(store: Store<AppState, AppAction>) {
@@ -41,18 +46,19 @@ final class AuthWindow: NSWindow {
             )
         )
         AuthProvider.instance.isNeedResetAuth = false
-        cancellable = viewModel.$cookies.sink { [weak self] cookies in
-            if cookies.contains(where: { $0.name == "yandex_login"}) {
-                self?.store.send(AuthAction.auth(with: cookies))
+        cancellable = viewModel.$link.sink(receiveValue: { [weak self] link in
+            let wtf = URLComponents(string: viewModel.link)
+
+            if link.contains("verification_code?code="), viewModel.cookies.contains(where: { $0.name == "yandex_login"}) {
+                self?.store.send(AuthAction.auth(with: viewModel.cookies))
                 self?.close()
             }
-            else if
-                let components = URLComponents(string: viewModel.link),
-                components.host == "passport.yandex.ru",
-                components.path == "/auth"
+            else if let components = URLComponents(string: viewModel.link),
+                    let host = components.host,
+                    self?.openWindowHostPath.contains(host + components.path) == true
             {
                 self?.makeKeyAndOrderFront(nil)
             }
-        }
+        })
     }
 }
