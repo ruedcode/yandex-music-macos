@@ -10,99 +10,18 @@ import Combine
 import Foundation
 import AppKit
 
-enum NetworkError: Error {
-    case invalidURL
-    case emptyResponse
-    case noAuthToken
-}
-
-enum HTTPMethod: String {
-    case get = "GET"
-    case post = "POST"
-    case put = "PUT"
-    case delete = "DELETE"
-    case patch = "PATCH"
-}
-
-struct RequestData {
-    let path: String
-    let method: HTTPMethod
-    let params: Params?
-    let headers: [String: String]?
-
-    init(
-        path: String,
-        method: HTTPMethod = .get,
-        params: Params? = nil,
-        headers: [String: String]? = nil
-    ) {
-        self.path = path
-        self.method = method
-        self.params = params
-        self.headers = headers
-    }
-
-    struct Params {
-        fileprivate var data: Data?
-        fileprivate var headers: [String: String]
-
-        static func json<T: Encodable>(_ model: T) -> Params {
-            Params(
-                data: try? JSONEncoder().encode(model),
-                headers: ["Content-Type": "application/json"]
-            )
-        }
-
-        static func urlenencoded<T: Encodable>(_ model: T) -> Params {
-            guard
-                let data = Params.json(model).data,
-                let dict = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [AnyHashable: AnyHashable]
-            else {
-                return Params(data: nil, headers: [:])
-            }
-            var component = URLComponents()
-            var items: [URLQueryItem] = []
-            dict.enumerated().forEach {
-                if let name = $0.element.key as? String {
-                    items.append(URLQueryItem(name: name, value: $0.element.value.description))
-                }
-            }
-            component.queryItems = items
-            return Params(
-                data: component.query?.data(using: .utf8),
-                headers: [:]
-            )
-        }
-    }
-}
-
-
-protocol RequestType {
-    associatedtype ResponseType: Decodable
-    var data: RequestData { get }
-}
-
-extension RequestType {
-    func execute (
-        dispatcher: NetworkDispatcher = URLSessionNetworkDispatcher.instance
-    ) -> AnyPublisher<ResponseType, Error> {
-        dispatcher.dispatch(request: self.data)
-            .decode(type: ResponseType.self, decoder: JSONDecoder())
-            .mapError {
-                log("Request error: \($0)", level: .error)
-                return $0
-            }
-            .eraseToAnyPublisher()
-    }
-}
-
 protocol NetworkDispatcher {
     func dispatch(request: RequestData) -> AnyPublisher<Data, Error>
 }
 
 struct URLSessionNetworkDispatcher: NetworkDispatcher {
-    static let instance = URLSessionNetworkDispatcher()
-    private init() {}
+    static let instance = URLSessionNetworkDispatcher(authProvider: AuthProviderImpl.instance)
+
+    private let authProvider: AuthProvider
+
+    private init(authProvider: AuthProvider) {
+        self.authProvider = authProvider
+    }
 
     func dispatch(request: RequestData) -> AnyPublisher<Data, Error> {
         guard let url = makeLocalizedUrl(string: request.path) else {
@@ -138,9 +57,10 @@ struct URLSessionNetworkDispatcher: NetworkDispatcher {
         var logMessage = "Request finished with:"
         if let httpResponse = response as? HTTPURLResponse {
             if [401, 403].contains(httpResponse.statusCode) {
-                DispatchQueue.main.async {
-                    (NSApp.delegate as? AppDelegate)?.auth()
-                }
+                authProvider.auth()
+//                DispatchQueue.main.async {
+//                    (NSApp.delegate as? AppDelegate)?.auth()
+//                }
             }
             logMessage += "\nResponse code: \(httpResponse.statusCode)"
         }
@@ -160,7 +80,7 @@ struct URLSessionNetworkDispatcher: NetworkDispatcher {
         }){
             queryItems.append(
                 URLQueryItem(
-                    name: "lang", value: NSLocale.current.languageCode ?? "ru"
+                    name: "lang", value: NSLocale.current.languageCode ?? Constants.Common.locale
                 )
             )
         }

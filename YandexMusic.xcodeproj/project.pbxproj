@@ -65,6 +65,9 @@
 		A12B80A12757FE42003213E9 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B80A02757FE42003213E9 /* Logger.swift */; };
 		A12B80A527580FE1003213E9 /* TrackService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B80A427580FE1003213E9 /* TrackService.swift */; };
 		A12C77442763DE5B00A22FDF /* TrackMiddleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12C77432763DE5B00A22FDF /* TrackMiddleware.swift */; };
+		A166D9372AA34C1200BBF346 /* NetworkData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A166D9362AA34C1200BBF346 /* NetworkData.swift */; };
+		A178481C2AA4B19400490304 /* AuthRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A178481B2AA4B19400490304 /* AuthRequest.swift */; };
+		A178481E2AA4EC3300490304 /* Assembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = A178481D2AA4EC3300490304 /* Assembly.swift */; };
 		A17F671D275244A90094B5A3 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17F671C275244A90094B5A3 /* AppState.swift */; };
 		A17F671F275244C40094B5A3 /* AppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17F671E275244C40094B5A3 /* AppStore.swift */; };
 		A17F6723275245240094B5A3 /* AppAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17F6722275245240094B5A3 /* AppAction.swift */; };
@@ -150,6 +153,9 @@
 		A12B80A02757FE42003213E9 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		A12B80A427580FE1003213E9 /* TrackService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackService.swift; sourceTree = "<group>"; };
 		A12C77432763DE5B00A22FDF /* TrackMiddleware.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackMiddleware.swift; sourceTree = "<group>"; };
+		A166D9362AA34C1200BBF346 /* NetworkData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkData.swift; sourceTree = "<group>"; };
+		A178481B2AA4B19400490304 /* AuthRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRequest.swift; sourceTree = "<group>"; };
+		A178481D2AA4EC3300490304 /* Assembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assembly.swift; sourceTree = "<group>"; };
 		A17F671C275244A90094B5A3 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		A17F671E275244C40094B5A3 /* AppStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStore.swift; sourceTree = "<group>"; };
 		A17F6722275245240094B5A3 /* AppAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAction.swift; sourceTree = "<group>"; };
@@ -276,6 +282,7 @@
 				A128ABA2275D348A00219FBF /* LikeRequest.swift */,
 				8558F36C27649F4200D6A34E /* AccountRequest.swift */,
 				852EBF28276DF494002FADC5 /* PlayerSettingsRequest.swift */,
+				A178481B2AA4B19400490304 /* AuthRequest.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -334,6 +341,15 @@
 				A12B808F27537CF5003213E9 /* TrackDTO.swift */,
 			);
 			path = Dto;
+			sourceTree = "<group>";
+		};
+		A166D9352AA34BFF00BBF346 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				A1B3BD0327523947006AE32C /* NetworkService.swift */,
+				A166D9362AA34C1200BBF346 /* NetworkData.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 		A17F671B275244560094B5A3 /* Redux */ = {
@@ -418,6 +434,7 @@
 				85C5273C27653138004E4BA5 /* Stored.swift */,
 				8518A98027675241000A3318 /* View+Window.swift */,
 				8518A9822767749F000A3318 /* SettingsStorage.swift */,
+				A178481D2AA4EC3300490304 /* Assembly.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -425,7 +442,7 @@
 		A1B3BCFF27523912006AE32C /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				A1B3BD0227523935006AE32C /* Network */,
+				A166D9352AA34BFF00BBF346 /* Network */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -449,14 +466,6 @@
 				A1B3BD072752427B006AE32C /* AuthProvider.swift */,
 			);
 			path = Auth;
-			sourceTree = "<group>";
-		};
-		A1B3BD0227523935006AE32C /* Network */ = {
-			isa = PBXGroup;
-			children = (
-				A1B3BD0327523947006AE32C /* NetworkService.swift */,
-			);
-			path = Network;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -567,6 +576,7 @@
 				A12B808C2752AF7E003213E9 /* Colors.swift in Sources */,
 				A17F672A27524A590094B5A3 /* PlayerView.swift in Sources */,
 				A12C77442763DE5B00A22FDF /* TrackMiddleware.swift in Sources */,
+				A178481E2AA4EC3300490304 /* Assembly.swift in Sources */,
 				A12B807527528058003213E9 /* AuthAction.swift in Sources */,
 				A188E86528FAEBAA00D591D0 /* SettingsHelperView.swift in Sources */,
 				852EBF2C276DFE56002FADC5 /* PlayerSettingsState.swift in Sources */,
@@ -582,6 +592,7 @@
 				A1B3BD082752427B006AE32C /* AuthProvider.swift in Sources */,
 				8558F37C2764CF7800D6A34E /* BanRequest.swift in Sources */,
 				A18D63BC275E9DF3007D83A9 /* BackportAsyncImage.swift in Sources */,
+				A166D9372AA34C1200BBF346 /* NetworkData.swift in Sources */,
 				A12B809D27538DFD003213E9 /* TrackReducer.swift in Sources */,
 				8518A97D27672AEF000A3318 /* DockView.swift in Sources */,
 				852EBF29276DF494002FADC5 /* PlayerSettingsRequest.swift in Sources */,
@@ -627,6 +638,7 @@
 				A1253FB42762A16900CDC7BF /* StationListView.swift in Sources */,
 				A128AB99275CD37A00219FBF /* Mp3Request.swift in Sources */,
 				A17F671F275244C40094B5A3 /* AppStore.swift in Sources */,
+				A178481C2AA4B19400490304 /* AuthRequest.swift in Sources */,
 				852EBF30276DFF41002FADC5 /* PlayerSettingsReducer.swift in Sources */,
 				A12B806927526F40003213E9 /* TrackState.swift in Sources */,
 			);

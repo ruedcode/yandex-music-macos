@@ -42,15 +42,20 @@ final class AuthWindow: NSWindow {
         contentView = NSHostingView(
             rootView: WebView(
                 viewModel: viewModel,
-                withResetCookies: AuthProvider.instance.isNeedResetAuth
+                withResetCookies: AuthProviderImpl.instance.isNeedResetAuth
             )
         )
-        AuthProvider.instance.isNeedResetAuth = false
+        AuthProviderImpl.instance.isNeedResetAuth = false
         cancellable = viewModel.$link.sink(receiveValue: { [weak self] link in
-            let wtf = URLComponents(string: viewModel.link)
+            let components = URLComponents(string: link)
 
-            if link.contains("verification_code?code="), viewModel.cookies.contains(where: { $0.name == "yandex_login"}) {
-                self?.store.send(AuthAction.auth(with: viewModel.cookies))
+            print("link \(link)")
+
+            if components?.path.contains("verification_code") == true,
+               let items = components?.queryItems?.first(where: { item in
+                item.name == "code"
+            }) {
+                // GO TO AUTH
                 self?.close()
             }
             else if let components = URLComponents(string: viewModel.link),

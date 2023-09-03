@@ -34,7 +34,7 @@ struct BanRequest: RequestType {
 
     fileprivate struct Form: Encodable {
         let from: String = "web-radio-user-saved"
-        let sign: String = AuthProvider.instance.profile?.csrf ?? ""
+        let sign: String = AuthProviderImpl.instance.profile?.csrf ?? ""
         let overembed: String = "no"
     }
 }

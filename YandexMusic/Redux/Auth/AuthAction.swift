@@ -9,7 +9,7 @@
 import Foundation
 
 enum AuthAction: AppAction {
-    case auth(with: [HTTPCookie])
+    case auth(code: String)
     case update
     case authFailed
     case logout

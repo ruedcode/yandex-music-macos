@@ -133,7 +133,7 @@ struct UpdatePlayerSettingsRequest: RequestType {
         let language: PlayerSettingsLanguage
         let moodEnergy: PlayerSettingsMood
         let diversity: PlayerSettingsDiversity
-        let sign: String = AuthProvider.instance.profile?.csrf ?? ""
+        let sign: String = AuthProviderImpl.instance.profile?.csrf ?? ""
         let externalDomain: String = _Constants.externalDomain
         let overembed: String = _Constants.overembed
 

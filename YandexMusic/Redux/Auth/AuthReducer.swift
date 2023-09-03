@@ -15,9 +15,9 @@ func authReducer(
 ) -> AnyPublisher<AppAction, Never>? {
     switch action {
     case AuthAction.update:
-        state.mode = AuthProvider.instance.account != nil ? .authorized : .unauthorized
-        state.userName = AuthProvider.instance.account?.displayName ?? AuthProvider.instance.profile?.login ?? ""
-        state.avatarHash = AuthProvider.instance.account?.avatar.avatarDefault
+        state.mode = AuthProviderImpl.instance.account != nil ? .authorized : .unauthorized
+        state.userName = AuthProviderImpl.instance.account?.displayName ?? AuthProviderImpl.instance.profile?.login ?? ""
+        state.avatarHash = AuthProviderImpl.instance.account?.avatar.avatarDefault
 
     case AuthAction.logout:
         Analytics.shared.log(event: .logout)

@@ -10,17 +10,17 @@ import Foundation
 
 var authMiddleware: Middleware<AppState, AppAction> = { store, action in
     switch action {
-    case let AuthAction.auth(with: cookies):
+    case let AuthAction.auth(code):
         Analytics.shared.log(event: .login)
-        AuthProvider.instance
-            .auth(with: cookies)
-            .ignoreError()
-            .sink { _ in store.send(AuthAction.update) }
-            .store(in: &store.effectCancellables)
+//        AuthProviderImpl.instance
+//            .auth(with: cookies)
+//            .ignoreError()
+//            .sink { _ in store.send(AuthAction.update) }
+//            .store(in: &store.effectCancellables)
 
     case AuthAction.logout:
         Stored<Void>.clear()
-        AuthProvider.instance.logout()
+        AuthProviderImpl.instance.logout()
 
     default:
         break

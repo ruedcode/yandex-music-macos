@@ -11,9 +11,11 @@ import SwiftUI
 enum Constants {
     enum Auth {
         static let clientId = getFromConfig(key: "API_CLIENT_ID")
+        static let clientSecret = getFromConfig(key: "API_CLIENT_SECRET")
+
         static let codeUrl = "https://oauth.yandex.ru/authorize?response_type=code&client_id=\(clientId)"
         static let tokenUrl = "https://oauth.yandex.ru/token"
-        static let clientSecret = getFromConfig(key: "API_CLIENT_SECRET")
+
         static let userSettings = "https://music.yandex.ru/api/v2.1/handlers/auth?external-domain=music.yandex.ru&overembed=no"
         static let account = "https://api.passport.yandex.ru/suggested_accounts"
         static let avatar = "https://avatars.mds.yandex.net/get-yapic/%@/islands-retina-middle"
@@ -36,6 +38,7 @@ enum Constants {
     }
 
     enum Common {
+        static let locale = "ru"
         static let imageSize = CGSize(width: 200, height: 200)
         static let primary: Color = Color(red: 1.00, green: 0.80, blue: 0.00)
         static let baseHeaders = [

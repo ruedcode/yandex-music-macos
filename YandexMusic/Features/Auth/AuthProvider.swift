@@ -9,8 +9,13 @@
 import Foundation
 import Combine
 
-final class AuthProvider {
-    static let instance = AuthProvider()
+protocol AuthProvider {
+    func auth() -> AnyPublisher<Void, Error>
+    func logout()
+}
+
+final class AuthProviderImpl: AuthProvider {
+    static let instance = AuthProviderImpl()
 
     private(set) var profile: UserSettingsResponse?
     private(set) var account: Account?
@@ -26,15 +31,29 @@ final class AuthProvider {
         deviceId = UUID().uuidString
     }
 
-    func auth(with cookies: [HTTPCookie]) -> AnyPublisher<Void, Error> {
-        cookies.forEach {
-            HTTPCookieStorage.shared.setCookie($0)
-        }
-        return requestSettings()
-            .flatMap { self.requestAccount(yandexuid: self.profile?.yandexuid) }
+    func auth() -> AnyPublisher<Void, Error> {
+        return AuthCodeRequest()
+            .execute()
+            .map { [weak self] response -> Void in
+                print(response)
+            }
+            .mapError { [weak self] error -> Error in
+                self?.profile = nil
+                self?.account = nil
+                return error
+            }
             .eraseToAnyPublisher()
-
     }
+
+//    func auth(with cookies: [HTTPCookie]) -> AnyPublisher<Void, Error> {
+//        cookies.forEach {
+//            HTTPCookieStorage.shared.setCookie($0)
+//        }
+//        return requestSettings()
+//            .flatMap { self.requestAccount(yandexuid: self.profile?.yandexuid) }
+//            .eraseToAnyPublisher()
+//
+//    }
 
     func logout() {
         HTTPCookieStorage.shared
