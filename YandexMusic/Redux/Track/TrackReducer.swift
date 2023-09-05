@@ -50,12 +50,12 @@ func trackReducer(
         }
         state.isPlaying = true
         AudioProvider.instance.play(track: track)
-        Analytics.shared.log(event: .play, params: track.analytics)
+//        Analytics.shared.log(event: .play, params: track.analytics)
 
     case TrackAction.pause:
         state.isPlaying = false
         AudioProvider.instance.pause()
-        Analytics.shared.log(event: .play, params: state.current?.analytics)
+//        Analytics.shared.log(event: .play, params: state.current?.analytics)
 
     case TrackAction.resetPlayer:
         AudioProvider.instance.reset()
@@ -72,10 +72,10 @@ func trackReducer(
             ).next
         }
         params?["next"] = state.current?.analytics ?? [:]
-        Analytics.shared.log(
-            event: .next,
-            params: params
-        )
+//        Analytics.shared.log(
+//            event: .next,
+//            params: params
+//        )
         return TrackAction.play.next
 
     case let TrackAction.feedbackStationStartUpdate(type, tag):
@@ -97,7 +97,7 @@ func trackReducer(
         var params = state.items[index].analytics
         params["new_like_value"] = val
         state.items[index].liked = val
-        Analytics.shared.log(event: val ? .like : .unlike, params: params)
+//        Analytics.shared.log(event: val ? .like : .unlike, params: params)
 
     case TrackAction.share:
         guard let track = state.current else {
@@ -109,10 +109,10 @@ func trackReducer(
         NSPasteboard.general.setString(string, forType: .URL)
         var params = track.analytics
         params["link"] = string
-        Analytics.shared.log(
-            event: .share,
-            params: params
-        )
+//        Analytics.shared.log(
+//            event: .share,
+//            params: params
+//        )
 
     default: break
 

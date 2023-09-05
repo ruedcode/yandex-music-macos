@@ -11,6 +11,7 @@ import Combine
 
 final class AuthWindow: NSWindow {
     private let store: Store<AppState, AppAction>
+    private let authProvider: AuthProvider
 
     private let openWindowHostPath = [
         "passport.yandex.ru/auth",
@@ -19,8 +20,9 @@ final class AuthWindow: NSWindow {
 
     private var cancellable: AnyCancellable?
 
-    init(store: Store<AppState, AppAction>) {
+    init(store: Store<AppState, AppAction>, authProvider: AuthProvider) {
         self.store = store
+        self.authProvider = authProvider
         let size = CGSize(width: 480, height: 850)
         var point = CGPoint.zero
         if let frame = NSScreen.main?.frame {
@@ -42,20 +44,20 @@ final class AuthWindow: NSWindow {
         contentView = NSHostingView(
             rootView: WebView(
                 viewModel: viewModel,
-                withResetCookies: AuthProviderImpl.instance.isNeedResetAuth
+                withResetCookies: false //AuthProviderImpl.instance.isNeedResetAuth
             )
         )
-        AuthProviderImpl.instance.isNeedResetAuth = false
+//        self.authProvider.isNeedResetAuth = false
         cancellable = viewModel.$link.sink(receiveValue: { [weak self] link in
             let components = URLComponents(string: link)
 
             print("link \(link)")
 
             if components?.path.contains("verification_code") == true,
-               let items = components?.queryItems?.first(where: { item in
+               let code = components?.queryItems?.first(where: { item in
                 item.name == "code"
-            }) {
-                // GO TO AUTH
+            })?.value {
+                store.send(AuthAction.auth(code: code))
                 self?.close()
             }
             else if let components = URLComponents(string: viewModel.link),

@@ -16,12 +16,5 @@ struct AuthState {
     }
 
     var mode: AuthMode = .unauthorized
-    var userName: String = ""
-    var avatarHash: String?
-
-    var avatarURL: URL? {
-        guard let hash = avatarHash else { return nil }
-        return URL(string: String(format: Constants.Auth.avatar, hash))
-    }
 
 }

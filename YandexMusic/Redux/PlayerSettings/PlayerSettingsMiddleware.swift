@@ -8,7 +8,7 @@
 
 import Foundation
 
-var playerSettingsMiddleware: Middleware<AppState, AppAction> = { store, action in
+var playerSettingsMiddleware: Middleware<AppState, AppAction> = {assembly, store, action in
     switch action {
     case PlayerSettingsAction.fetch:
         guard

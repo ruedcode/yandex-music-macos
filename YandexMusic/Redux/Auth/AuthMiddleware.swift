@@ -8,10 +8,25 @@
 
 import Foundation
 
-var authMiddleware: Middleware<AppState, AppAction> = { store, action in
+var authMiddleware: Middleware<AppState, AppAction> = {assembly, store, action in
+    let authProvider: AuthProvider = assembly.resolve(strategy: .last)
+    let analytics: Analytics = assembly.resolve()
     switch action {
     case let AuthAction.auth(code):
-        Analytics.shared.log(event: .login)
+        analytics.log(event: .login)
+        authProvider.auth(code: code)
+        // TODO: - Обработка ошибки
+            .ignoreError()
+            .sink {
+                guard authProvider.isAuth else {
+                    store.send(AuthAction.authFailed)
+                    store.send(AuthAction.logout)
+                    return
+                }
+                store.send(AccountAction.fetch)
+            }
+            .store(in: &store.effectCancellables)
+
 //        AuthProviderImpl.instance
 //            .auth(with: cookies)
 //            .ignoreError()
@@ -20,7 +35,7 @@ var authMiddleware: Middleware<AppState, AppAction> = { store, action in
 
     case AuthAction.logout:
         Stored<Void>.clear()
-        AuthProviderImpl.instance.logout()
+        authProvider.logout()
 
     default:
         break

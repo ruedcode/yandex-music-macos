@@ -20,6 +20,11 @@ func appReducer(
             state: &state.auth,
             action: action
         )
+    case is AccountAction:
+        return accountReducer(
+            state: &state.account,
+            action: action
+        )
     case is StationAction:
         return stationReducer(
             state: &state.station,

@@ -15,7 +15,7 @@ struct AccountView: View {
 
     var body: some View {
         HStack {
-            AsyncImage(url: store.state.auth.avatarURL) { image in
+            AsyncImage(url: store.state.account.avatarURL) { image in
                 image.resizable()
                     .aspectRatio(1, contentMode: .fit)
                     .clipShape(Circle())
@@ -24,7 +24,7 @@ struct AccountView: View {
                 ProgressView()
             }
 
-            Menu(store.state.auth.userName) {
+            Menu(store.state.account.userName) {
                 Button {
                     SettingsView()
                         .environmentObject(store)

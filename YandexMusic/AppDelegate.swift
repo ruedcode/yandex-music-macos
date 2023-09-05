@@ -15,6 +15,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     private var cancellable: AnyCancellable?
     private var authWindow: AuthWindow?
+    private lazy var assembly = AssemblyRegistrator.instance.assembly
+
     private lazy var statusBarPlayerView: NSImageView = {
         let view = NSImageView(frame: CGRect(x: 0, y: 0, width: 8, height: 8))
         view.image = NSImage(systemSymbolName: "play.fill", accessibilityDescription: nil)
@@ -24,10 +26,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     lazy var store: Store<AppState, AppAction> = {
         return Store<AppState, AppAction>(
+            assembly: assembly,
             initialState: .init(),
             appReducer: appReducer,
             middlewares: [
                 authMiddleware,
+                accountMiddleware,
                 stationMiddleware,
                 trackMiddleware,
                 playerSettingsMiddleware
@@ -37,6 +41,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     var popover: NSPopover!
     var statusBarItem: NSStatusItem!
+    
+    var authProvider: AuthProvider {
+        assembly.resolve(strategy: .last)
+    }
+
+    lazy var analytics: Analytics = {
+        assembly.resolve()
+    }()
+
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         NotificationProvider.instance.requestStatus()
@@ -79,7 +92,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         subscribePlayer()
 
         auth()
-        Analytics.shared.log(event: .open)
+        analytics.log(event: .open)
 
         subscribeOnCurrentTrack()
     }
@@ -113,7 +126,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if self.popover.isShown {
             self.popover.performClose(sender)
         } else {
-            if case .authorized = store.state.auth.mode {
+            if authProvider.isAuth {
                 self.popover.show(relativeTo: button.bounds, of: button, preferredEdge: NSRectEdge.minY)
                 self.popover.contentViewController?.view.window?.makeKey()
             }
@@ -125,9 +138,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func auth() {
         authWindow?.close()
-        authWindow = AuthWindow(store: store)
+        authWindow = AuthWindow(store: store, authProvider: authProvider)
         cancellable = self.store.$state.sink { [weak self] state in
-            guard case .authorized = state.auth.mode else { return }
+            guard self?.authProvider.isAuth == true else { return }
             self?.cancellable?.cancel()
             self?.cancellable = nil
             guard let button = self?.statusBarItem.button else { return }
@@ -164,7 +177,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 self.store.send(TrackAction.sendFeedback(.skip))
                 self.store.send(TrackAction.playNext)
                 if let error = error {
-                    Analytics.shared.log(error: error)
+                    self.analytics.log(error: error)
                     log(error)
                 }
 

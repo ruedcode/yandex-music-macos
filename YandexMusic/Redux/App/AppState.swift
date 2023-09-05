@@ -8,6 +8,7 @@
 
 struct AppState {
     var auth: AuthState = AuthState()
+    var account: AccountState = AccountState()
     var station: SectionState = SectionState()
     var track: TrackState = TrackState()
     var playerSettings: PlayerSettingsState = PlayerSettingsState()

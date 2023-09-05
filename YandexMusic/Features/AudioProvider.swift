@@ -97,7 +97,7 @@ final class AudioProvider {
                          self?.set(state: .stopped)
                          if let data = player.errorLog()?.extendedLogData(),
                             let messageLog = String(data: data, encoding: .utf8) {
-                             Analytics.shared.log(message: "Player erro log: \(messageLog)")
+//                             Analytics.shared.log(message: "Player erro log: \(messageLog)")
                          }
                          player.errorLog()?.extendedLogData()
                          self?.state.status = .failure(player.error)

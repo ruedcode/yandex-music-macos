@@ -57,7 +57,7 @@ struct TrackFeedbackRequest: RequestType {
     fileprivate struct Form: Encodable {
         let timestamp: TimeInterval = Date().timeIntervalSince1970
         let from: String = "web-radio-user-saved"
-        let sign: String = AuthProviderImpl.instance.profile?.csrf ?? ""
+        let sign: String = ""//AuthProviderImpl.instance.profile?.csrf ?? ""
         let overembed: String = "no"
         let batchId: String?
         let trackId: String?
@@ -104,7 +104,7 @@ struct TrackFeedbackRequest2: RequestType {
     fileprivate struct Form: Encodable {
         let timestamp: Int = Int(Date().timeIntervalSince1970)
         let data: [TrackFeedbackRequest2.Data]
-        let sign: String = AuthProviderImpl.instance.profile?.csrf ?? ""
+        let sign: String = ""//AuthProviderImpl.instance.profile?.csrf ?? ""
         let overembed: String = "no"
     }
 

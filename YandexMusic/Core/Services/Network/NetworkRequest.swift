@@ -12,6 +12,25 @@ import Foundation
 protocol RequestType {
     associatedtype ResponseType: Decodable
     var data: RequestData { get }
+
+    var isAuth: Bool { get }
+
+    var keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy { get }
+    var dateDecodingStrategy: JSONDecoder.DateDecodingStrategy { get }
+}
+
+
+extension RequestType {
+    var keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy {
+        return JSONDecoder.KeyDecodingStrategy.useDefaultKeys
+    }
+
+    var dateDecodingStrategy: JSONDecoder.DateDecodingStrategy {
+        JSONDecoder.DateDecodingStrategy.iso8601
+    }
+
+    var isAuth: Bool { true }
+
 }
 
 enum NetworkError: Error {
@@ -50,14 +69,25 @@ struct RequestData {
         var data: Data?
         var headers: [String: String]
 
-        static func json<T: Encodable>(_ model: T) -> Params {
-            Params(
-                data: try? JSONEncoder().encode(model),
+        static func json<T: Encodable>(
+            _ model: T,
+            keyEncodingStrategy: JSONEncoder.KeyEncodingStrategy? = nil,
+            dateEncodingStrategy: JSONEncoder.DateEncodingStrategy? = nil
+        ) -> Params {
+            let encoder = JSONEncoder()
+            if let keyEncodingStrategy = keyEncodingStrategy {
+                encoder.keyEncodingStrategy = keyEncodingStrategy
+            }
+            if let dateEncodingStrategy = dateEncodingStrategy {
+                encoder.dateEncodingStrategy = dateEncodingStrategy
+            }
+            return Params(
+                data: try? encoder.encode(model),
                 headers: ["Content-Type": "application/json"]
             )
         }
 
-        static func urlenencoded<T: Encodable>(_ model: T) -> Params {
+        static func urlenencoded<T: Encodable>(_ model: T, isAuth: Bool = false) -> Params {
             guard
                 let data = Params.json(model).data,
                 let dict = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [AnyHashable: AnyHashable]
@@ -84,8 +114,13 @@ extension RequestType {
     func execute (
         dispatcher: NetworkDispatcher = URLSessionNetworkDispatcher.instance
     ) -> AnyPublisher<ResponseType, Error> {
-        dispatcher.dispatch(request: self.data)
-            .decode(type: ResponseType.self, decoder: JSONDecoder())
+
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = keyDecodingStrategy
+        decoder.dateDecodingStrategy = dateDecodingStrategy
+
+        return dispatcher.dispatch(request: self.data, isAuth: self.isAuth)
+            .decode(type: ResponseType.self, decoder: decoder)
             .mapError {
                 log("Request error: \($0)", level: .error)
                 return $0

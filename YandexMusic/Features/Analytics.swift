@@ -42,10 +42,25 @@ enum AnalyticsEvent: String {
 //    }
 }
 
-final class Analytics {
-    static let shared = Analytics()
+protocol Analytics {
+    func set(userId: String?)
 
-    private init() {
+    func log(event: AnalyticsEvent)
+
+    /// Log event to Analytics
+    func log(event: AnalyticsEvent, params: [String: Any])
+
+    /// Log message to Crashlytics for collecting with error or crash
+    func log(message: String)
+
+    /// Log error to Crashlytics
+    func log(error: Error)
+
+}
+
+final class AnalyticsImpl: Analytics {
+
+    init() {
         UserDefaults.standard.register(
             defaults: ["NSApplicationCrashOnExceptions" : true]
         )
@@ -59,7 +74,12 @@ final class Analytics {
     }
 
     /// Log event to Analytics
-    func log(event: AnalyticsEvent, params: [String: Any]? = nil) {
+    func log(event: AnalyticsEvent) {
+//        Firebase.Analytics.logEvent(event.eventName, parameters: params)
+    }
+
+    /// Log event to Analytics
+    func log(event: AnalyticsEvent, params: [String: Any]) {
 //        Firebase.Analytics.logEvent(event.eventName, parameters: params)
     }
 

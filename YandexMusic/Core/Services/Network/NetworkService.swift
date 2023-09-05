@@ -11,11 +11,11 @@ import Foundation
 import AppKit
 
 protocol NetworkDispatcher {
-    func dispatch(request: RequestData) -> AnyPublisher<Data, Error>
+    func dispatch(request: RequestData, isAuth: Bool) -> AnyPublisher<Data, Error>
 }
 
 struct URLSessionNetworkDispatcher: NetworkDispatcher {
-    static let instance = URLSessionNetworkDispatcher(authProvider: AuthProviderImpl.instance)
+    static let instance = URLSessionNetworkDispatcher(authProvider: AssemblyRegistrator.instance.assembly.resolve(strategy: .last))
 
     private let authProvider: AuthProvider
 
@@ -23,44 +23,56 @@ struct URLSessionNetworkDispatcher: NetworkDispatcher {
         self.authProvider = authProvider
     }
 
-    func dispatch(request: RequestData) -> AnyPublisher<Data, Error> {
+    func dispatch(request: RequestData, isAuth: Bool) -> AnyPublisher<Data, Error> {
         guard let url = makeLocalizedUrl(string: request.path) else {
             return Fail(error: NetworkError.invalidURL)
                 .eraseToAnyPublisher()
         }
-        var urlRequest = URLRequest(url: url)
-        urlRequest.httpMethod = request.method.rawValue
-        var headers = Constants.Common.baseHeaders
 
-        request.params.flatMap { params in
-            urlRequest.httpBody = params.data
-            headers.merge(params.headers) { $1 }
+        let requestMaker: (RequestData) -> AnyPublisher<Data, Error> = { request in
+            var urlRequest = URLRequest(url: url)
+            urlRequest.httpMethod = request.method.rawValue
+            var headers = Constants.Common.baseHeaders
+
+            request.params.flatMap { params in
+                urlRequest.httpBody = params.data
+                headers.merge(params.headers) { $1 }
+            }
+
+            request.headers.flatMap {
+                headers.merge($0) { $1 }
+            }
+
+            urlRequest.allHTTPHeaderFields = headers
+
+            log("Request started:\n\(urlRequest.asCURL)", level: .debug)
+
+            return URLSession.shared
+                .dataTaskPublisher(for: urlRequest)
+                .map(mapResponse)
+                .mapError { $0 }
+                .receive(on: DispatchQueue.main)
+                .eraseToAnyPublisher()
         }
 
-        request.headers.flatMap {
-            headers.merge($0) { $1 }
+        if isAuth {
+            return authProvider.enrichAuth(request: request)
+                .flatMap {
+                    requestMaker($0)
+                }.eraseToAnyPublisher()
         }
+        return requestMaker(request)
 
-        urlRequest.allHTTPHeaderFields = headers
 
-        log("Request started:\n\(urlRequest.asCURL)", level: .debug)
-
-        return URLSession.shared
-            .dataTaskPublisher(for: urlRequest)
-            .map(mapResponse)
-            .mapError { $0 }
-            .receive(on: DispatchQueue.main)
-            .eraseToAnyPublisher()
     }
 
     private func mapResponse(data: Data, response: URLResponse) -> Data {
         var logMessage = "Request finished with:"
         if let httpResponse = response as? HTTPURLResponse {
             if [401, 403].contains(httpResponse.statusCode) {
-                authProvider.auth()
-//                DispatchQueue.main.async {
-//                    (NSApp.delegate as? AppDelegate)?.auth()
-//                }
+                DispatchQueue.main.async {
+                    (NSApp.delegate as? AppDelegate)?.auth()
+                }
             }
             logMessage += "\nResponse code: \(httpResponse.statusCode)"
         }

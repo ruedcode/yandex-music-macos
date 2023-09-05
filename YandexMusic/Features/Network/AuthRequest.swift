@@ -12,17 +12,40 @@ import Foundation
 
 struct AuthCodeRequest: RequestType {
     typealias ResponseType = AuthCodeResponse
+    var keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy = .convertFromSnakeCase
 
+    var isAuth: Bool { false }
+
+    let code: String
 
     var data: RequestData {
+        let auth = (Constants.Auth.clientId + ":" + Constants.Auth.clientSecret).toBase64()
         return RequestData(
-            path: Constants.Auth.codeUrl,
-            method: .get
+            path: Constants.Auth.tokenUrl,
+            method: .post,
+            params: .urlenencoded(
+                Form(
+                    code: code
+                )
+            ),
+            headers: ["Authorization": "Basic \(auth)"]
         )
+    }
+
+    fileprivate struct Form: Encodable {
+        let grantType: String = "authorization_code"
+        let code: String
+
+        enum CodingKeys: String, CodingKey {
+            case code
+            case grantType = "grant_type"
+        }
     }
 }
 
 struct AuthCodeResponse: Codable {
-    let code: String
-    let state: String
+    let accessToken: String
+    let expiresIn: Int
+    let refreshToken: String
+    let tokenType: String
 }

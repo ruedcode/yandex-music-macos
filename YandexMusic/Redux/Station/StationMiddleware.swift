@@ -6,7 +6,7 @@
 //  Copyright © 2021 Eugene Kalyada. All rights reserved.
 //
 
-var stationMiddleware: Middleware<AppState, AppAction> = { store, action in
+var stationMiddleware: Middleware<AppState, AppAction> = {assembly, store, action in
     switch action {
     case StationAction.fetch:
         LibraryRequest()

@@ -9,10 +9,11 @@
 import Combine
 import CoreGraphics
 
-var trackMiddleware: Middleware<AppState, AppAction> = { store, action in
+var trackMiddleware: Middleware<AppState, AppAction> = {assembly, store, action in
 
+    let analytics: Analytics = assembly.resolve()
     let sendError: (Error) -> Void = {
-        Analytics.shared.log(error: $0)
+        analytics.log(error: $0)
         store.send(TrackAction.error(action, $0))
     }
     switch action {

@@ -31,7 +31,7 @@ extension Publisher {
             log(error)
             action?(error)
             if analytics {
-                Analytics.shared.log(error: error)
+                (AssemblyRegistrator.instance.assembly.resolve() as Analytics).log(error: error)
             }
             return Empty(completeImmediately: true).eraseToAnyPublisher()
         }

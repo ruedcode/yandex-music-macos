@@ -25,7 +25,7 @@ class MediaApplication: NSApplication {
     }
     func mediaKeyEvent(key: Int32, state: Bool, keyRepeat: Bool) {
         guard let delegate = delegate as? AppDelegate,
-              delegate.store.state.auth.mode == .authorized
+              delegate.authProvider.isAuth
         else {
             return
         }

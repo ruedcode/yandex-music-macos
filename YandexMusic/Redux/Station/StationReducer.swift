@@ -25,7 +25,7 @@ func stationReducer(
     switch action {
     case let StationAction.error(action, error):
         state.error = ErrorState(action: action)
-        Analytics.shared.log(error: error)
+//        Analytics.shared.log(error: error)
 
     case StationAction.fetch:
         state.error = nil

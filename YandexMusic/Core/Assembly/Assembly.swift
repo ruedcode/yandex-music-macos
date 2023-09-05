@@ -19,7 +19,12 @@ final class Assembly {
 
 
     func register<T>(initializer: @escaping (Assembly) -> T, initImmediately: Bool = false) {
-
+        let type = ContainerType(T.self)
+        let value = ContainerValue(initializer)
+        if initImmediately {
+            let _: T? = value.resolve(assembly: self, cached: false)
+        }
+        registrations[type] = value
     }
 
     func resolve<T>(strategy: Strategy = .new) -> T {
