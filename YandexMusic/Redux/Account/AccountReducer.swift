@@ -15,16 +15,20 @@ func accountReducer(
     action: AppAction
 ) -> AnyPublisher<AppAction, Never>? {
     switch action {
+    case let AccountAction.fetchedAccount(account):
+        state.id = account.id
+        state.login = account.login
+        state.clientId = account.clientId
+        state.displayName = account.displayName
+        state.realName = account.realName
+        state.firstName = account.firstName
+        state.lastName = account.lastName
+        state.sex = account.sex
+        state.defaultAvatarId = account.defaultAvatarId
+        state.isAvatarEmpty = account.isAvatarEmpty
+        state.psuid = account.psuid
     case let AccountAction.fetchedSettings(settings):
         state.csrf = settings.csrf
-        state.login = settings.login ?? ""
-        state.premium = settings.premium
-        state.uid = settings.uid
-        state.yandexuid = settings.yandexuid
-    case let AccountAction.fetchedAccount(accounts):
-        guard let account = accounts.accounts.first else { break }
-        state.userName = account.displayName
-        state.avatarHash = account.avatar.avatarDefault
     default:
         break
     }

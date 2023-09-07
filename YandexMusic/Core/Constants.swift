@@ -9,6 +9,7 @@
 import SwiftUI
 
 enum Constants {
+//https://www.cherkashin.dev/yandex-music-open-api/
     enum Auth {
         static let clientId = getFromConfig(key: "API_CLIENT_ID")
         static let clientSecret = getFromConfig(key: "API_CLIENT_SECRET")
@@ -16,8 +17,13 @@ enum Constants {
         static let codeUrl = "https://oauth.yandex.ru/authorize?response_type=code&client_id=\(clientId)"
         static let tokenUrl = "https://oauth.yandex.ru/token"
 
+        
         static let userSettings = "https://music.yandex.ru/api/v2.1/handlers/auth?external-domain=music.yandex.ru&overembed=no"
-        static let account = "https://api.passport.yandex.ru/suggested_accounts"
+
+        // Заменить на https://login.yandex.ru/info
+        static let account = "https://login.yandex.ru/info"
+//        static let account = "https://api.passport.yandex.ru/suggested_accounts"
+
         static let avatar = "https://avatars.mds.yandex.net/get-yapic/%@/islands-retina-middle"
     }
     enum Collection {

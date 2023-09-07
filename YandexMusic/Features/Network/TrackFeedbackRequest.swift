@@ -12,6 +12,7 @@ struct TrackFeedbackRequest: RequestType {
     typealias ResponseType = TrackFeedbackResponse
 
     let params: Params
+    let csrf: String
 
     var data: RequestData {
         return RequestData(
@@ -26,6 +27,7 @@ struct TrackFeedbackRequest: RequestType {
             method: .post,
             params: .urlenencoded(
                 Form(
+                    sign: csrf,
                     batchId: params.batchId,
                     trackId: params.trackId,
                     albumId: params.albumId,
@@ -57,7 +59,7 @@ struct TrackFeedbackRequest: RequestType {
     fileprivate struct Form: Encodable {
         let timestamp: TimeInterval = Date().timeIntervalSince1970
         let from: String = "web-radio-user-saved"
-        let sign: String = ""//AuthProviderImpl.instance.profile?.csrf ?? ""
+        let sign: String
         let overembed: String = "no"
         let batchId: String?
         let trackId: String?
@@ -76,6 +78,7 @@ struct TrackFeedbackRequest2: RequestType {
     typealias ResponseType = TrackFeedbackResponse2
 
     let params: Params
+    let csrf: String
 
     struct Params {
         let trackId: String
@@ -104,7 +107,7 @@ struct TrackFeedbackRequest2: RequestType {
     fileprivate struct Form: Encodable {
         let timestamp: Int = Int(Date().timeIntervalSince1970)
         let data: [TrackFeedbackRequest2.Data]
-        let sign: String = ""//AuthProviderImpl.instance.profile?.csrf ?? ""
+        let sign: String
         let overembed: String = "no"
     }
 
@@ -151,7 +154,8 @@ struct TrackFeedbackRequest2: RequestType {
                             trackId: params.trackId,
                             album: Int(params.albumId) ?? 0
                         )
-                    ]
+                    ],
+                    sign: csrf
                 )
             )
         )

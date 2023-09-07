@@ -24,7 +24,7 @@ struct AccountView: View {
                 ProgressView()
             }
 
-            Menu(store.state.account.userName) {
+            Menu(store.state.account.displayName) {
                 Button {
                     SettingsView()
                         .environmentObject(store)

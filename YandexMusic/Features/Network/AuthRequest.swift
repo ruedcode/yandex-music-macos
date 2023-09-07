@@ -35,6 +35,7 @@ struct AuthCodeRequest: RequestType {
     fileprivate struct Form: Encodable {
         let grantType: String = "authorization_code"
         let code: String
+        let scope: String = "login:avatar login:info"
 
         enum CodingKeys: String, CodingKey {
             case code

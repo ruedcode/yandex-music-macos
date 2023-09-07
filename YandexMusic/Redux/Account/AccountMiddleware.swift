@@ -17,14 +17,10 @@ var accountMiddleware: Middleware<AppState, AppAction> = { assembly, store, acti
             .ignoreError()
             .flatMap { value in
                 store.send(AccountAction.fetchedSettings(value))
-                return AccountRequest(yandexuid: value.yandexuid)
+                return AccountRequest()
                     .execute()
                     .ignoreError()
-//                    .map { account in
-//                        print(account)
-//                    }
                     .eraseToAnyPublisher()
-//                    .store(in: &store.effectCancellables)
             }
             .sink { value in
                 store.send(AccountAction.fetchedAccount(value))

@@ -10,16 +10,12 @@ import Foundation
 
 struct AccountRequest: RequestType {
     typealias ResponseType = AccountResponse
+    var keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy { .convertFromSnakeCase }
 
-    private let yandexuid: String
-
-    init(yandexuid: String) {
-        self.yandexuid = yandexuid
-    }
 
     var data: RequestData {
         return RequestData(
-            path: Constants.Auth.account + "?popup=yes&yu=\(yandexuid)",
+            path: Constants.Auth.account,
             method: .get
         )
     }
@@ -27,29 +23,15 @@ struct AccountRequest: RequestType {
 
 // MARK: - AccountResponse
 struct AccountResponse: Codable {
-    let accounts: [Account]
-}
-
-// MARK: - Account
-struct Account: Codable {
+    let id: String
+    let login: String
+    let clientId: String
     let displayName: String
-    let uid: Int
-    let method: String
-    let avatar: Avatar
-
-    enum CodingKeys: String, CodingKey {
-        case displayName = "display_name"
-        case uid, method, avatar
-    }
-}
-
-// MARK: - Avatar
-struct Avatar: Codable {
-    let avatarDefault: String
-    let empty: Bool
-
-    enum CodingKeys: String, CodingKey {
-        case avatarDefault = "default"
-        case empty
-    }
+    let realName: String
+    let firstName: String
+    let lastName: String
+    let sex: String
+    let defaultAvatarId: String
+    let isAvatarEmpty: Bool
+    let psuid: String
 }

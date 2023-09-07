@@ -66,6 +66,7 @@ var trackMiddleware: Middleware<AppState, AppAction> = {assembly, store, action 
         sendFeedback(
             state: store.state.track,
             action: event,
+            csrf: store.state.account.csrf,
             in: &store.effectCancellables
         )
 
@@ -106,6 +107,7 @@ var trackMiddleware: Middleware<AppState, AppAction> = {assembly, store, action 
                 sendFeedback(
                     state: store.state.track,
                     action: isLiked ? .unlike : .like,
+                    csrf: store.state.account.csrf,
                     in: &store.effectCancellables
                 )
                 store.send(
@@ -128,6 +130,7 @@ var trackMiddleware: Middleware<AppState, AppAction> = {assembly, store, action 
             sendFeedback(
                 state: store.state.track,
                 action: .skip,
+                csrf: store.state.account.csrf,
                 in: &store.effectCancellables
             )
         }
@@ -161,6 +164,7 @@ var trackMiddleware: Middleware<AppState, AppAction> = {assembly, store, action 
 private func sendFeedback(
     state: TrackState,
     action: TrackFeedbackRequest.Action,
+    csrf: String,
     in cancellable: inout Set<AnyCancellable>
 ) {
     guard let track = state.current else {
@@ -181,12 +185,13 @@ private func sendFeedback(
             action: action,
             batchId: batchId,
             totalPlayed: totalPlayed
-        )
+        ),
+        csrf: csrf
     )
-        .execute()
-        .ignoreError(analytics: true)
-        .sink { _ in }
-        .store(in: &cancellable)
+    .execute()
+    .ignoreError(analytics: true)
+    .sink { _ in }
+    .store(in: &cancellable)
 
     let reason: TrackFeedbackRequest2.Reason?
     let act: TrackFeedbackRequest2.Action?
@@ -223,7 +228,8 @@ private func sendFeedback(
             totalPlayed: totalPlayed ?? 0,
             duration: AudioProvider.instance.player?.currentItem?.duration.seconds ?? 0,
             action: act
-        )
+        ),
+        csrf: csrf
     )
         .execute()
         .ignoreError(analytics: true)
