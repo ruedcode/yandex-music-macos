@@ -25,7 +25,8 @@ class MediaApplication: NSApplication {
     }
     func mediaKeyEvent(key: Int32, state: Bool, keyRepeat: Bool) {
         guard let delegate = delegate as? AppDelegate,
-              delegate.authProvider.isAuth
+              delegate.authProvider.isAuth,
+              !delegate.popover.isShown
         else {
             return
         }
@@ -33,45 +34,17 @@ class MediaApplication: NSApplication {
         if (state) {
             switch(key) {
             case NX_KEYTYPE_PLAY:
-                /* You can provide logic here. You have the option of calling functions
-                 * in your app's NSApplicationDelegate
-                 *
-                 * Examples:
-                 * Call a function named 'printMessage' in the NSApplicationDelegate
-                 * delegate!.performSelector("printMessage")
-                 * printMessage looks like the following:
-                 * func printMessage() {
-                 *     print("Hello World")
-                 * }
-                 *
-                 * Call a function named 'printMessage' that takes a single argument
-                 * Note that we have now added a : after the function name
-                 * delegate!.performSelector("printMessage:", withObject: "Hello World")
-                 * printMessage looks like the following:
-                 * func printMessage(arg: String) {
-                 *     print(arg)
-                 * }
-                 *
-                 * Call a function named 'printMessage' that takes two arguments.
-                 * The max number of arguments you can send is two
-                 * Note that we have now added two : after the function name
-                 * delegate!.performSelector("printMessage::", withObject: "Hello", withObject: "World")
-                 * printMessage looks like the following:
-                 * func printMessage(arg: String, _ arg2: String) {
-                 *     print("\(arg) \(arg2)")
-                 * }
-                 */
                 delegate.store.send(
                     delegate.store.state.track.isPlaying
                     ? TrackAction.pause
                     : TrackAction.play
                 )
-            case NX_KEYTYPE_FAST:
-                delegate.store.send(
-                    delegate.store.state.track.isPlaying
-                    ? TrackAction.playNext
-                    : TrackAction.play
-                )
+//            case NX_KEYTYPE_FAST:
+//                delegate.store.send(
+//                    delegate.store.state.track.isPlaying
+//                    ? TrackAction.playNext
+//                    : TrackAction.play
+//                )
             case NX_KEYTYPE_REWIND:
                 print("Prev")
                 break
