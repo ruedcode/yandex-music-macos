@@ -11,6 +11,7 @@ import Combine
 
 protocol AuthProvider {
     var isAuth: Bool { get }
+    var onLogout: () -> Void { get set }
     func auth(code: String) -> AnyPublisher<Void, Error>
     func enrichAuth(request: RequestData) -> AnyPublisher<RequestData, Error>
     func logout()
@@ -26,10 +27,9 @@ fileprivate struct TokenWithTime {
 }
 
 final class AuthProviderImpl: AuthProvider {
-    static let instance = AuthProviderImpl()
 
-//    private(set) var profile: UserSettingsResponse?
-//    private(set) var account: Account?
+    var onLogout: () -> Void = {}
+
     private var token: TokenWithTime?
 
     @Stored(for: .resetAuth, defaultValue: false)
@@ -75,8 +75,6 @@ final class AuthProviderImpl: AuthProvider {
 
     }
 
-//    private func refreshToken() -> AnyPublisher<Void, Error>
-
     func auth(code: String) -> AnyPublisher<Void, Error> {
         return AuthCodeRequest(code: code)
             .execute()
@@ -84,22 +82,11 @@ final class AuthProviderImpl: AuthProvider {
                 self?.token = TokenWithTime(date: Date(), token: response)
             }
             .mapError { [weak self] error -> Error in
-//                self?.profile = nil
-//                self?.account = nil
+                self?.token = nil
                 return error
             }
             .eraseToAnyPublisher()
     }
-
-//    func auth(with cookies: [HTTPCookie]) -> AnyPublisher<Void, Error> {
-//        cookies.forEach {
-//            HTTPCookieStorage.shared.setCookie($0)
-//        }
-//        return requestSettings()
-//            .flatMap { self.requestAccount(yandexuid: self.profile?.yandexuid) }
-//            .eraseToAnyPublisher()
-//
-//    }
 
     func logout() {
         HTTPCookieStorage.shared
@@ -109,36 +96,5 @@ final class AuthProviderImpl: AuthProvider {
         URLSession.shared.invalidateAndCancel()
         isNeedResetAuth = true
         token = nil
-//        profile = nil
-//        account = nil
     }
-
-//    private func requestSettings() -> AnyPublisher<Void, Error> {
-//        UserSettingsRequest()
-//            .execute()
-//            .map { [weak self] profile -> Void in
-//                Analytics.shared.set(userId: profile.uid)
-//                self?.profile = profile
-//            }
-//            .mapError { [weak self] error -> Error in
-//                self?.profile = nil
-//                self?.account = nil
-//                return error
-//            }
-//            .eraseToAnyPublisher()
-//    }
-
-//    private func requestAccount(yandexuid: String?) -> AnyPublisher<Void, Error> {
-//        guard let yandexuid = yandexuid else {
-//            return Just(())
-//                .setFailureType(to: Error.self)
-//                .eraseToAnyPublisher()
-//        }
-//        return AccountRequest(yandexuid: yandexuid)
-//            .execute()
-//            .map { [weak self] model -> Void in
-//                self?.account = model.accounts.first
-//            }
-//            .eraseToAnyPublisher()
-//    }
 }

@@ -15,11 +15,10 @@ final class Assembly {
         case new
     }
 
-    private var registrations: [ContainerType: ContainerValue] = [:]
-
+    private var registrations: [String: ContainerValue] = [:]
 
     func register<T>(initializer: @escaping (Assembly) -> T, initImmediately: Bool = false) {
-        let type = ContainerType(T.self)
+        let type = name(for: T.self)
         let value = ContainerValue(initializer)
         if initImmediately {
             let _: T? = value.resolve(assembly: self, cached: false)
@@ -28,7 +27,7 @@ final class Assembly {
     }
 
     func resolve<T>(strategy: Strategy = .new) -> T {
-        let type = ContainerType(T.self)
+        let type = name(for: T.self)
 
         guard let container = registrations[type] else {
             fatalError("Could not find type: \(type)")
@@ -39,28 +38,14 @@ final class Assembly {
         }
         return value
     }
-}
 
-extension Assembly {
-    private class ContainerType: Hashable {
-
-        private let type: String
-
-        init(_ type: Any.Type) {
-            self.type = "\(type)"
+    private func name(for type: Any.Type) -> String {
+        var rawName = String(describing: type)
+        if rawName.hasPrefix("Optional<") {
+            rawName = String(rawName.dropFirst(9))
+            rawName = String(rawName.dropLast(1))
         }
-
-        static func == (lhs: Assembly.ContainerType, rhs: Assembly.ContainerType) -> Bool {
-            lhs.type == rhs.type
-        }
-
-        public var debugDescription: String {
-            return "registered type: \(type)"
-        }
-
-        func hash(into hasher: inout Hasher) {
-            hasher.combine(type)
-        }
+        return rawName
     }
 }
 

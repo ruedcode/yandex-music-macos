@@ -12,6 +12,7 @@ import Foundation
 
 enum AccountAction: AppAction {
     case fetch
+    case reset
 
     case fetchedSettings(UserSettingsResponse)
     case fetchedAccount(AccountResponse)

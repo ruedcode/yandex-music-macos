@@ -15,7 +15,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     private var cancellable: AnyCancellable?
     private var authWindow: AuthWindow?
-    private lazy var assembly = AssemblyRegistrator.instance.assembly
+    private var assembly: Assembly!
 
     private lazy var statusBarPlayerView: NSImageView = {
         let view = NSImageView(frame: CGRect(x: 0, y: 0, width: 8, height: 8))
@@ -41,14 +41,20 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     var popover: NSPopover!
     var statusBarItem: NSStatusItem!
-    
-    var authProvider: AuthProvider {
-        assembly.resolve(strategy: .last)
-    }
+    var authProvider: AuthProvider!
 
     lazy var analytics: Analytics = {
         assembly.resolve()
     }()
+
+    override init() {
+        super.init()
+        assembly = AssemblyRegistrator.instance.assembly
+        authProvider = assembly.resolve(strategy: .last)
+        authProvider.onLogout = { [weak self] in
+            self?.togglePopover(self)
+        }
+    }
 
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {

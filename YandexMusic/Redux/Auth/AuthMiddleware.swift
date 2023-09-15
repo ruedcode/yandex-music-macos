@@ -8,7 +8,7 @@
 
 import Foundation
 
-var authMiddleware: Middleware<AppState, AppAction> = {assembly, store, action in
+var authMiddleware: Middleware<AppState, AppAction> = { assembly, store, action in
     let authProvider: AuthProvider = assembly.resolve(strategy: .last)
     let analytics: Analytics = assembly.resolve()
     switch action {
@@ -27,11 +27,6 @@ var authMiddleware: Middleware<AppState, AppAction> = {assembly, store, action i
             }
             .store(in: &store.effectCancellables)
 
-//        AuthProviderImpl.instance
-//            .auth(with: cookies)
-//            .ignoreError()
-//            .sink { _ in store.send(AuthAction.update) }
-//            .store(in: &store.effectCancellables)
 
     case AuthAction.logout:
         Stored<Void>.clear()

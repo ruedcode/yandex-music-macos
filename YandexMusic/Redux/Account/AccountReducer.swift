@@ -29,6 +29,8 @@ func accountReducer(
         state.psuid = account.psuid
     case let AccountAction.fetchedSettings(settings):
         state.csrf = settings.csrf
+    case AccountAction.reset:
+        state = AccountState()
     default:
         break
     }
