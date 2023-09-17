@@ -12,12 +12,12 @@ var authMiddleware: Middleware<AppState, AppAction> = { assembly, store, action 
     let authProvider: AuthProvider = assembly.resolve(strategy: .last)
     let analytics: Analytics = assembly.resolve()
     switch action {
-    case let AuthAction.auth(code):
+    case let AuthAction.auth(tokenString):
         analytics.log(event: .login)
-        authProvider.auth(code: code)
+        authProvider.auth(accessParams: tokenString)
         // TODO: - Обработка ошибки
             .ignoreError()
-            .sink {
+            .sink { _ in
                 guard authProvider.isAuth else {
                     store.send(AuthAction.authFailed)
                     store.send(AuthAction.logout)

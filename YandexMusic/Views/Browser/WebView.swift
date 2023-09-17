@@ -73,7 +73,10 @@ struct WebView: NSViewRepresentable {
             viewModel.pageTitle = web.title ?? ""
         }
 
-        public func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) { }
+        public func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+            viewModel.link = webView.url?.absoluteString ?? ""
+            viewModel.didFinishLoading = false
+        }
 
         public func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
             decisionHandler(.allow)

@@ -12,7 +12,7 @@ import Combine
 protocol AuthProvider {
     var isAuth: Bool { get }
     var onLogout: () -> Void { get set }
-    func auth(code: String) -> AnyPublisher<Void, Error>
+    func auth(accessParams: String) -> AnyPublisher<AuthCodeResponse, Error>
     func enrichAuth(request: RequestData) -> AnyPublisher<RequestData, Error>
     func logout()
 }
@@ -75,18 +75,30 @@ final class AuthProviderImpl: AuthProvider {
 
     }
 
-    func auth(code: String) -> AnyPublisher<Void, Error> {
-        return AuthCodeRequest(code: code)
-            .execute()
-            .map { [weak self] response -> Void in
-                self?.token = TokenWithTime(date: Date(), token: response)
+    func auth(accessParams: String) -> AnyPublisher<AuthCodeResponse, Error> {
+        var dict: [String: Any] = [:]
+        accessParams.split(separator: "&").forEach {
+            let item = $0.split(separator: "=")
+            if item.count == 2 {
+                dict[String(item.first ?? "")] = String(item.last ?? "")
             }
-            .mapError { [weak self] error -> Error in
-                self?.token = nil
-                return error
+
+        }
+        return Future<AuthCodeResponse, Error>() { [weak self] promise in
+            do {
+                let jsonData = try JSONSerialization.data(withJSONObject: dict)
+                let decoder = JSONDecoder()
+                decoder.keyDecodingStrategy = .convertFromSnakeCase
+                let token = try decoder.decode(AuthCodeResponse.self, from: jsonData)
+                self?.token = TokenWithTime(date: Date(), token: token)
+                return promise(Result.success(token))
             }
-            .eraseToAnyPublisher()
+            catch {
+                return promise(Result.failure(error))
+            }
+        }.eraseToAnyPublisher()
     }
+
 
     func logout() {
         HTTPCookieStorage.shared

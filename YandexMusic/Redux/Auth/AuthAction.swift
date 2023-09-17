@@ -9,7 +9,7 @@
 import Foundation
 
 enum AuthAction: AppAction {
-    case auth(code: String)
+    case auth(tokenString: String)
     case authFailed
 
     case logout

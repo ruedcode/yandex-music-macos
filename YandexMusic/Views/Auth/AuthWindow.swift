@@ -51,13 +51,14 @@ final class AuthWindow: NSWindow {
         cancellable = viewModel.$link.sink(receiveValue: { [weak self] link in
             let components = URLComponents(string: link)
 
-            print("link \(link)")
 
-            if components?.path.contains("verification_code") == true,
-               let code = components?.queryItems?.first(where: { item in
-                item.name == "code"
-            })?.value {
-                store.send(AuthAction.auth(code: code))
+            if let framgents = components?.fragment, framgents.contains("access_token=") {
+//                let wtf = framgents.split(separator: "&").map ({
+//                    let item = $0.split(separator: "=")
+//                    return URLQueryItem(name: String(item.first ?? ""), value: String(item.last ?? ""))
+//                })
+//                            print("items", wtf)
+                store.send(AuthAction.auth(tokenString: framgents))
                 self?.close()
             }
             else if let components = URLComponents(string: viewModel.link),

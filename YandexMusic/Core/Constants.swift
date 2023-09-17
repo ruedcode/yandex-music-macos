@@ -14,10 +14,8 @@ enum Constants {
         static let clientId = getFromConfig(key: "API_CLIENT_ID")
         static let clientSecret = getFromConfig(key: "API_CLIENT_SECRET")
 
-        static let codeUrl = "https://oauth.yandex.ru/authorize?response_type=code&client_id=\(clientId)"
-        static let tokenUrl = "https://oauth.yandex.ru/token"
+        static let codeUrl = "https://oauth.yandex.ru/authorize?response_type=token&client_id=\(clientId)"
 
-        
         static let userSettings = "https://music.yandex.ru/api/v2.1/handlers/auth?external-domain=music.yandex.ru&overembed=no"
 
         // Заменить на https://login.yandex.ru/info
