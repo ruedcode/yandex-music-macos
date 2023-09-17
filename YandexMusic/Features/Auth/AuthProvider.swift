@@ -53,7 +53,7 @@ final class AuthProviderImpl: AuthProvider {
     func enrichAuth(request: RequestData) -> AnyPublisher<RequestData, Error> {
         var headers = request.headers ?? [:]
         if isAuth, let token = token {
-            headers["Authorization"] = "\(token.token.tokenType) \(token.token.accessToken)"
+            headers["Authorization"] = "OAuth \(token.token.accessToken)"
             return Just(
                 RequestData(
                     path: request.path,

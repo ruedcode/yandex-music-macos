@@ -95,18 +95,19 @@ var trackMiddleware: Middleware<AppState, AppAction> = {assembly, store, action 
         let params = LikeRequest.Params(
             trackId: track.id,
             albumId: track.album.id,
+            userId: store.state.account.id,
             like: !track.liked
         )
         return LikeRequest(params: params).execute()
             .ignoreError(sendError)
-            .sink {
-                guard $0.success else {
-                    return
-                }
-                let isLiked = $0.act != "remove"
+            .sink { _ in
+//                guard $0.success else {
+//                    return
+//                }
+                let isLiked = params.like //$0.act != "remove"
                 sendFeedback(
                     state: store.state.track,
-                    action: isLiked ? .unlike : .like,
+                    action: isLiked ? .like : .unlike,
                     csrf: store.state.account.csrf,
                     in: &store.effectCancellables
                 )

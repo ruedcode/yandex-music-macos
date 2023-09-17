@@ -18,7 +18,6 @@ enum Constants {
 
         static let userSettings = "https://music.yandex.ru/api/v2.1/handlers/auth?external-domain=music.yandex.ru&overembed=no"
 
-        // Заменить на https://login.yandex.ru/info
         static let account = "https://login.yandex.ru/info"
 //        static let account = "https://api.passport.yandex.ru/suggested_accounts"
 
@@ -33,9 +32,15 @@ enum Constants {
         static let list = "https://music.yandex.ru/api/v2.1/handlers/radio/%@/%@/tracks?queue=%@"
         static let mp3 = "https://music.yandex.ru/api/v2.1/handlers/track/%@:%@/web-radio-user-saved/download/m?hq=0"
         static let feedback = "https://music.yandex.ru/api/v2.1/handlers/radio/%@/%@/feedback/%@/%@:%@"
-        static let like = "https://music.yandex.ru/api/v2.1/handlers/track/%@:%@/web-radio_page-track-track-main/like/add"
-        static let unlike = "https://music.yandex.ru/api/v2.1/handlers/track/%@:%@/web-radio_page-track-track-main/like/remove"
-        static let ban = "https://music.yandex.ru/api/v2.1/handlers/track/%@:%@/web-radio_page-track-track-main/dislike/add"
+
+//        static let like = "https://music.yandex.ru/api/v2.1/handlers/track/%@:%@/web-radio_page-track-track-main/like/add"
+//        static let unlike = "https://music.yandex.ru/api/v2.1/handlers/track/%@:%@/web-radio_page-track-track-main/like/remove"
+
+        static let like = "https://api.music.yandex.net/users/{userId}/likes/tracks/add-multiple"
+        static let unlike = "https://api.music.yandex.net/users/{userId}/likes/tracks/remove"
+
+        static let ban = "https://api.music.yandex.net/users/{userId}/dislikes/tracks/add-multiple"
+
         static let share = "https://music.yandex.ru/album/%@/track/%@"
         static let feedback2 = "https://music.yandex.ru/api/v2.1/handlers/track/%@:%@/web-radio-user-main/feedback/%@"
         static let settings = "https://music.yandex.ru/api/v2.1/handlers/radio/%@/%@/settings?external-domain=music.yandex.ru&overembed=no"

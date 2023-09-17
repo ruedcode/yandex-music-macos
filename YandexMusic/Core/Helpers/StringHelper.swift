@@ -22,4 +22,11 @@ extension String {
         return Data(self.utf8).base64EncodedString()
     }
 
+    func format(from dict: [String: Any]) -> String {
+        var tmp = self
+        dict.enumerated().forEach {
+            tmp = tmp.replacingOccurrences(of: "{\($0.element.key)}", with: String(describing: $0.element.value))
+        }
+        return tmp
+    }
 }

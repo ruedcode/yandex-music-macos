@@ -15,14 +15,12 @@ struct LikeRequest: RequestType {
 
     var data: RequestData {
         return RequestData(
-            path: String(
-                format: params.like ? Constants.Track.like: Constants.Track.unlike,
-                params.trackId,
-                params.albumId
-            ),
+            path: params.like
+            ? Constants.Track.like.format(from: ["userId": params.userId])
+            : Constants.Track.unlike.format(from: ["userId": params.userId]),
             method: .post,
             params: .urlenencoded(
-                Form()
+                Form(trackIds: params.trackId)
             )
         )
     }
@@ -30,17 +28,14 @@ struct LikeRequest: RequestType {
     struct Params {
         let trackId: String
         let albumId: String
+        let userId: String
         let like: Bool
     }
 
     fileprivate struct Form: Encodable {
-        let from: String = "web-radio-user-saved"
-        let sign: String = ""//AuthProviderImpl.instance.profile?.csrf ?? ""
-        let overembed: String = "no"
+        let trackIds: String
     }
 }
 
 struct LikeResponse: Decodable {
-    let success: Bool
-    let act: String
 }
