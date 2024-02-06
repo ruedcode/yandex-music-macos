@@ -40,6 +40,7 @@ struct TrackProgressView: View {
                         makeTimeLabel(for: store.state.track.totalTime)
                     }
                 }
+                .padding([.top], 16)
             }
         }
         .padding([.leading, .trailing], 8)

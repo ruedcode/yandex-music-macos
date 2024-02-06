@@ -866,7 +866,7 @@
 				CURRENT_PROJECT_VERSION = 2301291943;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "YandexMusic/Resources/Preview\\ Content/Preview\\ Assets.xcassets YandexMusic/Resources/Assets.xcassets";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 2W2PTH7533;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = YandexMusic/Resources/Info.plist;
@@ -897,7 +897,7 @@
 				CURRENT_PROJECT_VERSION = 2301291943;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "YandexMusic/Resources/Preview\\ Content/Preview\\ Assets.xcassets YandexMusic/Resources/Assets.xcassets";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 2W2PTH7533;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = YandexMusic/Resources/Info.plist;

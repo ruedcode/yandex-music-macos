@@ -62,8 +62,6 @@ struct URLSessionNetworkDispatcher: NetworkDispatcher {
                 }.eraseToAnyPublisher()
         }
         return requestMaker(request)
-
-
     }
 
     private func mapResponse(data: Data, response: URLResponse) -> Data {
